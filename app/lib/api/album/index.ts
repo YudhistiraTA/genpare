@@ -4,8 +4,58 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 
 export const getAlbum = unstable_cache(
-	async () => {
-		const albums = await prisma.album.findMany()
+	async (query?: string) => {
+		const albums = await prisma.album.findMany({
+			...(query && {
+				where: {
+					OR: [
+						{
+							Circle: {
+								OR: [
+									{ name: { contains: query, mode: 'insensitive' } },
+									{ slug: { contains: query, mode: 'insensitive' } },
+								],
+							},
+						},
+						{ name: { contains: query, mode: 'insensitive' } },
+						{
+							releaseYear: {
+								equals: !isNaN(Number(query)) ? Number(query) : undefined,
+							},
+						},
+						{
+							Song: {
+								some: {
+									OR: [
+										{ name: { contains: query, mode: 'insensitive' } },
+										{
+											Composer: {
+												some: {
+													OR: [
+														{ name: { contains: query, mode: 'insensitive' } },
+														{ slug: { contains: query, mode: 'insensitive' } },
+													],
+												},
+											},
+										},
+										{
+											Vocals: {
+												some: {
+													OR: [
+														{ name: { contains: query, mode: 'insensitive' } },
+														{ slug: { contains: query, mode: 'insensitive' } },
+													],
+												},
+											},
+										},
+									],
+								},
+							},
+						},
+					],
+				},
+			}),
+		})
 		return albums
 	},
 	['album'],

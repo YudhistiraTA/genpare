@@ -28,6 +28,7 @@ export const getAlbum = unstable_cache(
 								some: {
 									OR: [
 										{ name: { contains: query, mode: 'insensitive' } },
+										{ slug: { contains: query, mode: 'insensitive' } },
 										{
 											Composer: {
 												some: {

@@ -2,12 +2,14 @@
 
 import debounce from '@/app/lib/debounce'
 import { Album } from '@prisma/client'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Select from 'react-select'
+import Select, { components } from 'react-select'
 
 const MIN_LENGTH = 3
 
 export function Suggestbar() {
+	const { push } = useRouter()
 	const [query, setQuery] = useState<string>()
 	const [options, setOptions] = useState<
 		(Album & { label: string; value: string })[]
@@ -37,16 +39,28 @@ export function Suggestbar() {
 		}
 		loadOptions()
 	}, [query])
-
 	return (
 		<Select
 			components={{
 				DropdownIndicator: () => null,
 				IndicatorSeparator: () => null,
+				Option: (props) => (
+					<components.Option {...props}>
+						<p
+							onClick={() => push(`/album/${props.data.slug}`)}
+							className="hover:cursor-pointer"
+						>
+							{props.label}
+						</p>
+					</components.Option>
+				),
+				...(!options.length && { Menu: () => null }),
 			}}
 			options={options}
 			onInputChange={handleSearch}
-			className="w-52"
+			className="w-full"
+			filterOption={() => true}
+			onChange={(newValue) => push(`/album/${newValue?.slug}`)}
 		/>
 	)
 }

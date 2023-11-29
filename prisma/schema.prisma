@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  vocalist
+  translator
+  composer
+  lyricist
+  circle
+}
+
+model Album {
+  id          String @id @default(uuid())
+  name        String @unique
+  slug        String @unique
+  imageUrl    String @map("image_url")
+  releaseYear Int    @map("release_year")
+  totalTrack  Int    @map("total_track")
+  Circle      Actor  @relation(fields: [circleId], references: [id])
+  circleId    String
+  Song        Song[]
+}
+
+model Actor {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  slug          String   @unique
+  role          Role
+  Album         Album[]
+  VocalSongs    Song[]   @relation("vocal_song")
+  Lyrics        Lyrics[]
+  ComposedSongs Song[]   @relation("composed_song")
+}
+
+model Song {
+  id         String   @id @default(uuid())
+  name       String
+  slug       String   @unique
+  youtubeUrl String   @map("youtube_url")
+  trackNo    Int      @map("track_no")
+  Vocals     Actor[]  @relation("vocal_song")
+  Composer   Actor[]  @relation("composed_song")
+  Album      Album    @relation(fields: [albumId], references: [id])
+  albumId    String
+  Lyrics     Lyrics[]
+}
+
+enum Language {
+  japanese
+  romaji
+  english
+  french
+  spanish
+}
+
+model Lyrics {
+  id        String   @id @default(uuid())
+  content   String   @db.Text
+  createdBy Actor    @relation(fields: [creatorId], references: [id])
+  creatorId String   @map("creator_id")
+  language  Language
+  Song      Song?    @relation(fields: [songId], references: [id])
+  songId    String?
+
+  @@unique([language, songId])
+}

@@ -25,7 +25,7 @@ export default function Searchbar({ placeholder, className }: { placeholder: str
 			</label>
 			<input
 				id='searchbar'
-				className="input input-bordered input-secondary w-full"
+				className="input input-bordered input-secondary w-full shadow"
 				placeholder={placeholder}
 				onChange={(e) => handleSearch(e.target.value)}
 				defaultValue={searchParams.get('query')?.toString()}

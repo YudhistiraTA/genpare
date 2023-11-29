@@ -62,7 +62,7 @@ export function Suggestbar({ className }: { className?: string }) {
 											document.getElementById('my_modal_2') as HTMLDialogElement
 										)?.close()
 									}}
-									className="hover:cursor-pointer"
+									className="hover:cursor-pointer my-2"
 								>
 									{props.label}
 								</p>
@@ -80,6 +80,8 @@ export function Suggestbar({ className }: { className?: string }) {
 						)?.close()
 					}}
 					autoFocus
+					className='rounded-xl'
+					placeholder='search...'
 				/>
 			</div>
 		</>

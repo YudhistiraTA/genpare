@@ -8,7 +8,7 @@ import Select, { components } from 'react-select'
 
 const MIN_LENGTH = 3
 
-export function Suggestbar() {
+export function Suggestbar({ className }: { className?: string }) {
 	const { push } = useRouter()
 	const [query, setQuery] = useState<string>()
 	const [options, setOptions] = useState<
@@ -40,27 +40,48 @@ export function Suggestbar() {
 		loadOptions()
 	}, [query])
 	return (
-		<Select
-			components={{
-				DropdownIndicator: () => null,
-				IndicatorSeparator: () => null,
-				Option: (props) => (
-					<components.Option {...props}>
-						<p
-							onClick={() => push(`/album/${props.data.slug}`)}
-							className="hover:cursor-pointer"
-						>
-							{props.label}
-						</p>
-					</components.Option>
-				),
-				...(!options.length && { Menu: () => null }),
-			}}
-			options={options}
-			onInputChange={handleSearch}
-			className="w-full"
-			filterOption={() => true}
-			onChange={(newValue) => push(`/album/${newValue?.slug}`)}
-		/>
+		<>
+			<form
+				method="dialog"
+				className="modal-backdrop absolute w-screen h-screen ring-transparent"
+			>
+				<button>close</button>
+			</form>
+			<div className={className}>
+				<Select
+					id="suggestbar"
+					components={{
+						DropdownIndicator: () => null,
+						IndicatorSeparator: () => null,
+						Option: (props) => (
+							<components.Option {...props}>
+								<p
+									onClick={() => {
+										push(`/album/${props.data.slug}`)
+										;(
+											document.getElementById('my_modal_2') as HTMLDialogElement
+										)?.close()
+									}}
+									className="hover:cursor-pointer"
+								>
+									{props.label}
+								</p>
+							</components.Option>
+						),
+						...(!options.length && { Menu: () => null }),
+					}}
+					options={options}
+					onInputChange={handleSearch}
+					filterOption={() => true}
+					onChange={(newValue) => {
+						push(`/album/${newValue?.slug}`)
+						;(
+							document.getElementById('my_modal_2') as HTMLDialogElement
+						)?.close()
+					}}
+					autoFocus
+				/>
+			</div>
+		</>
 	)
 }

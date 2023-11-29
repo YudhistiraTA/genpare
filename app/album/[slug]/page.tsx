@@ -9,7 +9,7 @@ export default async function Page({
 }) {
 	const album = await getAlbumBySlug(slug)
 	return (
-		<section>
+		<section className='w-fit'>
 			{album.Song.map((item) => (
 				<Link key={item.id} href={`/song/${item.slug}`}>
 					<Image

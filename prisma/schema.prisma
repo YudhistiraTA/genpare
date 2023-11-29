@@ -28,6 +28,9 @@ model Album {
   Circle      Actor  @relation(fields: [circleId], references: [id])
   circleId    String
   Song        Song[]
+
+  @@index([id], type: Hash)
+  @@index([slug], type: Hash)
 }
 
 model Actor {
@@ -39,19 +42,25 @@ model Actor {
   VocalSongs    Song[]   @relation("vocal_song")
   Lyrics        Lyrics[]
   ComposedSongs Song[]   @relation("composed_song")
+
+  @@index([id], type: Hash)
+  @@index([slug], type: Hash)
 }
 
 model Song {
-  id         String   @id @default(uuid())
-  name       String
-  slug       String   @unique
-  youtubeUrl String   @map("youtube_url")
-  trackNo    Int      @map("track_no")
-  Vocals     Actor[]  @relation("vocal_song")
-  Composer   Actor[]  @relation("composed_song")
-  Album      Album    @relation(fields: [albumId], references: [id])
-  albumId    String
-  Lyrics     Lyrics[]
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  youtubeId String   @map("youtube_id")
+  trackNo   Int      @map("track_no")
+  Vocals    Actor[]  @relation("vocal_song")
+  Composer  Actor[]  @relation("composed_song")
+  Album     Album    @relation(fields: [albumId], references: [id])
+  albumId   String
+  Lyrics    Lyrics[]
+
+  @@index([id], type: Hash)
+  @@index([slug], type: Hash)
 }
 
 enum Language {

@@ -172,7 +172,7 @@ async function main() {
 	await prisma.$transaction(async (tx) => {
 		await Promise.all(
 			payload.map(async (item) => {
-				const song = await prisma.song.upsert({
+				const song = await tx.song.upsert({
 					where: {
 						slug: item.songSlug,
 					},
@@ -181,10 +181,10 @@ async function main() {
 						name: item.songName,
 						slug: item.songSlug,
 						trackNo: item.trackNo,
-						youtubeUrl: item.youtubeLink,
+						youtubeId: item.youtubeLink,
 						Album: {
 							connectOrCreate: {
-								where: { name: item.album.name },
+								where: { slug: item.album.slug },
 								create: {
 									name: item.album.name,
 									imageUrl: item.album.imageUrl,
@@ -193,7 +193,7 @@ async function main() {
 									totalTrack: item.album.totalTracks,
 									Circle: {
 										connectOrCreate: {
-											where: { name: item.album.circle.name },
+											where: { slug: item.album.circle.slug },
 											create: {
 												name: item.album.circle.name,
 												role: 'circle',
@@ -206,7 +206,7 @@ async function main() {
 						},
 						Composer: {
 							connectOrCreate: {
-								where: { name: item.artist.name },
+								where: { slug: item.artist.slug },
 								create: {
 									name: item.artist.name,
 									role: 'composer',
@@ -216,7 +216,7 @@ async function main() {
 						},
 						Vocals: {
 							connectOrCreate: item.vocals.map((vocal) => ({
-								where: { name: vocal.name },
+								where: { slug: vocal.slug },
 								create: {
 									name: vocal.name,
 									role: 'vocalist',
@@ -240,7 +240,7 @@ async function main() {
 									language: language,
 									createdBy: {
 										connectOrCreate: {
-											where: { name: lyricData.creator.name },
+											where: { slug: lyricData.creator.slug },
 											create: {
 												name: lyricData.creator.name,
 												role:

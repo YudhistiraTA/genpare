@@ -1,0 +1,29 @@
+version: '3'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: genpare
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - '80:3000'
+    environment:
+      - DATABASE_URL=postgres://user:password@postgres:5432/genpare
+      - PORT=3000
+      - HOSTNAME=0.0.0.0

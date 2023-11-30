@@ -70,7 +70,7 @@ export function LanguageSelect({
 				viewBox="0 0 128 128"
 				xmlSpace="preserve"
 				width={20}
-				className="self-end pb-1 hover:cursor-pointer hover:scale-125 transition-transform"
+				className="lg:self-end self-center mt-4 lg:mt-0 lg:pb-1 hover:cursor-pointer hover:scale-125 transition-transform rotate-90 lg:rotate-0"
 				onClick={handleSwap}
 			>
 				<style>{`.st0{display:none}.st1{display:inline}`}</style>

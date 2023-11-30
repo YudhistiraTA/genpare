@@ -1,9 +1,9 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
-import { LanguageSelect } from '@/app/ui/languageSelect'
-import { Lyrics } from '@/app/ui/lyrics'
-import YouTubePlayer from '@/app/ui/youtube'
-import Image from 'next/image'
+import { AlbumDetail } from '@/app/ui/song/albumDetail'
+import { LanguageSelect } from '@/app/ui/song/languageSelect'
+import { Lyrics } from '@/app/ui/song/lyrics'
+import { SongDetail } from '@/app/ui/song/songDetail'
 
 export default async function Page({
 	params: { slug },
@@ -16,27 +16,22 @@ export default async function Page({
 	const languages = song.Lyrics.map((lyric) => capitalize(lyric.language))
 	return (
 		<section className="grid lg:grid-cols-3 grid-cols-1">
-			<div className="card lg:fixed lg:top-28 md:w-72 lg:left-28 lg:w-96 lg:shadow-xl">
-				<figure className="mt-4">
-					<YouTubePlayer width="320" height="185" videoId={song.youtubeId} />
-				</figure>
-				<div className="card-body">
-					<h2 className="card-title">{song.name}</h2>
+			<div className="lg:hidden collapse shadow collapse-arrow mb-4">
+				<input type="checkbox" />
+				<div className="collapse-title text-xl font-medium">Song Detail</div>
+				<div className="collapse-content">
+					<SongDetail song={song} />
 				</div>
 			</div>
-			<div className="card lg:fixed lg:top-28 md:w-72 lg:right-28 lg:w-96 lg:shadow-xl">
-				<figure className="mt-4">
-					<Image
-						src={song.Album.imageUrl}
-						alt={song.Album.name}
-						width={200}
-						height={200}
-					/>
-				</figure>
-				<div className="card-body">
-					<h2 className="card-title">{song.Album.name}</h2>
+			<div className="lg:hidden collapse shadow collapse-arrow">
+				<input type="checkbox" />
+				<div className="collapse-title text-xl font-medium">Album Detail</div>
+				<div className="collapse-content">
+					<AlbumDetail song={song} />
 				</div>
 			</div>
+			<SongDetail song={song} className="lg:block hidden" />
+			<AlbumDetail song={song} className="lg:block hidden" />
 			<div></div>
 			<article className="flex flex-col text-left gap-2 card shadow-xl">
 				<div className="card-body">

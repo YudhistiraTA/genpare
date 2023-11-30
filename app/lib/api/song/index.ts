@@ -8,7 +8,12 @@ export const getSongBySlug = unstable_cache(
 		try {
 			const song = await prisma.song.findUniqueOrThrow({
 				where: { slug },
-				include: { Lyrics: true, Album: true },
+				include: {
+					Lyrics: { include: { createdBy: true } },
+					Album: { include: { Circle: true } },
+					Vocals: true,
+					Composer: true,
+				},
 			})
 			return song
 		} catch (error) {

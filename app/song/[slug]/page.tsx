@@ -27,11 +27,11 @@ export default async function Page({
 				<input type="checkbox" />
 				<div className="collapse-title text-xl font-medium">Album Detail</div>
 				<div className="collapse-content">
-					<AlbumDetail song={song} />
+					<AlbumDetail slug={slug} song={song} />
 				</div>
 			</div>
 			<SongDetail song={song} className="lg:block hidden" />
-			<AlbumDetail song={song} className="lg:block hidden" />
+			<AlbumDetail slug={slug} song={song} className="lg:block hidden" />
 			<div></div>
 			<article className="flex flex-col text-left gap-2 card shadow-xl">
 				<div className="card-body">

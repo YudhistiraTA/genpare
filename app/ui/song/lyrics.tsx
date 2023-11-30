@@ -3,10 +3,16 @@ export function Lyrics({ main, sub }: { main?: string; sub?: string }) {
 	const mainArray = main.split('\\n')
 	const subArray = sub.split('\\n')
 	if (mainArray.length !== subArray.length) return <p>Invalid format</p>
-	return mainArray.map((line, index) => (
-		<ruby key={`lyrics line ${index}`} className="lg:text-xl my-1">
-			{line}
-			<rt className="text-xs lg:text-sm opacity-70">{subArray[index]}</rt>
-		</ruby>
-	))
+	return mainArray.map((line, index) => {
+		if (!line) return <br />
+		return (
+			<ruby
+				key={`lyrics line ${index}`}
+				className="lg:text-xl hover:bg-primary hover:bg-opacity-20 rounded-2xl px-1 transition-colors"
+			>
+				{line}
+				<rt className="text-xs lg:text-sm opacity-70">{subArray[index]}</rt>
+			</ruby>
+		)
+	})
 }

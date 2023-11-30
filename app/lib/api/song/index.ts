@@ -10,7 +10,12 @@ export const getSongBySlug = unstable_cache(
 				where: { slug },
 				include: {
 					Lyrics: { include: { createdBy: true } },
-					Album: { include: { Circle: true } },
+					Album: {
+						include: {
+							Circle: true,
+							Song: { include: { Lyrics: { select: { language: true } } } },
+						},
+					},
 					Vocals: true,
 					Composer: true,
 				},

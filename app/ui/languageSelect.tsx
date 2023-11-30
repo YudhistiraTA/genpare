@@ -14,10 +14,12 @@ export function LanguageSelect({
 	options: string[]
 	className?: string
 }) {
+	const hasEnglish = options.includes('English')
+	const selectedMain = main ?? 'Japanese'
+	const selectedSub = sub ?? (hasEnglish ? 'English' : 'Romaji')
 	const searchParams = useSearchParams()
 	const pathname = usePathname()
 	const { replace } = useRouter()
-	const hasEnglish = options.includes('English')
 	const handleChange = (
 		e: ChangeEvent<HTMLSelectElement>,
 		type: 'main' | 'sub',
@@ -28,8 +30,8 @@ export function LanguageSelect({
 	}
 	const handleSwap = () => {
 		const params = new URLSearchParams(searchParams)
-		params.set('main', sub)
-		params.set('sub', main)
+		params.set('main', selectedSub)
+		params.set('sub', selectedMain)
 		replace(`${pathname}?${params.toString()}`)
 	}
 	return (
@@ -46,16 +48,13 @@ export function LanguageSelect({
 				<select
 					className="select select-sm select-secondary w-full max-w-xs"
 					onChange={(e) => handleChange(e, 'main')}
-					value={main ?? 'Japanese'}
+					value={selectedMain}
 				>
 					{options.map((option) => (
 						<option
 							key={`main_${option}`}
 							value={option}
-							disabled={
-								(!sub && option === (hasEnglish ? 'English' : 'Romaji')) ||
-								sub === option
-							}
+							disabled={selectedSub === option}
 						>
 							{option}
 						</option>
@@ -89,13 +88,13 @@ export function LanguageSelect({
 				<select
 					onChange={(e) => handleChange(e, 'sub')}
 					className="select select-sm select-secondary w-full max-w-xs"
-					value={sub ?? (hasEnglish ? 'English' : 'Romaji')}
+					value={selectedSub}
 				>
 					{options.map((option) => (
 						<option
 							key={`sub_${option}`}
 							value={option}
-							disabled={(!main && option === 'Japanese') || main === option}
+							disabled={selectedMain === option}
 						>
 							{option}
 						</option>

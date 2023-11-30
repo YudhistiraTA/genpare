@@ -21,17 +21,21 @@ export function AlbumDetail({
 			)}
 		>
 			<figure className="mt-4">
-				<Image
-					src={song.Album.imageUrl}
-					alt={song.Album.name}
-					width={200}
-					height={200}
-				/>
+				<Link href={`/album/${song.Album.slug}`}>
+					<Image
+						src={song.Album.imageUrl}
+						alt={song.Album.name}
+						width={200}
+						height={200}
+					/>
+				</Link>
 			</figure>
 			<div className="card-body">
-				<h2 className="card-title">
-					{song.Album.name} ({song.Album.releaseYear})
-				</h2>
+				<Link href={`/album/${song.Album.slug}`}>
+					<h2 className="card-title">
+						{song.Album.name} ({song.Album.releaseYear})
+					</h2>
+				</Link>
 				<div className="flex w-fit">
 					<p>Circle</p>
 					<p className="whitespace-pre">: </p>

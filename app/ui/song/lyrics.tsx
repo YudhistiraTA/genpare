@@ -8,7 +8,7 @@ export function Lyrics({ main, sub }: { main?: string; sub?: string }) {
 		return (
 			<ruby
 				key={`lyrics line ${index}`}
-				className="lg:text-xl hover:bg-primary hover:bg-opacity-20 rounded-2xl px-1 transition-colors"
+				className="lg:text-xl hover:bg-primary hover:bg-opacity-20 rounded-2xl px-1 transition-colors whitespace-pre-wrap"
 			>
 				{line}
 				<rt className="text-xs lg:text-sm opacity-70">{subArray[index]}</rt>

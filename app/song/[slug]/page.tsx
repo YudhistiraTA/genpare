@@ -34,7 +34,7 @@ export default async function Page({
 			<AlbumDetail slug={slug} song={song} className="lg:block hidden" />
 			<div></div>
 			<article className="flex flex-col text-left gap-2 card shadow-xl">
-				<div className="card-body">
+				<div className="card-body whitespace-pre-wrap">
 					<LanguageSelect
 						className="mb-6"
 						options={languages}

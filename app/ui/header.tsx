@@ -16,7 +16,7 @@ export function Header() {
 	}
 	return (
 		<>
-			<div className="navbar bg-base-100 lg:px-6">
+			<div className="navbar bg-secondary bg-opacity-60 lg:px-6 rounded-b-2xl">
 				<div className="navbar-start">
 					<Link
 						href="/"

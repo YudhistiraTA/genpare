@@ -71,7 +71,21 @@ export const getAlbumBySlug = unstable_cache(
 		try {
 			const album = await prisma.album.findUniqueOrThrow({
 				where: { slug },
-				include: { Song: true },
+				include: {
+					Song: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
+							trackNo: true,
+							Lyrics: { select: { id: true, language: true, createdBy: true } },
+							Composer: true,
+							Vocals: true,
+						},
+						orderBy: { trackNo: 'asc' },
+					},
+					Circle: true,
+				},
 			})
 			return album
 		} catch (error) {

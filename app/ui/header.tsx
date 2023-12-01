@@ -1,5 +1,6 @@
 'use client'
 
+import { comfortaa } from '@/app/ui/fonts'
 import { Suggestbar } from '@/app/ui/suggestbar'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -32,8 +33,11 @@ export function Header() {
 					</Link>
 				</div>
 				<div className="navbar-center">
-					<Link href="/" className="btn btn-ghost text-xl">
-						Gengo Parade
+					<Link
+						href="/"
+						className={`${comfortaa.className} btn btn-ghost text-3xl`}
+					>
+						GENGO PARADE
 					</Link>
 				</div>
 				<div className="navbar-end">

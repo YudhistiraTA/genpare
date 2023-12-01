@@ -3,7 +3,7 @@
 import debounce from '@/app/lib/debounce'
 import { Album } from '@prisma/client'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import Select, { components } from 'react-select'
 
 const MIN_LENGTH = 3
@@ -49,6 +49,7 @@ export function Suggestbar({ className }: { className?: string }) {
 			</form>
 			<div className={className}>
 				<Select
+					instanceId={useId()}
 					id="suggestbar"
 					components={{
 						DropdownIndicator: () => null,
@@ -79,8 +80,8 @@ export function Suggestbar({ className }: { className?: string }) {
 							document.getElementById('my_modal_2') as HTMLDialogElement
 						)?.close()
 					}}
-					className='rounded-xl'
-					placeholder='search...'
+					className="rounded-xl"
+					placeholder="search..."
 				/>
 			</div>
 		</>

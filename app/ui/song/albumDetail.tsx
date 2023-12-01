@@ -70,11 +70,7 @@ export function AlbumDetail({
 							<li key={`list_${item.id}`}>
 								<Link
 									href={`/song/${item.slug}`}
-									className={clsx(
-										'flex flex-col self-start w-full',
-										slug === item.slug &&
-											'bg-primary bg-opacity-20 hover:bg-primary hover:bg-opacity-20',
-									)}
+									className="flex flex-col self-start w-full hover:bg-primary hover:bg-opacity-20"
 								>
 									<p className="self-start">
 										{item.trackNo}

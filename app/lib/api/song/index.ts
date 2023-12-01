@@ -13,7 +13,10 @@ export const getSongBySlug = unstable_cache(
 					Album: {
 						include: {
 							Circle: true,
-							Song: { include: { Lyrics: { select: { language: true } } } },
+							Song: {
+								include: { Lyrics: { select: { language: true } } },
+								orderBy: { trackNo: 'asc' },
+							},
 						},
 					},
 					Vocals: true,

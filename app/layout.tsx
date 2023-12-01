@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/app/ui/header'
 import { Footer } from '@/app/ui/footer'
-
-const inter = Inter({ subsets: ['latin'] })
+import { openSans } from '@/app/ui/fonts'
 
 export const metadata: Metadata = {
 	title: 'Gengo Parade',
@@ -19,10 +17,10 @@ export default function RootLayout({
 	return (
 		<html lang="en" data-theme="cupcake">
 			<body
-				className={`${inter.className} antialiased bg-primary bg-opacity-5 flex flex-col min-h-screen`}
+				className={`${openSans.className} antialiased bg-primary bg-opacity-5 flex flex-col min-h-screen`}
 			>
 				<Header />
-				<main className='flex flex-col grow py-4'>{children}</main>
+				<main className="flex flex-col grow py-4">{children}</main>
 				<Footer />
 			</body>
 		</html>

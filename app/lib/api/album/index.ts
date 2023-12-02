@@ -6,6 +6,13 @@ import { notFound } from 'next/navigation'
 export const getAlbum = unstable_cache(
 	async (query?: string) => {
 		const albums = await prisma.album.findMany({
+			select: {
+				id: true,
+				slug: true,
+				name: true,
+				releaseYear: true,
+				imageUrl: true,
+			},
 			...(query && {
 				where: {
 					OR: [

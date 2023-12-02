@@ -3,6 +3,7 @@ import './globals.css'
 import { Header } from '@/app/ui/header'
 import { Footer } from '@/app/ui/footer'
 import { openSans } from '@/app/ui/fonts'
+import styles from '@/app/ui/bg.module.css'
 
 export const metadata: Metadata = {
 	title: 'Gengo Parade',
@@ -15,9 +16,9 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<html lang="en" data-theme="cupcake">
+		<html lang="en" data-theme="pastel">
 			<body
-				className={`${openSans.className} antialiased bg-primary bg-opacity-5 flex flex-col min-h-screen`}
+				className={`${openSans.className} ${styles.horizontalBg} antialiased flex flex-col min-h-screen`}
 			>
 				<Header />
 				<main className="flex flex-col grow py-4">{children}</main>

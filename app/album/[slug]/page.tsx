@@ -43,14 +43,14 @@ export default async function Page({
 					height={320}
 					className="max-w-sm rounded-2xl shadow-2xl"
 				/>
-				<div className="flex flex-col gap-2 border shadow-lg px-6 pt-4 rounded-2xl">
-					<h1 className="text-3xl font-bold">{album.name}</h1>
+				<div className="flex flex-col glass bg-white bg-opacity-60 gap-2 border shadow-lg px-6 pt-4 rounded-2xl">
+					<h1 className="text-3xl font-bold tracking-tight">{album.name}</h1>
 					<div className="flex w-fit mt-4">
 						<p>Release Year</p>
 						<p className="whitespace-pre">: </p>
 						<div className="flex flex-wrap">
 							<div className="flex">
-								<p className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2">
+								<p className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2">
 									{album.releaseYear}
 								</p>
 							</div>
@@ -63,7 +63,7 @@ export default async function Page({
 							<div className="flex">
 								<Link
 									href={`/circle/${album.Circle.slug}`}
-									className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+									className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 								>
 									{album.Circle.name}
 								</Link>
@@ -78,7 +78,7 @@ export default async function Page({
 								<div key={composer.id} className="flex">
 									<Link
 										href={`/artist/${composer.slug}`}
-										className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{composer.name}
 									</Link>
@@ -97,7 +97,7 @@ export default async function Page({
 								<div key={lyricist.id} className="flex">
 									<Link
 										href={`/artist/${lyricist.slug}`}
-										className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{lyricist.name}
 									</Link>
@@ -115,8 +115,8 @@ export default async function Page({
 							{uniqueVocalistsArray.map((vocal, index) => (
 								<div key={vocal.id} className="flex">
 									<Link
-										href={`/vocalist/${vocal.slug}`}
-										className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+										href={`/artist/${vocal.slug}`}
+										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{vocal.name}
 									</Link>
@@ -132,7 +132,7 @@ export default async function Page({
 						<p className="whitespace-pre">: </p>
 						<div className="flex flex-wrap">
 							<div className="flex">
-								<p className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2">
+								<p className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2">
 									{album.totalTrack}
 								</p>
 							</div>

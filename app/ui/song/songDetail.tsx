@@ -14,7 +14,7 @@ export function SongDetail({
 	return (
 		<div
 			className={clsx(
-				'card lg:fixed lg:top-28 md:w-72 lg:left-28 lg:w-96 lg:shadow-xl',
+				'card glass lg:fixed lg:top-28 md:w-72 lg:left-28 lg:w-96 lg:shadow-xl',
 				className,
 			)}
 		>
@@ -30,8 +30,8 @@ export function SongDetail({
 						{song.Vocals.map((vocal, index) => (
 							<div key={vocal.id} className="flex">
 								<Link
-									href={`/vocalist/${vocal.slug}`}
-									className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+									href={`/artist/${vocal.slug}`}
+									className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 								>
 									{vocal.name}
 								</Link>
@@ -50,7 +50,7 @@ export function SongDetail({
 							<div key={composer.id} className="flex">
 								<Link
 									href={`/artist/${composer.slug}`}
-									className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+									className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 								>
 									{composer.name}
 								</Link>
@@ -73,8 +73,12 @@ export function SongDetail({
 							<div className="flex flex-wrap">
 								<div className="flex">
 									<Link
-										href={`/${lyric.createdBy.role}/${lyric.createdBy.slug}`}
-										className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+										href={`/${
+											lyric.createdBy.role === 'lyricist'
+												? 'artist'
+												: lyric.createdBy.role
+										}/${lyric.createdBy.slug}`}
+										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{lyric.createdBy.name}
 									</Link>

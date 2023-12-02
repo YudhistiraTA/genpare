@@ -1,0 +1,16 @@
+.horizontalBg {
+  aspect-ratio: 960/540;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url('../../public/waves.svg');
+}
+.footerBg {
+  aspect-ratio: 900/100;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url('../../public/footerWave.svg');
+}

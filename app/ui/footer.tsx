@@ -1,6 +1,7 @@
+import styles from '@/app/ui/bg.module.css'
 export function Footer() {
 	return (
-		<footer className="footer p-2 px-6 bg-secondary bg-opacity-60 rounded-t-2xl">
+		<footer className={`${styles.footerBg} items-end pb-10 footer p-2 px-6`}>
 			<nav>
 				<header className="footer-title">Social</header>
 				<div className="grid grid-flow-col gap-4">

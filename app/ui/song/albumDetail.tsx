@@ -16,7 +16,7 @@ export function AlbumDetail({
 	return (
 		<div
 			className={clsx(
-				'card lg:fixed lg:top-28 md:w-72 lg:right-28 lg:w-96 lg:shadow-xl',
+				'card glass lg:fixed lg:top-28 md:w-72 lg:right-28 lg:w-96 lg:shadow-xl',
 				className,
 			)}
 		>
@@ -27,6 +27,7 @@ export function AlbumDetail({
 						alt={song.Album.name}
 						width={200}
 						height={200}
+						className="hover:scale-105 transition-transform rounded-xl py-2"
 					/>
 				</Link>
 			</figure>
@@ -43,7 +44,7 @@ export function AlbumDetail({
 						<div className="flex">
 							<Link
 								href={`/circle/${song.Album.Circle.slug}`}
-								className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2"
+								className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 							>
 								{song.Album.Circle.name}
 							</Link>
@@ -55,7 +56,7 @@ export function AlbumDetail({
 					<p className="whitespace-pre">: </p>
 					<div className="flex flex-wrap">
 						<div className="flex">
-							<p className="bg-slate-200 hover:bg-secondary transition-colors hover:bg-opacity-30 rounded-2xl px-2">
+							<p className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2">
 								{song.Album.totalTrack}
 							</p>
 						</div>
@@ -70,7 +71,7 @@ export function AlbumDetail({
 							<li key={`list_${item.id}`}>
 								<Link
 									href={`/song/${item.slug}`}
-									className="flex flex-col self-start w-full hover:bg-primary hover:bg-opacity-20"
+									className="flex flex-col self-start w-full hover:bg-accent hover:bg-opacity-60"
 								>
 									<p className="self-start">
 										{item.trackNo}

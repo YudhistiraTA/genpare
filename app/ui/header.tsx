@@ -17,7 +17,7 @@ export function Header() {
 	}
 	return (
 		<>
-			<div className="navbar bg-secondary bg-opacity-60 lg:px-6 rounded-b-2xl">
+			<div className="navbar mt-4 lg:px-6 min-h-fit">
 				<div className="navbar-start">
 					<Link
 						href="/"
@@ -35,7 +35,7 @@ export function Header() {
 				<div className="navbar-center">
 					<Link
 						href="/"
-						className={`${comfortaa.className} btn btn-ghost text-3xl`}
+						className={`${comfortaa.className} btn btn-ghost text-xl lg:text-3xl tracking-tighter`}
 					>
 						GENGO PARADE
 					</Link>

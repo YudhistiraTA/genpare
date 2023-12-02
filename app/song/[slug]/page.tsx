@@ -16,14 +16,14 @@ export default async function Page({
 	const languages = song.Lyrics.map((lyric) => capitalize(lyric.language))
 	return (
 		<section className="grid lg:grid-cols-3 grid-cols-1">
-			<div className="lg:hidden collapse shadow collapse-arrow mb-4">
+			<div className="lg:hidden glass collapse shadow collapse-arrow mb-4">
 				<input type="checkbox" />
 				<div className="collapse-title text-xl font-medium">Song Detail</div>
 				<div className="collapse-content">
 					<SongDetail song={song} />
 				</div>
 			</div>
-			<div className="lg:hidden collapse shadow collapse-arrow">
+			<div className="lg:hidden glass collapse shadow collapse-arrow">
 				<input type="checkbox" />
 				<div className="collapse-title text-xl font-medium">Album Detail</div>
 				<div className="collapse-content">
@@ -33,7 +33,7 @@ export default async function Page({
 			<SongDetail song={song} className="lg:block hidden" />
 			<AlbumDetail slug={slug} song={song} className="lg:block hidden" />
 			<div></div>
-			<article className="flex flex-col text-left gap-2 card shadow-xl">
+			<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl">
 				<div className="card-body whitespace-pre-wrap">
 					<LanguageSelect
 						className="mb-6"

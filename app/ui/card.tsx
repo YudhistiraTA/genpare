@@ -1,22 +1,36 @@
 import Image from 'next/image'
+import Link from 'next/link'
+import { ReactNode } from 'react'
 
 export function Card({
 	imageUrl,
 	title,
-	description,
+	body,
+	slug,
 }: {
 	imageUrl: string
 	title: string
-	description: string
+	body: ReactNode
+	slug: string
 }) {
 	return (
-		<div className="card lg:card-side bg-base-100 shadow-xl">
+		<div className="card glass bg-opacity-60 lg:card-side bg-white shadow-xl">
 			<figure>
-				<Image src={imageUrl} alt={`Image of ${title}`} width={300} height={300} priority />
+				<Link href={`/album/${slug}`}>
+					<Image
+						src={imageUrl}
+						alt={`Image of ${title}`}
+						width={300}
+						height={300}
+						priority
+					/>
+				</Link>
 			</figure>
-			<div className="card-body">
-				<h2 className="card-title">{title}</h2>
-				<p>{description}</p>
+			<div className="card-body text-left">
+				<Link href={`/album/${slug}`}>
+					<h2 className="card-title tracking-tight text-2xl">{title}</h2>
+				</Link>
+				{body}
 			</div>
 		</div>
 	)

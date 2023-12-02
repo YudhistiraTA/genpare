@@ -4,11 +4,10 @@ export function Lyrics({ main, sub }: { main?: string; sub?: string }) {
 	const subArray = sub.split('\\n')
 	if (mainArray.length !== subArray.length) return <p>Invalid format</p>
 	return mainArray.map((line, index) => {
-		if (!line) return <br />
 		return (
 			<ruby
 				key={`lyrics line ${index}`}
-				className="lg:text-xl hover:bg-primary hover:bg-opacity-20 rounded-2xl px-1 transition-colors whitespace-pre-wrap"
+				className="lg:text-xl hover:bg-accent hover:bg-opacity-60 rounded-2xl px-1 transition-colors whitespace-pre-wrap"
 			>
 				{line}
 				<rt className="text-xs lg:text-sm opacity-70">{subArray[index]}</rt>

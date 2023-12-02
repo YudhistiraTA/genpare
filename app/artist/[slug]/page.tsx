@@ -1,6 +1,6 @@
 import { getArtist } from '@/app/lib/api/actors'
 import { capitalizeAll } from '@/app/lib/capitalizeAll'
-import { Card } from '@/app/ui/card'
+import { InteractiveCard } from '@/app/ui/interactiveCard'
 import Link from 'next/link'
 
 export default async function Page({
@@ -17,7 +17,7 @@ export default async function Page({
 			<section className="flex flex-col items-center justify-between px-2 lg:px-24">
 				<div className="lg:flex grid lg:gap-8 gap-4 my-4">
 					{albums.map((album) => (
-						<Card
+						<InteractiveCard
 							slug={album.slug}
 							key={album.id}
 							imageUrl={album.imageUrl}

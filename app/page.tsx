@@ -20,7 +20,6 @@ export default async function Page({
 						className="hover:scale-105 transition-transform"
 					>
 						<Card
-							slug={album.slug}
 							imageUrl={album.imageUrl}
 							title={album.name}
 							body={album.releaseYear.toString()}

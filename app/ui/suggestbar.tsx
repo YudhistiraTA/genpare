@@ -5,6 +5,7 @@ import { Album } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useEffect, useId, useState } from 'react'
 import Select, { components } from 'react-select'
+import fetch from 'isomorphic-fetch';
 
 const MIN_LENGTH = 3
 

@@ -16,8 +16,8 @@ export function Card({
 				<Image
 					src={imageUrl}
 					alt={`Image of ${title}`}
-					width={300}
-					height={300}
+					width={256}
+					height={256}
 					priority
 				/>
 			</figure>

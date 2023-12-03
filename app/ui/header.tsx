@@ -1,6 +1,6 @@
 'use client'
 
-import { comfortaa } from '@/app/ui/fonts'
+import { cherryBomb } from '@/app/ui/fonts'
 import { Suggestbar } from '@/app/ui/suggestbar'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,7 +17,7 @@ export function Header() {
 	}
 	return (
 		<>
-			<div className="navbar mt-4 lg:px-6 min-h-fit">
+			<div className="navbar mt-4 lg:px-6 min-h-max">
 				<div className="navbar-start">
 					<Link
 						href="/"
@@ -35,9 +35,9 @@ export function Header() {
 				<div className="navbar-center">
 					<Link
 						href="/"
-						className={`${comfortaa.className} btn btn-ghost text-xl lg:text-3xl tracking-tighter`}
+						className={`${cherryBomb.className} btn btn-ghost text-xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] lg:text-3xl tracking-tighter`}
 					>
-						GENGO PARADE
+						Gengo Parade
 					</Link>
 				</div>
 				<div className="navbar-end">

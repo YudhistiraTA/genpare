@@ -4,7 +4,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url('../../public/waves.svg');
+  background-image: url('../../public/blueWaves.svg');
 }
 .footerBg {
   aspect-ratio: 900/100;
@@ -12,5 +12,5 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url('../../public/footerWave.svg');
+  background-image: url('../../public/blueWavesFooter.svg');
 }

@@ -74,3 +74,90 @@ export const getArtist = unstable_cache(
 	['artist'],
 	{ revalidate: 300, tags: ['artist'] },
 )
+
+export const getCircle = unstable_cache(
+	async (slug: string) => {
+		try {
+			const circle = prisma.actor.findUniqueOrThrow({
+				where: { slug: slug },
+			})
+
+			const albums = prisma.album.findMany({
+				where: { Circle: { slug } },
+			})
+
+			const result = await prisma.$transaction([circle, albums])
+			return result
+		} catch (error) {
+			if (
+				error instanceof PrismaClientKnownRequestError &&
+				error.code === 'P2025'
+			)
+				notFound()
+			else {
+				console.log(error)
+				throw new Error('Unknown Error')
+			}
+		}
+	},
+	['circle'],
+	{ revalidate: 300, tags: ['circle'] },
+)
+
+export const getTranslator = unstable_cache(
+	async (slug: string) => {
+		try {
+			const translator = prisma.actor.findUniqueOrThrow({
+				where: { slug: slug },
+			})
+
+			const albums = prisma.album.findMany({
+				where: {
+					Song: {
+						some: {
+							Lyrics: {
+								some: {
+									createdBy: { slug },
+								},
+							},
+						},
+					},
+				},
+				include: {
+					Song: {
+						where: {
+							Lyrics: {
+								some: {
+									createdBy: { slug },
+								},
+							},
+						},
+						include: {
+							Lyrics: {
+								where: {
+									createdBy: { slug },
+								},
+								select: { id: true, language: true },
+							},
+						},
+					},
+				},
+			})
+
+			const result = await prisma.$transaction([translator, albums])
+			return result
+		} catch (error) {
+			if (
+				error instanceof PrismaClientKnownRequestError &&
+				error.code === 'P2025'
+			)
+				notFound()
+			else {
+				console.log(error)
+				throw new Error('Unknown Error')
+			}
+		}
+	},
+	['translator'],
+	{ revalidate: 300, tags: ['translator'] },
+)

@@ -1,4 +1,4 @@
-import { getArtist } from '@/app/lib/api/actors'
+import { getTranslator } from '@/app/lib/api/actors'
 import { capitalizeAll } from '@/app/lib/capitalizeAll'
 import { InteractiveCard } from '@/app/ui/interactiveCard'
 import Link from 'next/link'
@@ -8,11 +8,11 @@ export default async function Page({
 }: {
 	params: { slug: string }
 }) {
-	const [artist, albums] = await getArtist(slug)
+	const [translator, albums] = await getTranslator(slug)
 	return (
 		<main className="flex flex-col items-center">
 			<h1 className="font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] tracking-tight text-3xl px-6 py-2 rounded-xl">
-				{capitalizeAll(artist.name)}
+				{capitalizeAll(translator.name)}
 			</h1>
 			<section className="flex flex-col items-center justify-between px-2 lg:px-24">
 				<div className="lg:flex grid lg:gap-8 gap-4 my-4">
@@ -28,19 +28,17 @@ export default async function Page({
 										<h2 className="menu-title">Songs</h2>
 										<ul className="-mt-3">
 											{album.Song.map((item) => {
-												let roles = []
-												if (item.Composer.length > 0) roles.push('Composer')
-												if (item.Lyrics.length > 0) roles.push('Lyricist')
-												if (item.Vocals.length > 0) roles.push('Vocalist')
+												let roles = item.Lyrics.map((lyric) => lyric.language)
 
 												let rolesString = ''
 												if (roles.length > 1) {
 													rolesString =
 														roles.slice(0, -1).join(', ') +
 														' and ' +
-														roles.slice(-1)
+														roles.slice(-1) +
+														' translator'
 												} else if (roles.length === 1) {
-													rolesString = roles[0]
+													rolesString = roles[0] + ' translator'
 												}
 												return (
 													<li key={`list_${item.id}`}>

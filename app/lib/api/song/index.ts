@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation'
 export const getSongBySlug = unstable_cache(
 	async (slug: string) => {
 		try {
-		await new Promise((resolve) => setTimeout(resolve, 5000))
 		const song = await prisma.song.findUniqueOrThrow({
 				where: { slug },
 				include: {

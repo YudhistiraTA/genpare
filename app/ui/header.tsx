@@ -69,6 +69,8 @@ export function Header() {
 						/>
 					)}
 					<button
+						id='search-button'
+						title='Search'
 						className="btn btn-ghost btn-circle lg:flex hidden"
 						onClick={handleClick}
 					>
@@ -88,6 +90,8 @@ export function Header() {
 						</svg>
 					</button>
 					<button
+						id='search-button-mobile'
+						title='Search'
 						className="btn btn-ghost btn-circle lg:hidden flex"
 						onClick={handleMobileClick}
 					>

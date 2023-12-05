@@ -43,9 +43,12 @@ export function LanguageSelect({
 		>
 			<div className="flex flex-col grow">
 				<div className="label">
-					<span className="label-text">Pick main language</span>
+					<label htmlFor="main-language" className="label-text">
+						Pick main language
+					</label>
 				</div>
 				<select
+					id="main-language"
 					className="select select-sm select-secondary w-full max-w-xs"
 					onChange={(e) => handleChange(e, 'main')}
 					value={selectedMain}
@@ -83,9 +86,12 @@ export function LanguageSelect({
 			</svg>
 			<div className="flex flex-col grow">
 				<div className="label">
-					<span className="label-text">Pick sub language</span>
+					<label htmlFor="sub-language" className="label-text">
+						Pick sub language
+					</label>
 				</div>
 				<select
+					id="sub-language"
 					onChange={(e) => handleChange(e, 'sub')}
 					className="select select-sm select-secondary w-full max-w-xs"
 					value={selectedSub}

@@ -1,4 +1,5 @@
 import { getAlbumBySlug } from '@/app/lib/api/album'
+import { capitalize } from '@/app/lib/capitalize'
 import { joinWithAnd } from '@/app/lib/joinWithAnd'
 import { languageCode } from '@/app/lib/languageCode'
 import { Actor } from '@prisma/client'
@@ -26,7 +27,7 @@ export async function generateMetadata(
 	const translations = album.Song.flatMap((song) =>
 		song.Lyrics.filter(
 			(lyric) => lyric.language !== 'romaji' && lyric.language !== 'japanese',
-		).map((lyric) => lyric.language),
+		).map((lyric) => capitalize(lyric.language)),
 	)
 	const translators = album.Song.flatMap((song) =>
 		song.Lyrics.filter(
@@ -35,15 +36,15 @@ export async function generateMetadata(
 	)
 	return {
 		title: album.name,
-		description: `Detail page for the album ${album.name} by the circle ${
+		description: `${album.name} album by the circle ${
 			album.Circle.name
 		} released on ${album.releaseYear} composed by ${joinWithAnd(
 			composers,
 		)}with ${joinWithAnd(vocalists)} as vocalists and ${joinWithAnd(
 			lyricists,
-		)}as lyricists and ${joinWithAnd(
+		)} as lyricists translated into ${joinWithAnd(
 			translations,
-		)} translations translated by ${joinWithAnd(translators)}`,
+		)} by ${joinWithAnd(translators)}`,
 		keywords: [
 			...(prevMeta.keywords ?? []),
 			'Album',

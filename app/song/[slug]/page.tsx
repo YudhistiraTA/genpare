@@ -1,9 +1,59 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
+import { joinWithAnd } from '@/app/lib/joinWithAnd'
 import { AlbumDetail } from '@/app/ui/song/albumDetail'
 import { LanguageSelect } from '@/app/ui/song/languageSelect'
 import { Lyrics } from '@/app/ui/song/lyrics'
 import { SongDetail } from '@/app/ui/song/songDetail'
+import { Metadata, ResolvingMetadata } from 'next'
+
+export async function generateMetadata({
+	params: { slug },
+}: {
+	params: { slug: string }
+}): Promise<Metadata> {
+	const song = await getSongBySlug(slug)
+	const composer = song.Composer.map((composer) => composer.name)
+	const vocalists = song.Vocals.map((vocal) => vocal.name)
+	const lyricists = song.Lyrics.filter(
+		(lyric) => lyric.language === 'japanese',
+	).map((lyric) => lyric.createdBy.name)
+	const translations = song.Lyrics.filter(
+		(lyric) => lyric.language !== 'romaji' && lyric.language !== 'japanese',
+	).map((lyric) => capitalize(lyric.language))
+	const translators = song.Lyrics.filter(
+		(lyric) => lyric.language !== 'japanese' && lyric.language !== 'romaji',
+	).map((lyric) => lyric.createdBy.name)
+	return {
+		title: song.name,
+		description: `Lyrics for ${song.name} from the album ${
+			song.Album.name
+		} by the circle ${song.Album.Circle.name} released on ${
+			song.Album.releaseYear
+		} composed by ${joinWithAnd(composer)}with ${joinWithAnd(
+			vocalists,
+		)} as vocalists and ${joinWithAnd(
+			lyricists,
+		)}as lyricists translated to ${joinWithAnd(translations)} by ${joinWithAnd(
+			translators,
+		)}`,
+		keywords: [
+			'Genpare',
+			'Translation',
+			'Gengo Parade',
+			'Doujin',
+			'Song',
+			song.name,
+			song.Album.Circle.name,
+			song.Album.releaseYear.toString(),
+			...composer,
+			...vocalists,
+			...lyricists,
+			...translations,
+			...translators,
+		],
+	}
+}
 
 export default async function Page({
 	params: { slug },

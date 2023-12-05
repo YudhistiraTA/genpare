@@ -1,7 +1,21 @@
 import { getTranslator } from '@/app/lib/api/actors'
 import { capitalizeAll } from '@/app/lib/capitalizeAll'
 import { InteractiveCard } from '@/app/ui/interactiveCard'
+import { Metadata, ResolvingMetadata } from 'next'
 import Link from 'next/link'
+
+export async function generateMetadata(
+	{ params: { slug } }: { params: { slug: string } },
+	parent: ResolvingMetadata,
+): Promise<Metadata> {
+	const [translator] = await getTranslator(slug)
+	const prevMeta = await parent
+	return {
+		title: translator.name,
+		description: `Discography involving ${translator.name} as translator`,
+		keywords: [...(prevMeta.keywords ?? []), 'Translator', translator.name],
+	}
+}
 
 export default async function Page({
 	params: { slug },

@@ -2,8 +2,22 @@ import { getCircle } from '@/app/lib/api/actors'
 import { capitalizeAll } from '@/app/lib/capitalizeAll'
 import { Card } from '@/app/ui/card'
 import { CardSkeleton } from '@/app/ui/cardSkeleton'
+import { Metadata, ResolvingMetadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
+
+export async function generateMetadata(
+	{ params: { slug } }: { params: { slug: string } },
+	parent: ResolvingMetadata,
+): Promise<Metadata> {
+	const [circle] = await getCircle(slug)
+	const prevMeta = await parent
+	return {
+		title: circle.name,
+		description: `Discography involving ${circle.name}`,
+		keywords: [...(prevMeta.keywords ?? []), 'Circle', circle.name],
+	}
+}
 
 export default async function Page({
 	params: { slug },

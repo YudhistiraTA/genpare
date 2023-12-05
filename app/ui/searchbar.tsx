@@ -1,35 +1,45 @@
 'use client'
 
-import debounce from '@/app/lib/debounce'
 import clsx from 'clsx'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { forwardRef } from 'react'
 
-export default function Searchbar({ placeholder, className }: { placeholder: string, className?: string }) {
+const Searchbar = forwardRef<
+	HTMLFormElement,
+	{ placeholder: string; className?: string; onSubmit: () => void }
+>(({ placeholder, className, onSubmit }, ref) => {
 	const searchParams = useSearchParams()
-	const pathname = usePathname()
 	const { replace } = useRouter()
-	const handleSearch = debounce((term: string) => {
+	const query = searchParams.get('query')
+	const search = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
 		const params = new URLSearchParams(searchParams)
 		params.delete('page')
-		if (term) {
-			params.set('query', term)
+		if (e.currentTarget.searchbar.value) {
+			params.set('query', e.currentTarget.searchbar.value)
 		} else {
 			params.delete('query')
 		}
-		replace(`${pathname}?${params.toString()}`)
-	}, 500)
+		replace(`/?${params.toString()}`)
+		onSubmit()
+	}
 	return (
-		<div className={clsx("relative flex flex-1 flex-shrink-0", className)}>
+		<div className={clsx('relative flex', className)}>
 			<label htmlFor="search" className="sr-only">
 				Search
 			</label>
-			<input
-				id='searchbar'
-				className="input input-bordered input-secondary w-full shadow"
-				placeholder={placeholder}
-				onChange={(e) => handleSearch(e.target.value)}
-				defaultValue={searchParams.get('query')?.toString()}
-			/>
+			<form onSubmit={search} ref={ref}>
+				<input
+					id="searchbar"
+					className="input input-bordered input-secondary w-full shadow"
+					placeholder={placeholder}
+					defaultValue={query?.toString()}
+					aria-label="search"
+				/>
+			</form>
 		</div>
 	)
-}
+})
+
+Searchbar.displayName = 'Searchbar'
+export default Searchbar

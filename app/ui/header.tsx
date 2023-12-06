@@ -54,7 +54,7 @@ export function Header() {
 				<div className="navbar-center">
 					<Link
 						href="/"
-						className={`${cherryBomb.className} btn btn-ghost text-xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] lg:text-3xl tracking-tighter`}
+						className={`${cherryBomb.className} btn btn-ghost text-xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] lg:text-3xl tracking-tight`}
 					>
 						Gengo Parade
 					</Link>

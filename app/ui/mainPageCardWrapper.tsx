@@ -5,7 +5,7 @@ import Link from 'next/link'
 export async function MainPageCardWrapper({ query }: { query: string }) {
 	const albums = await getAlbum(query)
 	return (
-		<section className="lg:flex grid lg:gap-8 gap-4 my-4 justify-center">
+		<section className="grid lg:grid-cols-3 lg:gap-8 gap-4 my-4 justify-center">
 			{albums.map((album) => (
 				<Link
 					key={album.id}

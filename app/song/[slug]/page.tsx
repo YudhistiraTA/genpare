@@ -52,6 +52,9 @@ export async function generateMetadata({
 			...translations,
 			...translators,
 		],
+		alternates: {
+			canonical: `https://www.gengo-parade.com/song/${song.slug}`,
+		},
 	}
 }
 

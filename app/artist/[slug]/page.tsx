@@ -14,6 +14,9 @@ export async function generateMetadata(
 		title: artist.name,
 		description: `Discography involving ${artist.name}`,
 		keywords: [...(prevMeta.keywords ?? []), 'Artist', artist.name],
+		alternates: {
+			canonical: `https://www.gengo-parade.com/artist/${artist.slug}`,
+		},
 	}
 }
 

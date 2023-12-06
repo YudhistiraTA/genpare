@@ -14,6 +14,9 @@ export async function generateMetadata(
 		title: translator.name,
 		description: `Discography involving ${translator.name} as translator`,
 		keywords: [...(prevMeta.keywords ?? []), 'Translator', translator.name],
+		alternates: {
+			canonical: `https://www.gengo-parade.com/translator/${translator.slug}`,
+		},
 	}
 }
 

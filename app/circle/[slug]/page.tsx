@@ -16,6 +16,9 @@ export async function generateMetadata(
 		title: circle.name,
 		description: `Discography involving ${circle.name}`,
 		keywords: [...(prevMeta.keywords ?? []), 'Circle', circle.name],
+		alternates: {
+			canonical: `https://www.gengo-parade.com/circle/${circle.slug}`,
+		},
 	}
 }
 

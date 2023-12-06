@@ -19,6 +19,14 @@ export async function generateMetadata(
 		alternates: {
 			canonical: `https://www.gengo-parade.com/circle/${circle.slug}`,
 		},
+		...(prevMeta.openGraph && {
+			openGraph: {
+				...prevMeta.openGraph,
+				url: 'https://www.gengo-parade.com',
+				title: circle.name,
+				description: `Discography with ${circle.name} as circle`,
+			},
+		}),
 	}
 }
 

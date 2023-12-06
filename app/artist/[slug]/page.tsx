@@ -17,6 +17,14 @@ export async function generateMetadata(
 		alternates: {
 			canonical: `https://www.gengo-parade.com/artist/${artist.slug}`,
 		},
+		...(prevMeta.openGraph && {
+			openGraph: {
+				...prevMeta.openGraph,
+				url: 'https://www.gengo-parade.com',
+				title: artist.name,
+				description: `Discography involving ${artist.name}`,
+			},
+		}),
 	}
 }
 

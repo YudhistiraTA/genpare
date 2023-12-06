@@ -4,13 +4,16 @@ import { AlbumDetail } from '@/app/ui/song/albumDetail'
 import { LanguageSelect } from '@/app/ui/song/languageSelect'
 import { Lyrics } from '@/app/ui/song/lyrics'
 import { SongDetail } from '@/app/ui/song/songDetail'
-import { Metadata } from 'next'
+import { Metadata, ResolvingMetadata } from 'next'
 
-export async function generateMetadata({
-	params: { slug },
-}: {
-	params: { slug: string }
-}): Promise<Metadata> {
+export async function generateMetadata(
+	{
+		params: { slug },
+	}: {
+		params: { slug: string }
+	},
+	parent: ResolvingMetadata,
+): Promise<Metadata> {
 	const song = await getSongBySlug(slug)
 	const composer = song.Composer.map((composer) => composer.name)
 	const vocalists = song.Vocals.map((vocal) => vocal.name)
@@ -23,6 +26,7 @@ export async function generateMetadata({
 	const translators = song.Lyrics.filter(
 		(lyric) => lyric.language !== 'japanese' && lyric.language !== 'romaji',
 	).map((lyric) => lyric.createdBy.name)
+	const prevMeta = await parent
 	return {
 		title: song.name,
 		description: `Lyrics and translations for ${song.name} from the album ${song.Album.name}`,
@@ -44,6 +48,14 @@ export async function generateMetadata({
 		alternates: {
 			canonical: `https://www.gengo-parade.com/song/${song.slug}`,
 		},
+		...(prevMeta.openGraph && {
+			openGraph: {
+				...prevMeta.openGraph,
+				url: 'https://www.gengo-parade.com',
+				title: song.name,
+				description: `Lyrics and translations for ${song.name} from the album ${song.Album.name}`,
+			},
+		}),
 	}
 }
 

@@ -17,6 +17,14 @@ export async function generateMetadata(
 		alternates: {
 			canonical: `https://www.gengo-parade.com/translator/${translator.slug}`,
 		},
+		...(prevMeta.openGraph && {
+			openGraph: {
+				...prevMeta.openGraph,
+				url: 'https://www.gengo-parade.com',
+				title: translator.name,
+				description: `Discography involving ${translator.name} as translator`,
+			},
+		}),
 	}
 }
 

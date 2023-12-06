@@ -52,6 +52,14 @@ export async function generateMetadata(
 		alternates: {
 			canonical: `https://www.gengo-parade.com/album/${album.slug}`,
 		},
+		...(prevMeta.openGraph && {
+			openGraph: {
+				...prevMeta.openGraph,
+				url: 'https://www.gengo-parade.com',
+				title: album.name,
+				description: `${album.name} (${album.releaseYear}) album by ${album.Circle.name}`,
+			},
+		}),
 	}
 }
 

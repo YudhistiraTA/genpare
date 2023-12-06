@@ -25,7 +25,10 @@ export const metadata: Metadata = {
 				alt: 'Genpare Translation',
 			},
 		],
-		title: 'Genpare Translation',
+		title: {
+			template: '%s | Genpare Translation',
+			default: 'Genpare Translation',
+		},
 	},
 	applicationName: 'Genpare Translation',
 	alternates: { canonical: 'https://www.gengo-parade.com/' },

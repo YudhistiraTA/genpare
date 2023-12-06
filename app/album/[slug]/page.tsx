@@ -58,6 +58,12 @@ export async function generateMetadata(
 				url: 'https://www.gengo-parade.com',
 				title: album.name,
 				description: `${album.name} (${album.releaseYear}) album by ${album.Circle.name}`,
+				images: [
+					{
+						url: album.imageUrl,
+						alt: album.name,
+					},
+				],
 			},
 		}),
 	}

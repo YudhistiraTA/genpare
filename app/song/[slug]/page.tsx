@@ -54,6 +54,12 @@ export async function generateMetadata(
 				url: 'https://www.gengo-parade.com',
 				title: song.name,
 				description: `Lyrics and translations for ${song.name} from the album ${song.Album.name}`,
+				images: [
+					{
+						url: song.Album.imageUrl,
+						alt: song.name,
+					},
+				],
 			},
 		}),
 	}

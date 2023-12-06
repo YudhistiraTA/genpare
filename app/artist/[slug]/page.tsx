@@ -40,7 +40,7 @@ export default async function Page({
 				{capitalizeAll(artist.name)}
 			</h1>
 			<section className="flex flex-col items-center justify-between px-2 lg:px-24">
-				<div className="lg:flex grid lg:gap-8 gap-4 my-4">
+				<div className="grid lg:grid-cols-2 lg:gap-8 gap-4 my-4">
 					{albums.map((album) => (
 						<InteractiveCard
 							slug={album.slug}
@@ -68,7 +68,7 @@ export default async function Page({
 													rolesString = roles[0]
 												}
 												return (
-													<li key={`list_${item.id}`}>
+													<li key={`list_${item.id}`} className='-ml-2'>
 														<Link
 															href={`/song/${item.slug}`}
 															className="flex flex-col self-start w-full hover:bg-primary hover:bg-opacity-20"

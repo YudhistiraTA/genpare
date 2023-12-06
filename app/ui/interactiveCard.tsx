@@ -16,7 +16,7 @@ export function InteractiveCard({
 	return (
 		<div className="card glass bg-opacity-60 lg:card-side bg-white shadow-xl">
 			<figure>
-				<Link href={`/album/${slug}`}>
+				<Link href={`/album/${slug}`} className='min-w-max'>
 					<Image
 						src={imageUrl}
 						alt={`Image of ${title}`}

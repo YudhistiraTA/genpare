@@ -69,6 +69,7 @@ enum Language {
   english
   french
   spanish
+  korean
 }
 
 model Lyrics {

@@ -6,6 +6,7 @@ import { openSans } from '@/app/ui/fonts'
 import styles from '@/app/ui/bg.module.css'
 
 export const metadata: Metadata = {
+	metadataBase: new URL('https://www.gengo-parade.com/'),
 	title: {
 		template: '%s | Genpare Translation',
 		default: 'Genpare Translation',
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
 		description: 'Gengo Parade Translation Homepage',
 		images: [
 			{
-				url: '/logo.webp',
+				url: 'https://www.gengo-parade.com/logo.webp',
 				alt: 'Genpare Translation',
 			},
 		],

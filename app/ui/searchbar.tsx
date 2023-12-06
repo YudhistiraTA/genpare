@@ -6,8 +6,8 @@ import { forwardRef } from 'react'
 
 const Searchbar = forwardRef<
 	HTMLFormElement,
-	{ placeholder: string; className?: string; onSubmit: () => void }
->(({ placeholder, className, onSubmit }, ref) => {
+	{ placeholder: string; className?: string; onSubmit: () => void, id: string }
+>(({ placeholder, className, onSubmit, id }, ref) => {
 	const searchParams = useSearchParams()
 	const { replace } = useRouter()
 	const query = searchParams.get('query')
@@ -15,8 +15,8 @@ const Searchbar = forwardRef<
 		e.preventDefault()
 		const params = new URLSearchParams(searchParams)
 		params.delete('page')
-		if (e.currentTarget.searchbar.value) {
-			params.set('query', e.currentTarget.searchbar.value)
+		if (e.currentTarget[id].value) {
+			params.set('query', e.currentTarget[id].value)
 		} else {
 			params.delete('query')
 		}
@@ -30,7 +30,7 @@ const Searchbar = forwardRef<
 			</label>
 			<form onSubmit={search} ref={ref}>
 				<input
-					id="searchbar"
+					id={id}
 					className="input input-bordered input-secondary w-full shadow"
 					placeholder={placeholder}
 					defaultValue={query?.toString()}

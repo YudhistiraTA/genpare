@@ -16,7 +16,7 @@ export function Header() {
 	useEffect(() => {
 		if (isRoot) setDisplaySearch(false)
 	}, [isRoot])
-	const clickEvent = (ref: typeof searchRef) => {
+	const clickEvent = (ref: typeof searchRef, mobile: boolean = false) => {
 		if (isRoot && ref.current) {
 			ref.current.dispatchEvent(
 				new Event('submit', { cancelable: true, bubbles: true }),
@@ -29,11 +29,13 @@ export function Header() {
 			} else setDisplaySearch(false)
 		} else {
 			setDisplaySearch(true)
-			document.getElementById('searchbar')?.focus()
+			document
+				.getElementById(mobile ? 'searchbar-mobile' : 'searchbar')
+				?.focus()
 		}
 	}
 	const handleClick = () => clickEvent(searchRef)
-	const handleMobileClick = () => clickEvent(mobileSearchRef)
+	const handleMobileClick = () => clickEvent(mobileSearchRef, true)
 	return (
 		<>
 			<div className="navbar mt-4 lg:px-6 min-h-max">
@@ -66,11 +68,12 @@ export function Header() {
 							ref={searchRef}
 							placeholder="Search..."
 							className="lg:mr-4 lg:block hidden"
+							id='searchbar'
 						/>
 					)}
 					<button
-						id='search-button'
-						title='Search'
+						id="search-button"
+						title="Search"
 						className="btn btn-ghost btn-circle lg:flex hidden"
 						onClick={handleClick}
 					>
@@ -90,8 +93,8 @@ export function Header() {
 						</svg>
 					</button>
 					<button
-						id='search-button-mobile'
-						title='Search'
+						id="search-button-mobile"
+						title="Search"
 						className="btn btn-ghost btn-circle lg:hidden flex"
 						onClick={handleMobileClick}
 					>
@@ -118,6 +121,7 @@ export function Header() {
 					ref={mobileSearchRef}
 					placeholder="Search..."
 					className="lg:mr-4 lg:hidden block self-center"
+					id='searchbar-mobile'
 				/>
 			)}
 		</>

@@ -18,9 +18,7 @@ export function SongDetail({
 				className,
 			)}
 		>
-			<figure className="mt-4">
-				<YouTubePlayer width="320" height="185" videoId={song.youtubeId} />
-			</figure>
+			<YouTubePlayer videoId={song.youtubeId} title={song.name} />
 			<div className="card-body">
 				<h2 className="card-title">{song.name}</h2>
 				<div className="flex w-fit">

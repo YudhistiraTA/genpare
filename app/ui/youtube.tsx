@@ -1,21 +1,20 @@
 'use client'
-import YouTube from 'react-youtube'
+import LiteYouTubeEmbed from 'react-lite-youtube-embed'
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 const YouTubePlayer = ({
 	videoId,
-	className,
-	height = '390',
-	width = '640',
+	title,
 }: {
 	videoId: string
-	className?: string
-	width?: string
-	height?: string
+	title: string
 }) => {
-	const opts = {
-		height,
-		width,
-	}
-	return <YouTube opts={opts} iframeClassName={className} videoId={videoId} />
+	return (
+		<LiteYouTubeEmbed
+			id={videoId}
+			title={title}
+			webp
+		/>
+	)
 }
 
 export default YouTubePlayer

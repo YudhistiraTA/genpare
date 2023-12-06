@@ -1,8 +1,68 @@
 import { getAlbumBySlug } from '@/app/lib/api/album'
+import { capitalize } from '@/app/lib/capitalize'
+import { joinWithAnd } from '@/app/lib/joinWithAnd'
 import { languageCode } from '@/app/lib/languageCode'
 import { Actor } from '@prisma/client'
+import { Metadata, ResolvingMetadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+
+export async function generateMetadata(
+	{ params: { slug } }: { params: { slug: string } },
+	parent: ResolvingMetadata,
+): Promise<Metadata> {
+	const album = await getAlbumBySlug(slug)
+	const prevMeta = await parent
+	const composers = album.Song.flatMap((song) =>
+		song.Composer.map((composer) => composer.name),
+	)
+	const vocalists = album.Song.flatMap((song) =>
+		song.Vocals.map((vocal) => vocal.name),
+	)
+	const lyricists = album.Song.flatMap((song) =>
+		song.Lyrics.filter((lyric) => lyric.language === 'japanese').map(
+			(lyric) => lyric.createdBy.name,
+		),
+	)
+	const translations = album.Song.flatMap((song) =>
+		song.Lyrics.filter(
+			(lyric) => lyric.language !== 'romaji' && lyric.language !== 'japanese',
+		).map((lyric) => capitalize(lyric.language)),
+	)
+	const translators = album.Song.flatMap((song) =>
+		song.Lyrics.filter(
+			(lyric) => lyric.language !== 'japanese' && lyric.language !== 'romaji',
+		).map((lyric) => lyric.createdBy.name),
+	)
+	return {
+		title: album.name,
+		description: `${album.name} album by the circle ${
+			album.Circle.name
+		} released on ${album.releaseYear} composed by ${joinWithAnd(
+			composers,
+		)}with ${joinWithAnd(vocalists)} as vocalists and ${joinWithAnd(
+			lyricists,
+		)} as lyricists translated into ${joinWithAnd(
+			translations,
+		)} by ${joinWithAnd(translators)}`,
+		keywords: [
+			...(prevMeta.keywords ?? []),
+			'Album',
+			album.name,
+			album.Circle.name,
+			album.releaseYear.toString(),
+			...composers,
+			...vocalists,
+			...lyricists,
+			...translations,
+			...translators,
+			...album.Song.flatMap((song) => song.name),
+		],
+		alternates: {
+			canonical: `https://www.gengo-parade.com/album/${album.slug}`,
+		},
+	}
+}
 
 export default async function Page({
 	params: { slug },

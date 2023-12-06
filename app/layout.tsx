@@ -6,8 +6,17 @@ import { openSans } from '@/app/ui/fonts'
 import styles from '@/app/ui/bg.module.css'
 
 export const metadata: Metadata = {
-	title: 'Gengo Parade',
-	description: 'Genpare Translation',
+	title: {
+		template: '%s | Genpare Translation',
+		default: 'Genpare Translation',
+	},
+	description: 'Genpare Translation Group Homepage also known as Gengo Parade',
+	generator: 'Next.js',
+	applicationName: 'Genpare Translation',
+	alternates: { canonical: 'https://www.gengo-parade.com/' },
+	referrer: 'origin-when-cross-origin',
+	creator: 'Genpare Translation',
+	keywords: ['Genpare', 'Translation', 'Gengo Parade', 'Doujin', 'Japanese'],
 }
 
 export default function RootLayout({

@@ -14,7 +14,7 @@ export async function generateMetadata(
 	const prevMeta = await parent
 	return {
 		title: circle.name,
-		description: `Discography involving ${circle.name}`,
+		description: `Discography with ${circle.name} as circle`,
 		keywords: [...(prevMeta.keywords ?? []), 'Circle', circle.name],
 		alternates: {
 			canonical: `https://www.gengo-parade.com/circle/${circle.slug}`,

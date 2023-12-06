@@ -26,17 +26,7 @@ export async function generateMetadata({
 	).map((lyric) => lyric.createdBy.name)
 	return {
 		title: song.name,
-		description: `Lyrics for ${song.name} from the album ${
-			song.Album.name
-		} by the circle ${song.Album.Circle.name} released on ${
-			song.Album.releaseYear
-		} composed by ${joinWithAnd(composer)}with ${joinWithAnd(
-			vocalists,
-		)} as vocalists and ${joinWithAnd(
-			lyricists,
-		)}as lyricists translated to ${joinWithAnd(translations)} by ${joinWithAnd(
-			translators,
-		)}`,
+		description: `Lyrics and translations for ${song.name} from the album ${song.Album.name}`,
 		keywords: [
 			'Genpare',
 			'Translation',

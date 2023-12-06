@@ -36,15 +36,7 @@ export async function generateMetadata(
 	)
 	return {
 		title: album.name,
-		description: `${album.name} album by the circle ${
-			album.Circle.name
-		} released on ${album.releaseYear} composed by ${joinWithAnd(
-			composers,
-		)}with ${joinWithAnd(vocalists)} as vocalists and ${joinWithAnd(
-			lyricists,
-		)} as lyricists translated into ${joinWithAnd(
-			translations,
-		)} by ${joinWithAnd(translators)}`,
+		description: `${album.name} (${album.releaseYear}) album by ${album.Circle.name}`,
 		keywords: [
 			...(prevMeta.keywords ?? []),
 			'Album',

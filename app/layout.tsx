@@ -10,8 +10,22 @@ export const metadata: Metadata = {
 		template: '%s | Genpare Translation',
 		default: 'Genpare Translation',
 	},
-	description: 'Genpare Translation Group Homepage also known as Gengo Parade',
+	description: 'Gengo Parade Translation Homepage',
 	generator: 'Next.js',
+	openGraph: {
+		type: 'website',
+		locale: 'en_US',
+		url: 'https://www.gengo-parade.com/',
+		siteName: 'Genpare Translation',
+		description: 'Gengo Parade Translation Homepage',
+		images: [
+			{
+				url: '/logo.webp',
+				alt: 'Genpare Translation',
+			},
+		],
+		title: 'Genpare Translation',
+	},
 	applicationName: 'Genpare Translation',
 	alternates: { canonical: 'https://www.gengo-parade.com/' },
 	referrer: 'origin-when-cross-origin',

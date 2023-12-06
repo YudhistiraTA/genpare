@@ -1,11 +1,10 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
-import { joinWithAnd } from '@/app/lib/joinWithAnd'
 import { AlbumDetail } from '@/app/ui/song/albumDetail'
 import { LanguageSelect } from '@/app/ui/song/languageSelect'
 import { Lyrics } from '@/app/ui/song/lyrics'
 import { SongDetail } from '@/app/ui/song/songDetail'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 
 export async function generateMetadata({
 	params: { slug },

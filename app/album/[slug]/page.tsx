@@ -1,6 +1,5 @@
 import { getAlbumBySlug } from '@/app/lib/api/album'
 import { capitalize } from '@/app/lib/capitalize'
-import { joinWithAnd } from '@/app/lib/joinWithAnd'
 import { languageCode } from '@/app/lib/languageCode'
 import { Actor } from '@prisma/client'
 import { Metadata, ResolvingMetadata } from 'next'

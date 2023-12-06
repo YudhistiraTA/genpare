@@ -66,7 +66,6 @@ export const getArtist = unstable_cache(
 			)
 				notFound()
 			else {
-				console.log(error)
 				throw new Error('Unknown Error')
 			}
 		}
@@ -95,7 +94,6 @@ export const getCircle = unstable_cache(
 			)
 				notFound()
 			else {
-				console.log(error)
 				throw new Error('Unknown Error')
 			}
 		}
@@ -153,7 +151,6 @@ export const getTranslator = unstable_cache(
 			)
 				notFound()
 			else {
-				console.log(error)
 				throw new Error('Unknown Error')
 			}
 		}

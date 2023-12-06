@@ -70,27 +70,40 @@ export default async function Page({
 }) {
 	const album = await getAlbumBySlug(slug)
 
-	const uniqueComposers: Set<Actor> = new Set()
+	const uniqueComposersMap: Map<string, Actor> = new Map()
 	album.Song.forEach((song) =>
-		song.Composer.forEach((composer) => uniqueComposers.add(composer)),
+		song.Composer.forEach((composer) => {
+			const key = JSON.stringify(composer)
+			if (!uniqueComposersMap.has(key)) {
+				uniqueComposersMap.set(key, composer)
+			}
+		}),
 	)
-	const uniqueComposersArray = Array.from(uniqueComposers)
+	const uniqueComposersArray = Array.from(uniqueComposersMap.values())
 
-	const uniqueVocalists: Set<Actor> = new Set()
+	const uniqueVocalistsMap: Map<string, Actor> = new Map()
 	album.Song.forEach((song) =>
-		song.Vocals.forEach((vocal) => uniqueVocalists.add(vocal)),
+		song.Vocals.forEach((vocal) => {
+			const key = JSON.stringify(vocal)
+			if (!uniqueVocalistsMap.has(key)) {
+				uniqueVocalistsMap.set(key, vocal)
+			}
+		}),
 	)
-	const uniqueVocalistsArray = Array.from(uniqueVocalists)
+	const uniqueVocalistsArray = Array.from(uniqueVocalistsMap.values())
 
-	const uniqueLyricists: Set<Actor> = new Set()
+	const uniqueLyricistsMap: Map<string, Actor> = new Map()
 	album.Song.forEach((song) =>
 		song.Lyrics.filter((lyric) => lyric.language === 'japanese').forEach(
 			(lyric) => {
-				uniqueLyricists.add(lyric.createdBy)
+				const key = JSON.stringify(lyric.createdBy)
+				if (!uniqueLyricistsMap.has(key)) {
+					uniqueLyricistsMap.set(key, lyric.createdBy)
+				}
 			},
 		),
 	)
-	const uniqueLyricistsArray = Array.from(uniqueLyricists)
+	const uniqueLyricistsArray = Array.from(uniqueLyricistsMap.values())
 
 	return (
 		<div className="hero">

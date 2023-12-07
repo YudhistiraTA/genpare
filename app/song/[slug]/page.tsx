@@ -75,16 +75,16 @@ export default async function Page({
 	const song = await getSongBySlug(slug)
 	const languages = song.Lyrics.map((lyric) => capitalize(lyric.language))
 	return (
-		<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1 relative">
+		<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1">
 			<section id="mobile-detail" className="lg:hidden">
-				<div className="lg:hidden glass collapse shadow collapse-arrow mb-4">
+				<div className="glass collapse shadow collapse-arrow mb-4">
 					<input type="checkbox" />
 					<div className="collapse-title text-xl font-medium">Song Detail</div>
 					<div className="collapse-content">
 						<SongDetail song={song} main={main} sub={sub} options={languages} />
 					</div>
 				</div>
-				<div className="lg:hidden glass collapse shadow collapse-arrow">
+				<div className="glass collapse shadow collapse-arrow">
 					<input type="checkbox" />
 					<div className="collapse-title text-xl font-medium">Album Detail</div>
 					<div className="collapse-content">

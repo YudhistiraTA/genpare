@@ -4,7 +4,7 @@ export function SongDetailSkeleton({ className }: { className?: string }) {
 	return (
 		<div
 			className={clsx(
-				'card glass lg:fixed lg:top-28 md:w-72 lg:left-28 lg:w-96 lg:shadow-xl',
+				'card glass lg:shadow-xl',
 				className,
 			)}
 		>

@@ -3,27 +3,26 @@ import { SongDetailSkeleton } from '@/app/ui/song/songDetailSkeleton'
 
 export default function Loading() {
 	return (
-		<section className="grid lg:grid-cols-3 grid-cols-1">
-			<div className="lg:hidden glass collapse shadow collapse-arrow mb-4">
-				<input type="checkbox" />
-				<div className="collapse-title text-xl font-medium">Song Detail</div>
-				<div className="collapse-content">
-					<SongDetailSkeleton />
+		<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1">
+			<section id="mobile-detail" className="lg:hidden">
+				<div className="glass collapse shadow collapse-arrow mb-4">
+					<input type="checkbox" />
+					<div className="collapse-title text-xl font-medium">Song Detail</div>
+					<div className="collapse-content">
+						<SongDetailSkeleton />
+					</div>
 				</div>
-			</div>
-			<div className="lg:hidden glass collapse shadow collapse-arrow">
-				<input type="checkbox" />
-				<div className="collapse-title text-xl font-medium">Album Detail</div>
-				<div className="collapse-content">
-					<AlbumDetailSkeleton />
+				<div className="glass collapse shadow collapse-arrow">
+					<input type="checkbox" />
+					<div className="collapse-title text-xl font-medium">Album Detail</div>
+					<div className="collapse-content">
+						<AlbumDetailSkeleton />
+					</div>
 				</div>
-			</div>
-			<SongDetailSkeleton className="lg:block hidden" />
-			<AlbumDetailSkeleton className="lg:block hidden" />
-			<div></div>
+			</section>
 			<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4">
 				<div className="card-body whitespace-pre-wrap">
-					<section className='lg:flex lg:flex-row lg:justify-between grid'>
+					<section className="lg:flex lg:flex-row lg:justify-between grid">
 						<div className="mt-4">
 							<div className="skeleton w-72 h-10"></div>
 						</div>
@@ -43,7 +42,12 @@ export default function Loading() {
 					})}
 				</div>
 			</article>
-			<div> </div>
+			<div id="desktop-detail" className="lg:flex lg:flex-col hidden gap-4">
+				<AlbumDetailSkeleton />
+				<div className="sticky top-6">
+					<SongDetailSkeleton />
+				</div>
+			</div>
 		</section>
 	)
 }

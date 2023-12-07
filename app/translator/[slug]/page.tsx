@@ -39,58 +39,56 @@ export default async function Page({
 			<h1 className="font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] tracking-tight text-3xl px-6 py-2 rounded-xl">
 				{capitalizeAll(translator.name)}
 			</h1>
-			<section className="flex flex-col items-center justify-between px-2 lg:px-24">
-				<div className="lg:flex grid lg:gap-8 gap-4 my-4">
-					{albums.map((album) => (
-						<InteractiveCard
-							slug={album.slug}
-							key={album.id}
-							imageUrl={album.imageUrl}
-							title={album.name}
-							body={
-								<ul className="menu -ml-6 -mt-2">
-									<li>
-										<h2 className="menu-title">Songs</h2>
-										<ul className="-mt-3">
-											{album.Song.map((item) => {
-												let roles = item.Lyrics.map((lyric) => lyric.language)
+			<div className="lg:grid-cols-2 grid lg:gap-8 gap-4 my-4">
+				{albums.map((album) => (
+					<InteractiveCard
+						slug={album.slug}
+						key={album.id}
+						imageUrl={album.imageUrl}
+						title={album.name}
+						body={
+							<ul className="menu -ml-6 -mt-2">
+								<li>
+									<h2 className="menu-title">Songs</h2>
+									<ul className="-mt-3">
+										{album.Song.map((item) => {
+											let roles = item.Lyrics.map((lyric) => lyric.language)
 
-												let rolesString = ''
-												if (roles.length > 1) {
-													rolesString =
-														roles.slice(0, -1).join(', ') +
-														' and ' +
-														roles.slice(-1) +
-														' translator'
-												} else if (roles.length === 1) {
-													rolesString = roles[0] + ' translator'
-												}
-												return (
-													<li key={`list_${item.id}`}>
-														<Link
-															href={`/song/${item.slug}`}
-															className="flex flex-col self-start w-full hover:bg-primary hover:bg-opacity-20"
-														>
-															<p className="self-start">
-																{item.trackNo}
-																{'. '}
-																{item.name}
-															</p>
-															<p className="pl-6 text-sm -mt-2 text-slate-400 self-start">
-																{rolesString.length > 0 && `As ${rolesString}`}
-															</p>
-														</Link>
-													</li>
-												)
-											})}
-										</ul>
-									</li>
-								</ul>
-							}
-						/>
-					))}
-				</div>
-			</section>
+											let rolesString = ''
+											if (roles.length > 1) {
+												rolesString =
+													roles.slice(0, -1).join(', ') +
+													' and ' +
+													roles.slice(-1) +
+													' translator'
+											} else if (roles.length === 1) {
+												rolesString = roles[0] + ' translator'
+											}
+											return (
+												<li key={`list_${item.id}`}>
+													<Link
+														href={`/song/${item.slug}`}
+														className="flex flex-col self-start w-full hover:bg-primary hover:bg-opacity-20"
+													>
+														<p className="self-start">
+															{item.trackNo}
+															{'. '}
+															{item.name}
+														</p>
+														<p className="pl-6 text-sm -mt-2 text-slate-400 self-start">
+															{rolesString.length > 0 && `As ${rolesString}`}
+														</p>
+													</Link>
+												</li>
+											)
+										})}
+									</ul>
+								</li>
+							</ul>
+						}
+					/>
+				))}
+			</div>
 		</main>
 	)
 }

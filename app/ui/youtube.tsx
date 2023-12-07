@@ -9,11 +9,9 @@ const YouTubePlayer = ({
 	title: string
 }) => {
 	return (
-		<LiteYouTubeEmbed
-			id={videoId}
-			title={title}
-			webp
-		/>
+		<div className='pt-4 px-4'>
+			<LiteYouTubeEmbed id={videoId} title={title} webp />
+		</div>
 	)
 }
 

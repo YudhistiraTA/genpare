@@ -1,7 +1,7 @@
 'use client'
 import clsx from 'clsx'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 export function LanguageSelect({
 	main,
@@ -26,14 +26,22 @@ export function LanguageSelect({
 	) => {
 		const params = new URLSearchParams(searchParams)
 		params.set(type, e.target.value)
+		sessionStorage.setItem('scroll', window.scrollY.toString())
 		replace(`${pathname}?${params.toString()}`)
 	}
 	const handleSwap = () => {
 		const params = new URLSearchParams(searchParams)
 		params.set('main', selectedSub)
 		params.set('sub', selectedMain)
+		sessionStorage.setItem('scroll', window.scrollY.toString())
 		replace(`${pathname}?${params.toString()}`)
 	}
+	useEffect(() => {
+		if (sessionStorage && sessionStorage.getItem('scroll')) {
+			window.scrollTo(0, Number(sessionStorage.getItem('scroll')))
+			sessionStorage.removeItem('scroll')
+		}
+	})
 	return (
 		<section
 			className={clsx(

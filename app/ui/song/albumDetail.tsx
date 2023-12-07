@@ -16,7 +16,7 @@ export function AlbumDetail({
 	return (
 		<div
 			className={clsx(
-				'card glass lg:fixed lg:top-28 md:w-72 lg:right-28 lg:w-96 lg:shadow-xl',
+				'card glass lg:shadow-xl',
 				className,
 			)}
 		>
@@ -31,7 +31,7 @@ export function AlbumDetail({
 					/>
 				</Link>
 			</figure>
-			<div className="card-body">
+			<div className="card-body -mt-4">
 				<Link href={`/album/${song.Album.slug}`}>
 					<h2 className="card-title">
 						{song.Album.name} ({song.Album.releaseYear})

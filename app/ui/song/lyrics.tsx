@@ -7,9 +7,9 @@ export function Lyrics({ main, sub }: { main?: string; sub?: string }) {
 		return (
 			<ruby
 				key={`lyrics line ${index}`}
-				className="lg:text-xl flex flex-wrap flex-col hover:bg-accent hover:bg-opacity-60 rounded-2xl px-1 transition-colors whitespace-pre-wrap"
+				className="lg:text-xl text-left flex flex-wrap flex-col hover:bg-accent hover:bg-opacity-60 rounded-2xl px-1 transition-colors whitespace-pre-wrap"
 			>
-				<rt className="text-xs whitespace-pre-wrap lg:text-sm opacity-70">{subArray[index]}</rt>
+				<rt className="text-xs text-left whitespace-pre-wrap lg:text-sm opacity-70">{subArray[index]}</rt>
 				{line}
 			</ruby>
 		)

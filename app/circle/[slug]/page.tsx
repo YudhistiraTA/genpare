@@ -41,32 +41,30 @@ export default async function Page({
 			<h1 className="font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] tracking-tight text-3xl px-6 py-2 rounded-xl">
 				{capitalizeAll(circle.name)}
 			</h1>
-			<section className="flex flex-col items-center justify-between px-2 lg:px-24">
-				<div className="lg:flex grid lg:gap-8 gap-4 my-4">
+			<section className="flex flex-col items-center justify-between">
+				<div className="lg:grid-cols-2 grid lg:gap-8 gap-4 my-4">
 					<Suspense
 						fallback={
-							<section className="lg:flex grid lg:gap-8 gap-4 my-4 flex-wrap justify-center">
-								{[...Array(6)].map((_, i) => (
+							<>
+								{[...Array(4)].map((_, i) => (
 									<CardSkeleton key={`card skeleton ${i}`} />
 								))}
-							</section>
+							</>
 						}
 					>
-						<section className="lg:flex grid lg:gap-8 gap-4 my-4 justify-center">
-							{albums.map((album) => (
-								<Link
-									key={album.id}
-									href={`/album/${album.slug}`}
-									className="hover:scale-105 transition-transform"
-								>
-									<Card
-										imageUrl={album.imageUrl}
-										title={album.name}
-										body={album.releaseYear.toString()}
-									/>
-								</Link>
-							))}
-						</section>
+						{albums.map((album) => (
+							<Link
+								key={album.id}
+								href={`/album/${album.slug}`}
+								className="hover:scale-105 transition-transform"
+							>
+								<Card
+									imageUrl={album.imageUrl}
+									title={album.name}
+									body={album.releaseYear.toString()}
+								/>
+							</Link>
+						))}
 					</Suspense>
 				</div>
 			</section>

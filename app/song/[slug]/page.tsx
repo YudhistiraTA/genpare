@@ -75,24 +75,23 @@ export default async function Page({
 	const song = await getSongBySlug(slug)
 	const languages = song.Lyrics.map((lyric) => capitalize(lyric.language))
 	return (
-		<section className="grid lg:grid-cols-3 grid-cols-1">
-			<div className="lg:hidden glass collapse shadow collapse-arrow mb-4">
-				<input type="checkbox" />
-				<div className="collapse-title text-xl font-medium">Song Detail</div>
-				<div className="collapse-content">
-					<SongDetail song={song} />
+		<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1">
+			<section id="mobile-detail" className="lg:hidden">
+				<div className="glass collapse shadow collapse-arrow mb-4">
+					<input type="checkbox" />
+					<div className="collapse-title text-xl font-medium">Song Detail</div>
+					<div className="collapse-content">
+						<SongDetail song={song} main={main} sub={sub} options={languages} />
+					</div>
 				</div>
-			</div>
-			<div className="lg:hidden glass collapse shadow collapse-arrow">
-				<input type="checkbox" />
-				<div className="collapse-title text-xl font-medium">Album Detail</div>
-				<div className="collapse-content">
-					<AlbumDetail slug={slug} song={song} />
+				<div className="glass collapse shadow collapse-arrow">
+					<input type="checkbox" />
+					<div className="collapse-title text-xl font-medium">Album Detail</div>
+					<div className="collapse-content">
+						<AlbumDetail slug={slug} song={song} />
+					</div>
 				</div>
-			</div>
-			<SongDetail song={song} className="lg:block hidden" />
-			<AlbumDetail slug={slug} song={song} className="lg:block hidden" />
-			<div></div>
+			</section>
 			<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4">
 				<div className="card-body whitespace-pre-wrap">
 					<LanguageSelect
@@ -119,7 +118,12 @@ export default async function Page({
 					/>
 				</div>
 			</article>
-			<div> </div>
+			<div id="desktop-detail" className="lg:flex lg:flex-col hidden gap-4">
+				<AlbumDetail slug={slug} song={song} />
+				<div className="sticky top-6">
+					<SongDetail song={song} main={main} sub={sub} options={languages} />
+				</div>
+			</div>
 		</section>
 	)
 }

@@ -1,5 +1,6 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
+import { LanguageSelect } from '@/app/ui/song/languageSelect'
 import YouTubePlayer from '@/app/ui/youtube'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -7,19 +8,20 @@ import Link from 'next/link'
 export function SongDetail({
 	song,
 	className,
+	main,
+	sub,
+	options,
 }: {
 	song: Awaited<ReturnType<typeof getSongBySlug>>
 	className?: string
+	main: string
+	sub: string
+	options: string[]
 }) {
 	return (
-		<div
-			className={clsx(
-				'card glass lg:fixed lg:top-28 md:w-72 lg:left-28 lg:w-96 lg:shadow-xl',
-				className,
-			)}
-		>
+		<div className={clsx('card glass lg:shadow-xl', className)}>
 			<YouTubePlayer videoId={song.youtubeId} title={song.name} />
-			<div className="card-body">
+			<div className="card-body -mt-4">
 				<h2 className="card-title">{song.name}</h2>
 				<div className="flex w-fit">
 					<p>Vocalist{song.Vocals.length > 1 && 's'}</p>
@@ -85,6 +87,12 @@ export function SongDetail({
 						</div>
 					),
 				)}
+				<LanguageSelect
+					className="mb-6"
+					options={options}
+					main={main}
+					sub={sub}
+				/>
 			</div>
 		</div>
 	)

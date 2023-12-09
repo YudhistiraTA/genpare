@@ -3,6 +3,7 @@ import { languageCode } from '@/app/lib/languageCode'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
+import styles from '@/app/ui/glass.module.css'
 
 export function AlbumDetail({
 	song,
@@ -16,7 +17,8 @@ export function AlbumDetail({
 	return (
 		<div
 			className={clsx(
-				'card glass lg:shadow-xl',
+				styles.customGlass,
+				'card lg:shadow-xl',
 				className,
 			)}
 		>

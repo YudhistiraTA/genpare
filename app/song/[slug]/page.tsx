@@ -1,5 +1,6 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
+import ScrollToTop from '@/app/ui/scrollToTop'
 import { AlbumDetail } from '@/app/ui/song/albumDetail'
 import { LanguageSelect } from '@/app/ui/song/languageSelect'
 import { Lyrics } from '@/app/ui/song/lyrics'
@@ -75,55 +76,67 @@ export default async function Page({
 	const song = await getSongBySlug(slug)
 	const languages = song.Lyrics.map((lyric) => capitalize(lyric.language))
 	return (
-		<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1">
-			<section id="mobile-detail" className="lg:hidden">
-				<div className="glass collapse shadow collapse-arrow mb-4">
-					<input type="checkbox" />
-					<div className="collapse-title text-xl font-medium">Song Detail</div>
-					<div className="collapse-content">
+		<div className="grid" style={{ gridTemplateColumns: 'auto 0px' }}>
+			<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1">
+				<section id="mobile-detail" className="lg:hidden">
+					<div className="glass collapse shadow collapse-arrow mb-4">
+						<input type="checkbox" />
+						<div className="collapse-title text-xl font-medium">
+							Song Detail
+						</div>
+						<div className="collapse-content">
+							<SongDetail
+								song={song}
+								main={main}
+								sub={sub}
+								options={languages}
+							/>
+						</div>
+					</div>
+					<div className="glass collapse shadow collapse-arrow">
+						<input type="checkbox" />
+						<div className="collapse-title text-xl font-medium">
+							Album Detail
+						</div>
+						<div className="collapse-content">
+							<AlbumDetail slug={slug} song={song} />
+						</div>
+					</div>
+				</section>
+				<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4">
+					<div className="card-body whitespace-pre-wrap">
+						<LanguageSelect
+							className="mb-6"
+							options={languages}
+							main={main}
+							sub={sub}
+						/>
+						<Lyrics
+							main={
+								song.Lyrics.find(
+									(lyric) =>
+										lyric.language === (main?.toLowerCase() ?? 'japanese'),
+								)?.content
+							}
+							sub={
+								song.Lyrics.find(
+									(lyric) =>
+										lyric.language ===
+										(sub?.toLowerCase() ??
+											(languages.includes('English') ? 'english' : 'romaji')),
+								)?.content
+							}
+						/>
+					</div>
+				</article>
+				<div id="desktop-detail" className="lg:flex lg:flex-col hidden gap-4">
+					<AlbumDetail slug={slug} song={song} />
+					<div className="sticky top-6">
 						<SongDetail song={song} main={main} sub={sub} options={languages} />
 					</div>
 				</div>
-				<div className="glass collapse shadow collapse-arrow">
-					<input type="checkbox" />
-					<div className="collapse-title text-xl font-medium">Album Detail</div>
-					<div className="collapse-content">
-						<AlbumDetail slug={slug} song={song} />
-					</div>
-				</div>
 			</section>
-			<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4">
-				<div className="card-body whitespace-pre-wrap">
-					<LanguageSelect
-						className="mb-6"
-						options={languages}
-						main={main}
-						sub={sub}
-					/>
-					<Lyrics
-						main={
-							song.Lyrics.find(
-								(lyric) =>
-									lyric.language === (main?.toLowerCase() ?? 'japanese'),
-							)?.content
-						}
-						sub={
-							song.Lyrics.find(
-								(lyric) =>
-									lyric.language ===
-									(sub?.toLowerCase() ??
-										(languages.includes('English') ? 'english' : 'romaji')),
-							)?.content
-						}
-					/>
-				</div>
-			</article>
-			<div id="desktop-detail" className="lg:flex lg:flex-col hidden gap-4">
-				<AlbumDetail slug={slug} song={song} />
-				<div className="sticky top-6">
-					<SongDetail song={song} main={main} sub={sub} options={languages} />
-				</div>
-			</div>
-		</section>
+			<ScrollToTop className="w-16 h-16 mb-4 lg-mb-0 text-gray-400 sticky bottom-24 lg:bottom-5 right-4 place-self-end" />
+		</div>
 	)
 }

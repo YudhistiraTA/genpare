@@ -1,11 +1,12 @@
 import { LoginForm } from '@/app/ui/cms/LoginForm'
 import { Metadata } from 'next'
 export const metadata: Metadata = {
-	robots: {
-		follow: false,
-		index: false,
-	},
+	title: 'Login',
 }
 export default function Page() {
-	return <LoginForm />
+	return (
+		<div className="flex h-screen min-w-full justify-center items-center">
+			<LoginForm />
+		</div>
+	)
 }

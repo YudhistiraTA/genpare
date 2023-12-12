@@ -1,3 +1,4 @@
+'use server'
 import NextAuth, { User } from 'next-auth'
 import { authConfig } from './auth.config'
 import credentials from 'next-auth/providers/credentials'
@@ -15,7 +16,7 @@ export const { auth, signIn, signOut } = NextAuth({
 				if (parsedCredentials.success) {
 					const match = await compare(
 						parsedCredentials.data.key,
-						process.env.CMS_KEY as string,
+						'$2a$16$87tQBJseG7Iz6u871GvhWOr7b5u8qQWD9bkzdHe8F4wGtXkd9Lm8S',
 					)
 					if (match) return { id: 'hase' } as User
 				}

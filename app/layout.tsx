@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Header } from '@/app/ui/header'
-import { Footer } from '@/app/ui/footer'
-import { openSans } from '@/app/ui/fonts'
+import { Header } from '@/app/ui/main/header'
+import { Footer } from '@/app/ui/main/footer'
+import { openSans } from '@/app/ui/main/fonts'
 import styles from '@/app/ui/bg.module.css'
 
 export const metadata: Metadata = {
@@ -44,13 +44,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en" data-theme="pastel">
-			<body
-				className={`${openSans.className} ${styles.horizontalBg} antialiased flex flex-col min-h-screen`}
-			>
-				<Header />
-				<main className="flex flex-col grow py-4">{children}</main>
-				<Footer />
-			</body>
+			<body>{children}</body>
 		</html>
 	)
 }

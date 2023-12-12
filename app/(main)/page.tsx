@@ -1,5 +1,5 @@
-import { CardSkeleton } from '@/app/ui/cardSkeleton'
-import { MainPageCardWrapper } from '@/app/ui/mainPageCardWrapper'
+import { CardSkeleton } from '@/app/ui/main/cardSkeleton'
+import { MainPageCardWrapper } from '@/app/ui/main/mainPageCardWrapper'
 
 import { Suspense } from 'react'
 

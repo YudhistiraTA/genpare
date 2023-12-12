@@ -1,4 +1,4 @@
-import styles from '@/app/ui/bg.module.css'
+import styles from '@/app/ui/main/bg.module.css'
 import Link from 'next/link'
 export function Footer() {
 	return (

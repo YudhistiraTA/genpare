@@ -1,7 +1,7 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
-import { LanguageSelect } from '@/app/ui/song/languageSelect'
-import YouTubePlayer from '@/app/ui/youtube'
+import { LanguageSelect } from '@/app/ui/main/song/languageSelect'
+import YouTubePlayer from '@/app/ui/main/youtube'
 import clsx from 'clsx'
 import Link from 'next/link'
 

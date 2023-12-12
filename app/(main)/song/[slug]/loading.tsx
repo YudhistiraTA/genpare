@@ -1,5 +1,5 @@
-import { AlbumDetailSkeleton } from '@/app/ui/song/albumDetailSkeleton'
-import { SongDetailSkeleton } from '@/app/ui/song/songDetailSkeleton'
+import { AlbumDetailSkeleton } from '@/app/ui/main/song/albumDetailSkeleton'
+import { SongDetailSkeleton } from '@/app/ui/main/song/songDetailSkeleton'
 
 export default function Loading() {
 	return (

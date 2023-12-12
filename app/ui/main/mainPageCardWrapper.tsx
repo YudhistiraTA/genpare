@@ -1,5 +1,5 @@
 import { getAlbum } from '@/app/lib/api/album'
-import { Card } from '@/app/ui/card'
+import { Card } from '@/app/ui/main/card'
 import Link from 'next/link'
 
 export async function MainPageCardWrapper({ query }: { query: string }) {

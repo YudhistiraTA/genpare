@@ -1,10 +1,10 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
-import ScrollToTop from '@/app/ui/scrollToTop'
-import { AlbumDetail } from '@/app/ui/song/albumDetail'
-import { LanguageSelect } from '@/app/ui/song/languageSelect'
-import { Lyrics } from '@/app/ui/song/lyrics'
-import { SongDetail } from '@/app/ui/song/songDetail'
+import ScrollToTop from '@/app/ui/main/scrollToTop'
+import { AlbumDetail } from '@/app/ui/main/song/albumDetail'
+import { LanguageSelect } from '@/app/ui/main/song/languageSelect'
+import { Lyrics } from '@/app/ui/main/song/lyrics'
+import { SongDetail } from '@/app/ui/main/song/songDetail'
 import { Metadata, ResolvingMetadata } from 'next'
 
 export async function generateMetadata(

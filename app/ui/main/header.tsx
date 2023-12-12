@@ -1,7 +1,7 @@
 'use client'
 
-import { cherryBomb } from '@/app/ui/fonts'
-import Searchbar from '@/app/ui/searchbar'
+import { cherryBomb } from '@/app/ui/main/fonts'
+import Searchbar from '@/app/ui/main/searchbar'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'

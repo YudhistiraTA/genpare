@@ -1,6 +1,6 @@
 import { getArtist } from '@/app/lib/api/actors'
 import { capitalizeAll } from '@/app/lib/capitalizeAll'
-import { InteractiveCard } from '@/app/ui/interactiveCard'
+import { InteractiveCard } from '@/app/ui/main/interactiveCard'
 import { Metadata, ResolvingMetadata } from 'next'
 import Link from 'next/link'
 

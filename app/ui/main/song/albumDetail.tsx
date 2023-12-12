@@ -3,7 +3,7 @@ import { languageCode } from '@/app/lib/languageCode'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '@/app/ui/glass.module.css'
+import styles from '@/app/ui/main/glass.module.css'
 
 export function AlbumDetail({
 	song,

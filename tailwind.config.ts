@@ -25,6 +25,7 @@ const config: Config = {
 					'base-100': '#f0f7ff',
 				},
 			},
+			'dark'
 		],
 	},
 }

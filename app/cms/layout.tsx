@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 	},
 }
 export default function Layout({ children }: { children: React.ReactNode }) {
-	return <main className='bg-black'>{children}</main>
+	return <main data-theme={'dark'}>{children}</main>
 }

@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 }
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
-		<div className="drawer lg:drawer-open">
+		<div className="drawer lg:drawer-open lg:overflow-visible overflow-auto min-h-screen">
 			<input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-			<div className="drawer-content flex flex-col">
+			<div className="drawer-content flex flex-col overflow-y-clip">
 				<MobileNavbar />
-				<div id='cms-content' className="min-h-screen">{children}</div>
+				<div id='cms-content' style={{maxWidth: '100vw'}}>{children}</div>
 			</div>
 			<Sidebar />
 		</div>

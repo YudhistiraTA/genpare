@@ -8,7 +8,7 @@ export function Breadcrumb() {
 	const path = usePathname()
 	const crumbs = path.split('/').filter((crumb) => crumb)
 	return (
-		<div className="text-sm breadcrumbs">
+		<div className="breadcrumbs">
 			<ul>
 				{crumbs.map((crumb) => (
 					<li key={`breadcrumb ${crumb}`}>

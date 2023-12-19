@@ -1,8 +1,15 @@
 import prisma from '@/prisma/config'
+import { unstable_cache } from 'next/cache'
 
-export async function fetchCountStats() {
-  const [result]: { album: bigint; song: bigint; actor: bigint; translator: bigint; circle: bigint }[] =
-    await prisma.$queryRaw`
+export const fetchCountStats = unstable_cache(
+	async () => {
+		const [result]: {
+			album: bigint
+			song: bigint
+			actor: bigint
+			translator: bigint
+			circle: bigint
+		}[] = await prisma.$queryRaw`
       SELECT
         (SELECT COUNT(*) FROM "Album") as album,
         (SELECT COUNT(*) FROM "Song") as song,
@@ -10,5 +17,17 @@ export async function fetchCountStats() {
         (SELECT COUNT(*) FROM "Actor" WHERE "role" = 'translator') as translator,
         (SELECT COUNT(*) FROM "Actor" WHERE "role" = 'circle') as circle;
     `
-  return result
-}
+		return {
+			album: Number(result.album),
+			song: Number(result.song),
+			actor: Number(result.actor),
+			translator: Number(result.translator),
+			circle: Number(result.circle),
+		}
+	},
+	['album', 'song', 'artist', 'translator', 'circle'],
+	{
+		tags: ['album', 'song', 'artist', 'translator', 'circle'],
+		revalidate: 300,
+	},
+)

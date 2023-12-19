@@ -25,7 +25,7 @@ export function MobileNavbar() {
 						></path>
 					</svg>
 				</label>
-				<div className="flex justify-between items-center w-full">
+				<div className="flex justify-between items-center w-full pr-5">
 					<Link href="/cms">
 						<p className={comfortaa.className}>Gengo Parade CMS</p>
 					</Link>

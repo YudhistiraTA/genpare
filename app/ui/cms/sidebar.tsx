@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation'
 export function Sidebar() {
 	const path = usePathname()
 	return (
-		<div className="drawer-side">
+		<div className="drawer-side z-10">
 			<label
 				htmlFor="my-drawer-3"
 				aria-label="close sidebar"

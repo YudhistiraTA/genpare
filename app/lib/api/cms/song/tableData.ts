@@ -12,6 +12,8 @@ export const fetchTableData = unstable_cache(
 		untranslated?: Language
 		orderType?: 'albumName' | 'releaseYear' | 'latestEntry'
 	}) => {
+    // add a 5 seconds delay
+    await new Promise((resolve) => setTimeout(resolve, 5000))
 		const result = await prisma.song.findMany({
 			orderBy:
 				orderType === 'latestEntry'

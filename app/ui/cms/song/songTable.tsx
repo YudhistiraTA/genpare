@@ -21,8 +21,8 @@ export async function SongTable({
 					<td>Translations</td>
 					<td>Slug</td>
 					<td>Youtube ID</td>
-					<td>Track No.</td>
 					<td>Album</td>
+					<td>Track No.</td>
 					<th></th>
 				</tr>
 			</thead>
@@ -37,14 +37,15 @@ export async function SongTable({
 						</td>
 						<td>{song.slug}</td>
 						<td>{song.youtubeId}</td>
-						<td>
-							{song.trackNo}/{song.Album.totalTrack}
-						</td>
+
 						<td>
 							{song.Album.name} ({song.Album.releaseYear})
 						</td>
+						<td>
+							{song.trackNo}/{song.Album.totalTrack}
+						</td>
 
-						<th className="dropdown dropdown-left py-9">
+						<th className="dropdown dropdown-left py-9 lg:py-5">
 							<svg
 								fill="currentColor"
 								version="1.1"
@@ -65,7 +66,7 @@ export async function SongTable({
 							</svg>
 							<ul
 								tabIndex={0}
-								className="dropdown-content mt-5 z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border-2 border-[#343B45]"
+								className="dropdown-content lg:mt-0 mt-5 z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border-2 border-[#343B45]"
 							>
 								<li>
 									<Link href={`song/${song.slug}`}>

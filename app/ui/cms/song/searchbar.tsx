@@ -59,7 +59,7 @@ export function Searchbar() {
 				name="search"
 				type="text"
 				placeholder="Search..."
-				className="input input-bordered w-full"
+				className="input input-bordered grow"
 				value={inputValue}
 				aria-label="search"
 				onChange={(e) => {
@@ -72,18 +72,11 @@ export function Searchbar() {
 					<div
 						tabIndex={0}
 						role="button"
-						className="btn btn-neutral lg:flex hidden"
+						className="btn btn-neutral lg:w-32 w-30"
 					>
 						{untranslated
-							? `Untranslated ${capitalize(untranslated)}`
-							: 'Untranslated Filter'}
-					</div>
-					<div
-						tabIndex={0}
-						role="button"
-						className="btn btn-neutral flex lg:hidden"
-					>
-						{untranslated ? capitalize(untranslated) : 'Filter'}
+							? `No ${capitalize(untranslated)} Available`
+							: 'Filter'}
 					</div>
 					<ul
 						tabIndex={0}
@@ -99,13 +92,13 @@ export function Searchbar() {
 										'bg-[#343B45] rounded-lg': language === untranslated,
 									})}
 								>
-									<p>{language}</p>
+									<p>No {capitalize(language)} Available</p>
 								</li>
 							))}
 					</ul>
 				</div>
 				<div className="dropdown lg:dropdown-end">
-					<div tabIndex={0} role="button" className="btn btn-neutral">
+					<div tabIndex={0} role="button" className="btn btn-neutral lg:w-32 w-30">
 						{filterOptions.find(
 							({ value }) => value === searchParams.get('order'),
 						)?.label || filterOptions[0].label}
@@ -129,7 +122,7 @@ export function Searchbar() {
 					</ul>
 				</div>
 				<button
-					className="btn btn-neutral"
+					className="btn btn-neutral lg:w-32 w-30"
 					onClick={clearFilter}
 					disabled={!searchParams.size}
 				>

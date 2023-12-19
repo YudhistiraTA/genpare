@@ -1,29 +1,49 @@
 import prisma from '@/prisma/config'
-import { Language } from '@prisma/client'
+import { Language, Prisma } from '@prisma/client'
 import { unstable_cache } from 'next/cache'
+
+export const filterOptions = [
+	{ value: 'album-name-asc', label: 'Album Name (Ascending)' },
+	{ value: 'album-name-desc', label: 'Album Name (Descending)' },
+	{ value: 'release-year-asc', label: 'Release Year (Ascending)' },
+	{ value: 'release-year-desc', label: 'Release Year (Descending)' },
+	{ value: 'newest-entry', label: 'Latest Entry (Ascending)' },
+	{ value: 'oldest-entry', label: 'Latest Entry (Descending)' },
+] as const
+
+const getOrderBy = (
+	order: (typeof filterOptions)[number]['value'],
+): Prisma.SongOrderByWithRelationInput[] => {
+	switch (order) {
+		case 'album-name-asc':
+			return [{ Album: { name: 'asc' } }, { trackNo: 'asc' }]
+		case 'album-name-desc':
+			return [{ Album: { name: 'desc' } }, { trackNo: 'asc' }]
+		case 'release-year-asc':
+			return [{ Album: { releaseYear: 'asc' } }, { trackNo: 'asc' }]
+		case 'release-year-desc':
+			return [{ Album: { releaseYear: 'desc' } }, { trackNo: 'asc' }]
+		case 'newest-entry':
+			return [{ id: 'desc' }]
+		case 'oldest-entry':
+			return [{ id: 'asc' }]
+		default:
+			return []
+	}
+}
 
 export const fetchTableData = unstable_cache(
 	async ({
 		query,
 		untranslated,
-		orderType = 'albumName',
+		order = 'album-name-asc',
 	}: {
 		query?: string
 		untranslated?: Language
-		orderType?: 'albumName' | 'releaseYear' | 'latestEntry'
+		order?: (typeof filterOptions)[number]['value']
 	}) => {
-    // add a 5 seconds delay
-    await new Promise((resolve) => setTimeout(resolve, 5000))
 		const result = await prisma.song.findMany({
-			orderBy:
-				orderType === 'latestEntry'
-					? { id: 'desc' }
-					: [
-							orderType === 'albumName'
-								? { Album: { name: 'asc' } }
-								: { Album: { releaseYear: 'asc' } },
-							{ trackNo: 'asc' },
-					  ],
+			orderBy: getOrderBy(order),
 			select: {
 				id: true,
 				name: true,

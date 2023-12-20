@@ -3,12 +3,10 @@ import { Language, Prisma } from '@prisma/client'
 import { unstable_cache } from 'next/cache'
 
 export const filterOptions = [
-	{ value: 'album-name-asc', label: 'Album Name (Ascending)' },
-	{ value: 'album-name-desc', label: 'Album Name (Descending)' },
-	{ value: 'release-year-asc', label: 'Release Year (Ascending)' },
-	{ value: 'release-year-desc', label: 'Release Year (Descending)' },
-	{ value: 'newest-entry', label: 'Latest Entry (Ascending)' },
-	{ value: 'oldest-entry', label: 'Latest Entry (Descending)' },
+	{ value: 'album-name-asc', label: 'Album Name (A-Z)' },
+	{ value: 'album-name-desc', label: 'Album Name (Z-A)' },
+	{ value: 'release-year-desc', label: 'Release Year (Newest)' },
+	{ value: 'release-year-asc', label: 'Release Year (Oldest)' },
 ] as const
 
 const getOrderBy = (
@@ -23,10 +21,6 @@ const getOrderBy = (
 			return [{ Album: { releaseYear: 'asc' } }, { trackNo: 'asc' }]
 		case 'release-year-desc':
 			return [{ Album: { releaseYear: 'desc' } }, { trackNo: 'asc' }]
-		case 'newest-entry':
-			return [{ id: 'desc' }]
-		case 'oldest-entry':
-			return [{ id: 'asc' }]
 		default:
 			return []
 	}

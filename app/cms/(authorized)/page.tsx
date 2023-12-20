@@ -10,7 +10,7 @@ export default function Page() {
 		<div className="lg:pt-4 px-6">
 			<Breadcrumb />
 			<p className="text-2xl my-2">Genpare Dashboard</p>
-			<Suspense fallback={<StatsSkeleton numberOfStats={5} />}>
+			<Suspense fallback={<StatsSkeleton numberOfStats={6} />}>
 				<CountStats />
 			</Suspense>
 			<p className="text-2xl my-2">Translation Status</p>

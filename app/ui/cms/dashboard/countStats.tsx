@@ -9,9 +9,9 @@ export async function CountStats() {
 			{Object.entries(counts).map(([type, amount], index) => (
 				<Link
 					href={
-						type !== 'translator' && type !== 'circle'
+						type !== 'translator' && type !== 'circle' && type !== 'artist'
 							? `/cms/${type}`
-							: `/cms/actor?type=${type}`
+							: `/cms/actor?role=${type}`
 					}
 					className="stat hover:bg-[#343B45]"
 					key={`count-${index}`}

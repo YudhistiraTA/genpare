@@ -10,11 +10,15 @@ export function Breadcrumb() {
 	return (
 		<div className="breadcrumbs">
 			<ul>
-				{crumbs.map((crumb) => (
+				{crumbs.map((crumb, index, array) => (
 					<li key={`breadcrumb ${crumb}`}>
-						<Link href={'/cms' + (crumb === 'cms' ? '' : '/' + crumb)}>
-							{crumb === 'cms' ? 'Dashboard' : capitalize(crumb)}
-						</Link>
+						{index === array.length - 1 ? (
+							<p className='text-gray-500'>{crumb === 'cms' ? 'Dashboard' : capitalize(crumb)}</p>
+						) : (
+							<Link href={'/cms' + (crumb === 'cms' ? '' : '/' + crumb)}>
+								{crumb === 'cms' ? 'Dashboard' : capitalize(crumb)}
+							</Link>
+						)}
 					</li>
 				))}
 			</ul>

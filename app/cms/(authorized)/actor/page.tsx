@@ -25,7 +25,7 @@ export default function Page({
 			<div className="pt-4 flex flex-col sticky top-0 bg-base-100 z-[1] pb-4 gap-4">
 				<div className="flex grow justify-between">
 					<Breadcrumb />
-					<Link href="song/new">
+					<Link href="actor/new">
 						<button className="btn btn-primary">+ Add Song</button>
 					</Link>
 				</div>

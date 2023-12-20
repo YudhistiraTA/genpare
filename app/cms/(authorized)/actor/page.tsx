@@ -1,4 +1,4 @@
-import { filterOptions } from '@/app/lib/api/cms/actor/tableData'
+import { RoleOptions, filterOptions } from '@/app/lib/api/cms/actor/tableData'
 import { ActorTable } from '@/app/ui/cms/actor/actorTable'
 import { ActorTableSkeleton } from '@/app/ui/cms/actor/actorTableSkeleton'
 import { Searchbar } from '@/app/ui/cms/actor/searchbar'
@@ -16,7 +16,7 @@ export default function Page({
 }: {
 	searchParams: {
 		query: string
-		role: 'artist' | 'circle' | 'translator'
+		role: RoleOptions
 		order: (typeof filterOptions)[number]['value']
 	}
 }) {

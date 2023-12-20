@@ -7,7 +7,8 @@ export const filterOptions = [
 	{ value: 'actor-name-desc', label: 'Actor name (Z-A)' },
 ] as const
 
-export type RoleOptions = 'circle' | 'artist' | 'translator'
+export const roleOptions = ['circle', 'artist', 'translator'] as const
+export type RoleOptions = typeof roleOptions[number]
 
 const getOrderBy = (
 	order: (typeof filterOptions)[number]['value'],

@@ -1,6 +1,6 @@
 'use client'
 
-import { filterOptions } from '@/app/lib/api/cms/actor/tableData'
+import { filterOptions, roleOptions } from '@/app/lib/api/cms/actor/tableData'
 import { capitalize } from '@/app/lib/capitalize'
 import debounce from '@/app/lib/debounce'
 import clsx from 'clsx'
@@ -79,7 +79,7 @@ export function Searchbar() {
 						tabIndex={0}
 						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-[#343B45] mt-1"
 					>
-						{['artist', 'circle', 'translator'].map((roleOption) => (
+						{roleOptions.map((roleOption) => (
 							<li
 								key={`filter-${roleOption}`}
 								onClick={() => changeRole(roleOption)}

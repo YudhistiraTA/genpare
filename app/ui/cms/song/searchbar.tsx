@@ -2,7 +2,7 @@
 
 import { filterOptions } from '@/app/lib/api/cms/song/tableData'
 import { capitalize } from '@/app/lib/capitalize'
-import debounce from '@/app/lib/debounce'
+import {debounce} from '@/app/lib/debounce'
 import { Language } from '@prisma/client'
 import clsx from 'clsx'
 import { useRouter, useSearchParams } from 'next/navigation'

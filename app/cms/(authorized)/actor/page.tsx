@@ -26,7 +26,7 @@ export default function Page({
 				<div className="flex grow justify-between">
 					<Breadcrumb />
 					<Link href="actor/new">
-						<button className="btn btn-primary">+ Add Song</button>
+						<button className="btn btn-primary">+ Add Actor</button>
 					</Link>
 				</div>
 				<Searchbar />

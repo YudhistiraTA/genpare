@@ -1,5 +1,5 @@
 'use client'
-import debounce from '@/app/lib/debounce'
+import {debounce} from '@/app/lib/debounce'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 

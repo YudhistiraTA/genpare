@@ -2,7 +2,7 @@
 
 import { filterOptions, roleOptions } from '@/app/lib/api/cms/actor/tableData'
 import { capitalize } from '@/app/lib/capitalize'
-import debounce from '@/app/lib/debounce'
+import {debounce} from '@/app/lib/debounce'
 import clsx from 'clsx'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'

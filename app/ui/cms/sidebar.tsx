@@ -71,7 +71,7 @@ export function Sidebar() {
 						className={clsx(
 							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
 							{
-								'pl-6 bg-[#343B45]': path === '/cms/actor',
+								'pl-6 bg-[#343B45]': path.startsWith('/cms/actor'),
 							},
 						)}
 					>
@@ -103,7 +103,7 @@ export function Sidebar() {
 						className={clsx(
 							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
 							{
-								'pl-6 bg-[#343B45]': path === '/cms/album',
+								'pl-6 bg-[#343B45]': path.startsWith('/cms/album'),
 							},
 						)}
 					>
@@ -155,7 +155,7 @@ export function Sidebar() {
 						className={clsx(
 							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
 							{
-								'pl-6 bg-[#343B45]': path === '/cms/song',
+								'pl-6 bg-[#343B45]': path.startsWith('/cms/song'),
 							},
 						)}
 					>

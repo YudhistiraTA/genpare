@@ -65,6 +65,7 @@ export async function createActor(prevState: State, formData: FormData) {
 		return { errors: {}, message: 'Internal Server Error' }
 	}
 	revalidateTag('actor')
+	revalidateTag('history')
 	switch (role) {
 		case 'circle':
 			revalidateTag('circle')

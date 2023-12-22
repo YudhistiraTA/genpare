@@ -21,6 +21,7 @@ export async function ActorTable({
 					<td>Name</td>
 					<td>Slug</td>
 					<td>Role</td>
+					<td>Last Changed</td>
 					<th></th>
 				</tr>
 			</thead>
@@ -30,6 +31,7 @@ export async function ActorTable({
 						<td>{actor.name}</td>
 						<td>{actor.slug}</td>
 						<td>{actor.role}</td>
+						<td>{actor.updatedAt?.toLocaleString()}</td>
 						<th className="dropdown dropdown-left py-9 lg:py-5">
 							<svg
 								fill="currentColor"

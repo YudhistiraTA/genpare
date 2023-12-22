@@ -32,6 +32,7 @@ model Album {
 
   @@index([id], type: Hash)
   @@index([slug], type: Hash)
+  @@index([name], type: Hash)
 }
 
 model Actor {
@@ -47,6 +48,7 @@ model Actor {
 
   @@index([id], type: Hash)
   @@index([slug], type: Hash)
+  @@index([name], type: Hash)
 }
 
 model Song {

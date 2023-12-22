@@ -56,6 +56,7 @@ export const fetchTableData = unstable_cache(
 				name: true,
 				slug: true,
 				role: true,
+				updatedAt: true,
 			},
 			where: {
 				...(role && getRoleFilter(role)),

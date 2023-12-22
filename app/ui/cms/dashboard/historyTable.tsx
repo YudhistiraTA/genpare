@@ -4,18 +4,18 @@ import { PaginationButton } from '@/app/ui/cms/dashboard/paginationButton'
 export async function HistoryTable({ page }: { page: number }) {
 	const { result, total } = await fetchHistory(page)
 	return (
-		<table className="table table-lg">
+		<table className="table lg:table-lg table-sm">
 			<thead>
 				<tr>
-					<th>Time</th>
 					<th>Action</th>
+					<th>Time</th>
 				</tr>
 			</thead>
 			<tbody>
 				{result.map((item) => (
 					<tr key={item.id}>
-						<td>{new Date(item.createdAt).toLocaleString()}</td>
 						<td>{item.message}</td>
+						<td>{new Date(item.createdAt).toLocaleString()}</td>
 					</tr>
 				))}
 			</tbody>

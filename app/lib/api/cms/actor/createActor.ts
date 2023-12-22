@@ -42,6 +42,7 @@ export type State = {
 	}
 	message?: string | null
 }
+
 export async function createActor(prevState: State, formData: FormData) {
 	const parsed = await FormSchema.safeParseAsync(
 		Object.fromEntries(formData.entries()),
@@ -53,12 +54,16 @@ export async function createActor(prevState: State, formData: FormData) {
 		}
 	}
 	const { name, role, slug } = parsed.data
-	await prisma.$transaction(async (tx) => {
-		await tx.actor.create({ data: { name, role, slug } })
-		await tx.history.create({
-			data: { message: `Created actor ${name} as ${role}.` },
+	try {
+		await prisma.$transaction(async (tx) => {
+			await tx.actor.create({ data: { name, role, slug } })
+			await tx.history.create({
+				data: { message: `Created actor ${name} as ${role}.` },
+			})
 		})
-	})
+	} catch (error) {
+		return { errors: {}, message: 'Internal Server Error' }
+	}
 	revalidateTag('actor')
 	switch (role) {
 		case 'circle':

@@ -3,12 +3,13 @@ import { Prisma } from '@prisma/client'
 import { unstable_cache } from 'next/cache'
 
 export const filterOptions = [
+	{ value: 'last-updated', label: 'Last updated' },
 	{ value: 'actor-name-asc', label: 'Actor name (A-Z)' },
 	{ value: 'actor-name-desc', label: 'Actor name (Z-A)' },
 ] as const
 
 export const roleOptions = ['circle', 'artist', 'translator'] as const
-export type RoleOptions = typeof roleOptions[number]
+export type RoleOptions = (typeof roleOptions)[number]
 
 const getOrderBy = (
 	order: (typeof filterOptions)[number]['value'],
@@ -18,6 +19,8 @@ const getOrderBy = (
 			return [{ name: 'asc' }]
 		case 'actor-name-desc':
 			return [{ name: 'desc' }]
+		case 'last-updated':
+			return [{ updatedAt: 'desc' }]
 		default:
 			return []
 	}
@@ -39,7 +42,7 @@ const getRoleFilter = (role: RoleOptions): Prisma.ActorWhereInput => {
 export const fetchTableData = unstable_cache(
 	async ({
 		query,
-		order = 'actor-name-asc',
+		order = 'last-updated',
 		role,
 	}: {
 		query: string

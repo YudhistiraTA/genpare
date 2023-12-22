@@ -1,3 +1,4 @@
+'use server'
 import prisma from '@/prisma/config'
 import { Role } from '@prisma/client'
 import { revalidateTag } from 'next/cache'
@@ -5,9 +6,33 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 const FormSchema = z.object({
-	name: z.string().min(1),
-	role: z.nativeEnum(Role),
-	slug: z.string().min(1),
+	name: z
+		.string()
+		.min(1, 'Name is required.')
+		.refine(
+			async (name) =>
+				prisma.actor.findUnique({ where: { name } }).then((actor) => !actor),
+			'Name is already in use.',
+		),
+	role: z.nativeEnum(Role, {
+		errorMap: (issue) => {
+			switch (issue.code) {
+				case 'invalid_type':
+				case 'invalid_enum_value':
+					return { message: 'Please select a role.' }
+				default:
+					return { message: 'Unknown error.' }
+			}
+		},
+	}),
+	slug: z
+		.string()
+		.min(1, 'Slug is required.')
+		.refine(
+			async (slug) =>
+				prisma.actor.findUnique({ where: { slug } }).then((actor) => !actor),
+			'Slug is already in use. If this was auto-generated, please use custom slug input.',
+		),
 })
 export type State = {
 	errors?: {
@@ -18,15 +43,22 @@ export type State = {
 	message?: string | null
 }
 export async function createActor(prevState: State, formData: FormData) {
-	const parsed = FormSchema.safeParse(Object.fromEntries(formData.entries()))
-	if (!parsed.success)
+	const parsed = await FormSchema.safeParseAsync(
+		Object.fromEntries(formData.entries()),
+	)
+	if (!parsed.success) {
 		return {
 			errors: parsed.error.flatten().fieldErrors,
-			message: 'Missing Fields. Failed to create actor.',
+			message: 'Failed to create actor.',
 		}
+	}
 	const { name, role, slug } = parsed.data
-  console.log({ name, role, slug })
-	// await prisma.actor.create({ data: { name, role, slug } })
+	await prisma.$transaction(async (tx) => {
+		await tx.actor.create({ data: { name, role, slug } })
+		await tx.history.create({
+			data: { message: `Created actor ${name} as ${role}.` },
+		})
+	})
 	revalidateTag('actor')
 	switch (role) {
 		case 'circle':

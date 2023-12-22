@@ -28,20 +28,22 @@ model Album {
   Circle      Actor  @relation(fields: [circleId], references: [id])
   circleId    String
   Song        Song[]
+  updatedAt   DateTime? @updatedAt
 
   @@index([id], type: Hash)
   @@index([slug], type: Hash)
 }
 
 model Actor {
-  id            String   @id @default(uuid())
-  name          String   @unique
-  slug          String   @unique
+  id            String    @id @default(uuid())
+  name          String    @unique
+  slug          String    @unique
   role          Role
   Album         Album[]
-  VocalSongs    Song[]   @relation("vocal_song")
+  VocalSongs    Song[]    @relation("vocal_song")
   Lyrics        Lyrics[]
-  ComposedSongs Song[]   @relation("composed_song")
+  ComposedSongs Song[]    @relation("composed_song")
+  updatedAt     DateTime? @updatedAt
 
   @@index([id], type: Hash)
   @@index([slug], type: Hash)
@@ -58,6 +60,7 @@ model Song {
   Album     Album    @relation(fields: [albumId], references: [id])
   albumId   String
   Lyrics    Lyrics[]
+  updatedAt DateTime? @updatedAt
 
   @@index([id], type: Hash)
   @@index([slug], type: Hash)
@@ -80,6 +83,13 @@ model Lyrics {
   language  Language
   Song      Song?    @relation(fields: [songId], references: [id])
   songId    String?
+  updatedAt DateTime? @updatedAt
 
   @@unique([language, songId])
+}
+
+model History {
+  id String @id @default(uuid())
+  message String
+  createdAt DateTime @default(now())
 }

@@ -18,7 +18,7 @@ export function AlbumDetail({
 		<div
 			className={clsx(
 				styles.customGlass,
-				'card lg:shadow-xl',
+				'card lg:shadow-xl max-w-[375px]',
 				className,
 			)}
 		>

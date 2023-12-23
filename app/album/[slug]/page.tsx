@@ -119,7 +119,7 @@ export default async function Page({
 					alt={album.name}
 					width={320}
 					height={320}
-					className="max-w-sm rounded-2xl shadow-2xl"
+					className="rounded-2xl shadow-2xl w-80 h-80"
 				/>
 				<div className="flex flex-col glass bg-white bg-opacity-60 gap-2 border shadow-lg px-6 pt-4 rounded-2xl">
 					<h1 className="text-3xl font-bold tracking-tight">{album.name}</h1>

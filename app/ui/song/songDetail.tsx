@@ -88,7 +88,7 @@ export function SongDetail({
 					),
 				)}
 				<LanguageSelect
-					className="mb-6"
+					className="mb-6 lg:flex hidden"
 					options={options}
 					main={main}
 					sub={sub}

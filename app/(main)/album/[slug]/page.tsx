@@ -20,7 +20,7 @@ export async function generateMetadata(
 	)
 	const lyricists = album.Song.flatMap((song) =>
 		song.Lyrics.filter((lyric) => lyric.language === 'japanese').map(
-			(lyric) => lyric.createdBy.name,
+			(lyric) => lyric.createdBy?.name,
 		),
 	)
 	const translations = album.Song.flatMap((song) =>
@@ -31,22 +31,22 @@ export async function generateMetadata(
 	const translators = album.Song.flatMap((song) =>
 		song.Lyrics.filter(
 			(lyric) => lyric.language !== 'japanese' && lyric.language !== 'romaji',
-		).map((lyric) => lyric.createdBy.name),
+		).map((lyric) => lyric.createdBy?.name),
 	)
 	return {
 		title: album.name,
-		description: `${album.name} (${album.releaseYear}) album by ${album.Circle.name}`,
+		description: `${album.name} (${album.releaseYear}) album by ${album.Circle?.name}`,
 		keywords: [
 			...(prevMeta.keywords ?? []),
 			'Album',
 			album.name,
-			album.Circle.name,
+			album.Circle?.name ?? '',
 			album.releaseYear.toString(),
 			...composers,
 			...vocalists,
-			...lyricists,
+			...(lyricists.length > 0 ? (lyricists as string[]) : []),
 			...translations,
-			...translators,
+			...(translators.length > 0 ? (translators as string[]) : []),
 			...album.Song.flatMap((song) => song.name),
 		],
 		alternates: {
@@ -57,7 +57,9 @@ export async function generateMetadata(
 				...prevMeta.openGraph,
 				url: 'https://www.gengo-parade.com',
 				title: album.name,
-				description: `${album.name} (${album.releaseYear}) album by ${album.Circle.name}`,
+				description: `${album.name} (${album.releaseYear}) album ${
+					album.Circle?.name ? 'by ' + album.Circle?.name : ''
+				}`,
 				images: [
 					{
 						url: album.imageUrl,
@@ -103,7 +105,7 @@ export default async function Page({
 		song.Lyrics.filter((lyric) => lyric.language === 'japanese').forEach(
 			(lyric) => {
 				const key = JSON.stringify(lyric.createdBy)
-				if (!uniqueLyricistsMap.has(key)) {
+				if (!uniqueLyricistsMap.has(key) && lyric.createdBy) {
 					uniqueLyricistsMap.set(key, lyric.createdBy)
 				}
 			},
@@ -134,20 +136,22 @@ export default async function Page({
 							</div>
 						</div>
 					</div>
-					<div className="flex w-fit">
-						<p>Circle</p>
-						<p className="whitespace-pre">: </p>
-						<div className="flex flex-wrap">
-							<div className="flex">
-								<Link
-									href={`/circle/${album.Circle.slug}`}
-									className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
-								>
-									{album.Circle.name}
-								</Link>
+					{album.Circle ? (
+						<div className="flex w-fit">
+							<p>Circle</p>
+							<p className="whitespace-pre">: </p>
+							<div className="flex flex-wrap">
+								<div className="flex">
+									<Link
+										href={`/circle/${album.Circle.slug}`}
+										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+									>
+										{album.Circle.name}
+									</Link>
+								</div>
 							</div>
 						</div>
-					</div>
+					) : null}
 					<div className="flex w-fit">
 						<p>Composer{uniqueComposersArray.length > 1 && 's'}</p>
 						<p className="whitespace-pre">: </p>
@@ -233,7 +237,7 @@ export default async function Page({
 											</p>
 											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
 												Vocalist{item.Vocals.length > 1 && 's'}:{' '}
-												<span className='flex flex-wrap'>
+												<span className="flex flex-wrap">
 													{item.Vocals.map((vocal, index, arr) => (
 														<span key={`${vocal.id}-${index}`}>
 															{vocal.name}
@@ -242,32 +246,40 @@ export default async function Page({
 													))}
 												</span>
 											</p>
-											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
-												Composer{item.Composer.length > 1 && 's'}:{' '}
-												<span className='flex flex-wrap'>
-													{item.Composer.map((composer, index, arr) => (
-														<span key={`${composer.id}-${index}`}>
-															{composer.name}
-															{index !== arr.length - 1 && ', '}
-														</span>
-													))}
-												</span>
-											</p>
+											{item.Composer.length ? (
+												<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
+													Composer{item.Composer.length > 1 && 's'}:{' '}
+													<span className="flex flex-wrap">
+														{item.Composer.map((composer, index, arr) => (
+															<span key={`${composer.id}-${index}`}>
+																{composer.name}
+																{index !== arr.length - 1 && ', '}
+															</span>
+														))}
+													</span>
+												</p>
+											) : null}
 											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
 												Lyricist:{' '}
-												<span className='flex flex-wrap'>
-													{item.Lyrics.filter(lyric => lyric.language === 'japanese').map((lyric, index, arr) => (
-														<span key={`${lyric.id}-${index}`}>
-															{lyric.createdBy.name}
-															{index !== arr.length - 1 && ', '}
-														</span>
-													))}
+												<span className="flex flex-wrap">
+													{item.Lyrics.filter(
+														(lyric) => lyric.language === 'japanese',
+													).map((lyric, index, arr) =>
+														lyric.createdBy ? (
+															<span key={`${lyric.id}-${index}`}>
+																{lyric.createdBy.name}
+																{index !== arr.length - 1 && ', '}
+															</span>
+														) : null,
+													)}
 												</span>
 											</p>
 											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start">
 												{item.Lyrics.filter(
 													(lyric) => lyric.language !== 'romaji',
-												).map((lyric) => languageCode.get(lyric.language)).join(', ')}
+												)
+													.map((lyric) => languageCode.get(lyric.language))
+													.join(', ')}
 											</p>
 										</Link>
 									</li>

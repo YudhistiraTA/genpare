@@ -1,6 +1,7 @@
 'use client'
 import { editActor } from '@/app/lib/api/cms/actor/editActor'
 import { fetchActor } from '@/app/lib/api/cms/actor/fetchActor'
+import { DeleteButton } from '@/app/ui/cms/actor/edit/deleteButton'
 import { Role } from '@prisma/client'
 import clsx from 'clsx'
 import { useEffect } from 'react'
@@ -93,7 +94,10 @@ export function Form({
 						))}
 				</div>
 			</div>
-			<SubmitButton />
+			<div className="flex justify-between w-full">
+				<SubmitButton />
+				<DeleteButton data={data} />
+			</div>
 		</form>
 	)
 }

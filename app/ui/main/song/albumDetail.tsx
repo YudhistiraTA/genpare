@@ -39,20 +39,22 @@ export function AlbumDetail({
 						{song.Album.name} ({song.Album.releaseYear})
 					</h2>
 				</Link>
-				<div className="flex w-fit">
-					<p>Circle</p>
-					<p className="whitespace-pre">: </p>
-					<div className="flex flex-wrap">
-						<div className="flex">
-							<Link
-								href={`/circle/${song.Album.Circle.slug}`}
-								className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
-							>
-								{song.Album.Circle.name}
-							</Link>
+				{song.Album.Circle ? (
+					<div className="flex w-fit">
+						<p>Circle</p>
+						<p className="whitespace-pre">: </p>
+						<div className="flex flex-wrap">
+							<div className="flex">
+								<Link
+									href={`/circle/${song.Album.Circle.slug}`}
+									className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+								>
+									{song.Album.Circle.name}
+								</Link>
+							</div>
 						</div>
 					</div>
-				</div>
+				) : null}
 				<div className="flex w-fit">
 					<p>Total Tracks</p>
 					<p className="whitespace-pre">: </p>

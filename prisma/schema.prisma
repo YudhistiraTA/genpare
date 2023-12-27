@@ -19,14 +19,14 @@ enum Role {
 }
 
 model Album {
-  id          String @id @default(uuid())
-  name        String @unique
-  slug        String @unique
-  imageUrl    String @map("image_url")
-  releaseYear Int    @map("release_year")
-  totalTrack  Int    @map("total_track")
-  Circle      Actor  @relation(fields: [circleId], references: [id])
-  circleId    String
+  id          String    @id @default(uuid())
+  name        String    @unique
+  slug        String    @unique
+  imageUrl    String    @map("image_url")
+  releaseYear Int       @map("release_year")
+  totalTrack  Int       @map("total_track")
+  Circle      Actor?    @relation(fields: [circleId], references: [id])
+  circleId    String?
   Song        Song[]
   updatedAt   DateTime? @updatedAt
 
@@ -52,14 +52,14 @@ model Actor {
 }
 
 model Song {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  slug      String   @unique
-  youtubeId String   @map("youtube_id")
-  trackNo   Int      @map("track_no")
-  Vocals    Actor[]  @relation("vocal_song")
-  Composer  Actor[]  @relation("composed_song")
-  Album     Album    @relation(fields: [albumId], references: [id])
+  slug      String    @unique
+  youtubeId String    @map("youtube_id")
+  trackNo   Int       @map("track_no")
+  Vocals    Actor[]   @relation("vocal_song")
+  Composer  Actor[]   @relation("composed_song")
+  Album     Album     @relation(fields: [albumId], references: [id], onDelete: Cascade)
   albumId   String
   Lyrics    Lyrics[]
   updatedAt DateTime? @updatedAt
@@ -78,12 +78,12 @@ enum Language {
 }
 
 model Lyrics {
-  id        String   @id @default(uuid())
-  content   String   @db.Text
-  createdBy Actor    @relation(fields: [creatorId], references: [id])
-  creatorId String   @map("creator_id")
+  id        String    @id @default(uuid())
+  content   String    @db.Text
+  createdBy Actor?    @relation(fields: [creatorId], references: [id])
+  creatorId String?   @map("creator_id")
   language  Language
-  Song      Song?    @relation(fields: [songId], references: [id])
+  Song      Song?     @relation(fields: [songId], references: [id], onDelete: Cascade)
   songId    String?
   updatedAt DateTime? @updatedAt
 
@@ -91,7 +91,7 @@ model Lyrics {
 }
 
 model History {
-  id String @id @default(uuid())
-  message String
+  id        String   @id @default(uuid())
+  message   String
   createdAt DateTime @default(now())
 }

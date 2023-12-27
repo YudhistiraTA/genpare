@@ -20,13 +20,13 @@ export async function generateMetadata(
 	const vocalists = song.Vocals.map((vocal) => vocal.name)
 	const lyricists = song.Lyrics.filter(
 		(lyric) => lyric.language === 'japanese',
-	).map((lyric) => lyric.createdBy.name)
+	).map((lyric) => lyric.createdBy ? lyric.createdBy.name : '')
 	const translations = song.Lyrics.filter(
 		(lyric) => lyric.language !== 'romaji' && lyric.language !== 'japanese',
 	).map((lyric) => capitalize(lyric.language))
 	const translators = song.Lyrics.filter(
 		(lyric) => lyric.language !== 'japanese' && lyric.language !== 'romaji',
-	).map((lyric) => lyric.createdBy.name)
+	).map((lyric) => lyric.createdBy ? lyric.createdBy.name:'')
 	const prevMeta = await parent
 	return {
 		title: song.name,
@@ -38,7 +38,7 @@ export async function generateMetadata(
 			'Doujin',
 			'Song',
 			song.name,
-			song.Album.Circle.name,
+			song.Album.Circle?.name ??'',
 			song.Album.releaseYear.toString(),
 			...composer,
 			...vocalists,

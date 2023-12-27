@@ -42,7 +42,7 @@ export async function AlbumTable({
 						<td>{album.name}</td>
 						<td>{album.slug}</td>
 						<td>{album.releaseYear}</td>
-						<td>{album.Circle.name}</td>
+						<td>{album.Circle?.name}</td>
 						<td>
 							{album._count.Song} out of {album.totalTrack}
 						</td>

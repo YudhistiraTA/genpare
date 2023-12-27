@@ -3,6 +3,7 @@ import { PaginationButton } from '@/app/ui/cms/dashboard/paginationButton'
 
 export async function HistoryTable({ page }: { page: number }) {
 	const { result, total } = await fetchHistory(page)
+	if (result.length === 0) return <div className='p-6'>No history found</div>
 	return (
 		<table className="table lg:table-lg table-sm">
 			<thead>

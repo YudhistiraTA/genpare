@@ -231,30 +231,43 @@ export default async function Page({
 												{'. '}
 												{item.name}
 											</p>
-											<p className="pl-6 text-sm -mt-2	 text-slate-400 self-start">
+											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
 												Vocalist{item.Vocals.length > 1 && 's'}:{' '}
-												{item.Vocals.map((vocal) => vocal.name).join(', ')}
+												<span className='flex flex-wrap'>
+													{item.Vocals.map((vocal, index, arr) => (
+														<span key={`${vocal.id}-${index}`}>
+															{vocal.name}
+															{index !== arr.length - 1 && ', '}
+														</span>
+													))}
+												</span>
 											</p>
-											<p className="pl-6 text-sm -mt-2	 text-slate-400 self-start">
-												Composer{item.Vocals.length > 1 && 's'}:{' '}
-												{item.Composer.map((composer) => composer.name).join(
-													', ',
-												)}
+											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
+												Composer{item.Composer.length > 1 && 's'}:{' '}
+												<span className='flex flex-wrap'>
+													{item.Composer.map((composer, index, arr) => (
+														<span key={`${composer.id}-${index}`}>
+															{composer.name}
+															{index !== arr.length - 1 && ', '}
+														</span>
+													))}
+												</span>
 											</p>
-											<p className="pl-6 text-sm -mt-2	 text-slate-400 self-start">
+											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
 												Lyricist:{' '}
-												{
-													item.Lyrics.find(
-														(lyric) => lyric.language === 'japanese',
-													)?.createdBy.name
-												}
+												<span className='flex flex-wrap'>
+													{item.Lyrics.filter(lyric => lyric.language === 'japanese').map((lyric, index, arr) => (
+														<span key={`${lyric.id}-${index}`}>
+															{lyric.createdBy.name}
+															{index !== arr.length - 1 && ', '}
+														</span>
+													))}
+												</span>
 											</p>
-											<p className="pl-6 text-sm -mt-2	 text-slate-400 self-start">
+											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start">
 												{item.Lyrics.filter(
 													(lyric) => lyric.language !== 'romaji',
-												)
-													.map((lyric) => languageCode.get(lyric.language))
-													.join(', ')}
+												).map((lyric) => languageCode.get(lyric.language)).join(', ')}
 											</p>
 										</Link>
 									</li>

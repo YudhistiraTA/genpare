@@ -20,7 +20,7 @@ const getOrderBy = (
 		case 'actor-name-desc':
 			return [{ name: 'desc' }]
 		case 'last-updated':
-			return [{ updatedAt: 'desc' }]
+			return [{ updatedAt: {sort:'desc', nulls:'last'} }]
 		default:
 			return []
 	}

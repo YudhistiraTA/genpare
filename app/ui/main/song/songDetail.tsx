@@ -19,7 +19,7 @@ export function SongDetail({
 	options: string[]
 }) {
 	return (
-		<div className={clsx('card glass lg:shadow-xl', className)}>
+		<div className={clsx('card glass lg:shadow-xl max-w-[375px]', className)}>
 			<YouTubePlayer videoId={song.youtubeId} title={song.name} />
 			<div className="card-body -mt-4">
 				<h2 className="card-title">{song.name}</h2>
@@ -88,7 +88,7 @@ export function SongDetail({
 					),
 				)}
 				<LanguageSelect
-					className="mb-6"
+					className="mb-6 lg:flex hidden"
 					options={options}
 					main={main}
 					sub={sub}

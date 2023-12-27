@@ -1,5 +1,5 @@
 'use client'
-import { createActor } from '@/app/lib/api/cms/actor/createActor'
+import { editActor } from '@/app/lib/api/cms/actor/editActor'
 import { fetchActor } from '@/app/lib/api/cms/actor/fetchActor'
 import { Role } from '@prisma/client'
 import clsx from 'clsx'
@@ -12,7 +12,7 @@ export function Form({
 }: {
 	data: Awaited<ReturnType<typeof fetchActor>>
 }) {
-	const [state, dispatch] = useFormState(createActor, {
+	const [state, dispatch] = useFormState(editActor, {
 		errors: {},
 		message: '',
 	})

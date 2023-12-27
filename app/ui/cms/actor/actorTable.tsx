@@ -2,6 +2,7 @@ import {
 	fetchTableData,
 	filterOptions,
 } from '@/app/lib/api/cms/actor/tableData'
+import { extendedDayjs } from '@/app/lib/extendedDayjs'
 import Link from 'next/link'
 
 export async function ActorTable({
@@ -31,7 +32,7 @@ export async function ActorTable({
 						<td>{actor.name}</td>
 						<td>{actor.slug}</td>
 						<td>{actor.role}</td>
-						<td>{actor.updatedAt?.toLocaleString()}</td>
+						<td>{extendedDayjs(actor.updatedAt).format('YYYY/MM/DD, hh:mm:ss z')}</td>
 						<th className="dropdown dropdown-left py-9 lg:py-5">
 							<svg
 								fill="currentColor"

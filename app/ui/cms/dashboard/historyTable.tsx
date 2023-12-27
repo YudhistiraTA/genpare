@@ -1,4 +1,5 @@
 import { fetchHistory } from '@/app/lib/api/cms/dashboard/history'
+import { extendedDayjs } from '@/app/lib/extendedDayjs'
 import { PaginationButton } from '@/app/ui/cms/dashboard/paginationButton'
 
 export async function HistoryTable({ page }: { page: number }) {
@@ -16,7 +17,7 @@ export async function HistoryTable({ page }: { page: number }) {
 				{result.map((item) => (
 					<tr key={item.id}>
 						<td>{item.message}</td>
-						<td>{new Date(item.createdAt).toLocaleString()}</td>
+						<td>{extendedDayjs(item.createdAt).format('YYYY/MM/DD hh:mm:zz Z')}</td>
 					</tr>
 				))}
 			</tbody>

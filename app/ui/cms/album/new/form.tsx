@@ -1,5 +1,6 @@
 'use client'
 import { createActor } from '@/app/lib/api/cms/actor/createActor'
+import { fetchCircles } from '@/app/lib/api/cms/album/fetchCircles'
 import { debounceHTML } from '@/app/lib/debounce'
 import { Role } from '@prisma/client'
 import clsx from 'clsx'
@@ -8,7 +9,11 @@ import { useFormState, useFormStatus } from 'react-dom'
 import toast, { Toaster } from 'react-hot-toast'
 import slug from 'slug'
 
-export function Form() {
+export function Form({
+	circles,
+}: {
+	circles: Awaited<ReturnType<typeof fetchCircles>>
+}) {
 	const [slugValue, setSlug] = useState('')
 	const [customSlug, setCustomSlug] = useState(false)
 	const [state, dispatch] = useFormState(createActor, {
@@ -122,23 +127,23 @@ export function Form() {
 				</div>
 			</div>
 			<div className="flex flex-col">
-				<label htmlFor="role">Role</label>
+				<label htmlFor="circle">Circle</label>
 				<select
-					id="role"
-					name="role"
-					placeholder="Role"
+					id="circle"
+					name="circle"
+					placeholder="circle"
 					className="select select-bordered w-full"
 					defaultValue=""
-					aria-describedby='role-error'
+					aria-describedby="circle-error"
 				>
-					<option value="" disabled>Role</option>
-					{Object.values(Role).map((role, index) => (
-						<option key={index} value={role}>
-							{role}
+					<option value="" disabled>Circle</option>
+					{circles.map(({ id, name }) => (
+						<option key={id} value={id}>
+							{name}
 						</option>
 					))}
 				</select>
-				<div id="role-error" aria-live="polite" aria-atomic="true">
+				<div id="circle-error" aria-live="polite" aria-atomic="true">
 					{state.errors?.role &&
 						state.errors.role.map((error: string) => (
 							<p className="mt-2 text-sm text-red-500" key={error}>

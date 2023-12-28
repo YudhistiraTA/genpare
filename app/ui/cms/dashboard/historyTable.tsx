@@ -17,7 +17,7 @@ export async function HistoryTable({ page }: { page: number }) {
 				{result.map((item) => (
 					<tr key={item.id}>
 						<td>{item.message}</td>
-						<td>{extendedDayjs(item.createdAt).format('YYYY/MM/DD hh:mm:zz Z')}</td>
+						<td>{extendedDayjs(item.createdAt).format('YYYY/MM/DD, hh:mm:ss z')}</td>
 					</tr>
 				))}
 			</tbody>

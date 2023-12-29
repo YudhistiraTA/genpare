@@ -5,6 +5,7 @@ import { debounceHTML } from '@/app/lib/debounce'
 import { ImageUpload } from '@/app/ui/cms/album/new/imageUpload'
 import { InputField } from '@/app/ui/cms/inputField'
 import clsx from 'clsx'
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 import toast, { Toaster } from 'react-hot-toast'
@@ -61,21 +62,6 @@ export function Form({
 						ref={nameRef}
 						onChange={updateSlug}
 					/>
-					<InputField
-						label="Release Year"
-						id="releaseYear"
-						name="releaseYear"
-						type="year"
-						errorArray={state.errors?.releaseYear}
-					/>
-					<InputField
-						label="Total Track"
-						id="totalTrack"
-						name="totalTrack"
-						type="tel"
-						maxLength={2}
-						errorArray={state.errors?.totalTrack}
-					/>
 					<div className="flex flex-col">
 						<label htmlFor="slug">
 							<div
@@ -96,7 +82,7 @@ export function Form({
 							</div>
 							<div
 								className="tooltip tooltip-right wrap lg:hidden inline-block"
-								data-tip=''
+								data-tip=""
 							>
 								<div className="flex gap-4">
 									<label htmlFor="slug-toggle">Custom Slug</label>
@@ -148,6 +134,21 @@ export function Form({
 								))}
 						</div>
 					</div>
+					<InputField
+						label="Release Year"
+						id="releaseYear"
+						name="releaseYear"
+						type="year"
+						errorArray={state.errors?.releaseYear}
+					/>
+					<InputField
+						label="Total Track"
+						id="totalTrack"
+						name="totalTrack"
+						type="tel"
+						maxLength={2}
+						errorArray={state.errors?.totalTrack}
+					/>
 					<div className="flex flex-col">
 						<label htmlFor="circle">Circle</label>
 						<select
@@ -167,6 +168,12 @@ export function Form({
 								</option>
 							))}
 						</select>
+						<Link
+							href="/cms/actor/new"
+							className="text-xs underline text-blue-400"
+						>
+							Need to add a new circle?
+						</Link>
 						<div id="circle-error" aria-live="polite" aria-atomic="true">
 							{state.errors?.circleId &&
 								state.errors?.circleId.map((error: string) => (

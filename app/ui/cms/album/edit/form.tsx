@@ -1,5 +1,5 @@
 'use client'
-import { createAlbum } from '@/app/lib/api/cms/album/createAlbum'
+import { editAlbum } from '@/app/lib/api/cms/album/editAlbum'
 import { fetchAlbum } from '@/app/lib/api/cms/album/fetchAlbum'
 import { fetchCircles } from '@/app/lib/api/cms/album/fetchCircles'
 import { ImageUpload } from '@/app/ui/cms/album/new/imageUpload'
@@ -17,7 +17,7 @@ export function Form({
 	circles: Awaited<ReturnType<typeof fetchCircles>>
 	data: Awaited<ReturnType<typeof fetchAlbum>>
 }) {
-	const [state, dispatch] = useFormState(createAlbum, {
+	const [state, dispatch] = useFormState(editAlbum, {
 		errors: {},
 		message: '',
 	})

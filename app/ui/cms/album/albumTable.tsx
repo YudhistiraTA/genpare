@@ -2,6 +2,7 @@ import {
 	fetchTableData,
 	filterOptions,
 } from '@/app/lib/api/cms/album/tableData'
+import { extendedDayjs } from '@/app/lib/extendedDayjs'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -25,6 +26,7 @@ export async function AlbumTable({
 					<td>Release Year</td>
 					<td>Circle</td>
 					<td>Translated Songs</td>
+					<td>Last Changed</td>
 					<th></th>
 				</tr>
 			</thead>
@@ -46,7 +48,10 @@ export async function AlbumTable({
 						<td>
 							{album._count.Song} out of {album.totalTrack}
 						</td>
-						<th className="dropdown dropdown-left py-9 lg:py-5">
+						<td>
+							{extendedDayjs(album.updatedAt).format('YYYY/MM/DD, hh:mm:ss z')}
+						</td>
+						<th className="dropdown table-cell dropdown-left py-9 lg:py-5">
 							<svg
 								fill="currentColor"
 								version="1.1"

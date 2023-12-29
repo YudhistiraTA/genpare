@@ -79,8 +79,24 @@ export function Form({
 					<div className="flex flex-col">
 						<label htmlFor="slug">
 							<div
-								className="tooltip tooltip-right"
+								className="tooltip tooltip-right wrap lg:inline-block hidden"
 								data-tip='Please ensure all characters are latin lowercase and spaces are written with "-"'
+							>
+								<div className="flex gap-4">
+									<label htmlFor="slug-toggle">Custom Slug</label>
+									<input
+										id="slug-toggle"
+										type="checkbox"
+										checked={customSlug}
+										onChange={({ target: { checked } }) => {
+											setCustomSlug(checked)
+										}}
+									></input>
+								</div>
+							</div>
+							<div
+								className="tooltip tooltip-right wrap lg:hidden inline-block"
+								data-tip=''
 							>
 								<div className="flex gap-4">
 									<label htmlFor="slug-toggle">Custom Slug</label>
@@ -160,10 +176,15 @@ export function Form({
 								))}
 						</div>
 					</div>
-					<SubmitButton />
+					<div className="lg:block hidden">
+						<SubmitButton />
+					</div>
 				</div>
 				<div className="flex flex-col items-center w-full">
 					<ImageUpload state={state} />
+				</div>
+				<div className="lg:hidden block mb-4">
+					<SubmitButton />
 				</div>
 			</form>
 		</>

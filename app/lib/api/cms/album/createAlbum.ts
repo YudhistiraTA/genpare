@@ -107,5 +107,6 @@ export async function createAlbum(prevState: State, formData: FormData) {
 		return { errors: {}, message: 'Internal Server Error' }
 	}
 	revalidateTag('album')
+	revalidateTag('history')
 	redirect('/cms/album')
 }

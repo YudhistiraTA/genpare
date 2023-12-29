@@ -27,7 +27,9 @@ export function SortButton() {
 						key={`filter-${value}`}
 						onClick={() => filterChange(value)}
 						className={clsx({
-							'bg-[#343B45] rounded-lg': value === searchParams.get('order'),
+							'bg-[#343B45] rounded-lg': searchParams.get('order')
+								? value === searchParams.get('order')
+								: value === 'last-updated',
 						})}
 					>
 						<p>{label}</p>

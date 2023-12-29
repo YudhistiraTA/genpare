@@ -2,7 +2,21 @@
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
-export function ImageUpload() {
+export function ImageUpload({
+	state,
+}: {
+	state: {
+		errors: {
+			name?: string[] | undefined
+			slug?: string[] | undefined
+			releaseYear?: string[] | undefined
+			totalTrack?: string[] | undefined
+			circleId?: string[] | undefined
+			image?: string[] | undefined
+		}
+		message: string
+	}
+}) {
 	const [imageUrl, setImageUrl] = useState('')
 	const captureFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files === null || e.target.files.length < 1) return
@@ -12,9 +26,9 @@ export function ImageUpload() {
 		reader.readAsDataURL(file)
 	}
 	const inputRef = useRef<HTMLInputElement>(null)
-  const inputFire = () => {
-    inputRef.current?.click()
-  }
+	const inputFire = () => {
+		inputRef.current?.click()
+	}
 	return (
 		<>
 			<div className="label" onClick={inputFire}>
@@ -43,7 +57,7 @@ export function ImageUpload() {
 					width={300}
 					height={300}
 					className="rounded-lg mb-4 hover:cursor-pointer"
-          onClick={inputFire}
+					onClick={inputFire}
 				/>
 			</div>
 			<input
@@ -52,7 +66,16 @@ export function ImageUpload() {
 				className="file-input file-input-bordered w-full max-w-xs"
 				onChange={captureFile}
 				ref={inputRef}
+				aria-describedby='image-error'
 			/>
+			<div id="image-error" aria-live="polite" aria-atomic="true">
+				{state.errors?.image &&
+					state.errors?.image.map((error: string) => (
+						<p className="mt-2 text-sm text-red-500" key={error}>
+							{error}
+						</p>
+					))}
+			</div>
 		</>
 	)
 }

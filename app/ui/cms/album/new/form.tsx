@@ -3,6 +3,7 @@ import { createAlbum } from '@/app/lib/api/cms/album/createAlbum'
 import { fetchCircles } from '@/app/lib/api/cms/album/fetchCircles'
 import { debounceHTML } from '@/app/lib/debounce'
 import { ImageUpload } from '@/app/ui/cms/album/new/imageUpload'
+import { InputField } from '@/app/ui/cms/inputField'
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
@@ -52,26 +53,29 @@ export function Form({
 			<Toaster />
 			<form action={dispatch} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 				<div className="flex flex-col gap-4">
-					<div className="flex flex-col">
-						<label htmlFor="name">Name</label>
-						<input
-							ref={nameRef}
-							className="input input-bordered"
-							id="name"
-							name="name"
-							type="text"
-							aria-describedby="name-error"
-							onChange={updateSlug}
-						/>
-						<div id="name-error" aria-live="polite" aria-atomic="true">
-							{state.errors?.name &&
-								state.errors.name.map((error: string) => (
-									<p className="mt-2 text-sm text-red-500" key={error}>
-										{error}
-									</p>
-								))}
-						</div>
-					</div>
+					<InputField
+						label="Name"
+						id="name"
+						name="name"
+						errorArray={state.errors?.name}
+						ref={nameRef}
+						onChange={updateSlug}
+					/>
+					<InputField
+						label="Release Year"
+						id="releaseYear"
+						name="releaseYear"
+						type="year"
+						errorArray={state.errors?.releaseYear}
+					/>
+					<InputField
+						label="Total Track"
+						id="totalTrack"
+						name="totalTrack"
+						type="tel"
+						maxLength={2}
+						errorArray={state.errors?.totalTrack}
+					/>
 					<div className="flex flex-col">
 						<label htmlFor="slug">
 							<div
@@ -159,7 +163,7 @@ export function Form({
 					<SubmitButton />
 				</div>
 				<div className="flex flex-col items-center w-full">
-					<ImageUpload />
+					<ImageUpload state={state} />
 				</div>
 			</form>
 		</>

@@ -1,6 +1,7 @@
 'use client'
 import { createActor } from '@/app/lib/api/cms/actor/createActor'
 import { debounceHTML } from '@/app/lib/debounce'
+import { InputField } from '@/app/ui/cms/inputField'
 import { Role } from '@prisma/client'
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
@@ -45,31 +46,34 @@ export function Form() {
 	return (
 		<form action={dispatch} className="grid grid-cols-1 gap-4">
 			<Toaster />
-			<div className="flex flex-col">
-				<label htmlFor="name">Name</label>
-				<input
-					ref={nameRef}
-					className="input input-bordered"
-					id="name"
-					name="name"
-					type="text"
-					aria-describedby="name-error"
-					onChange={updateSlug}
-				/>
-				<div id="name-error" aria-live="polite" aria-atomic="true">
-					{state.errors?.name &&
-						state.errors.name.map((error: string) => (
-							<p className="mt-2 text-sm text-red-500" key={error}>
-								{error}
-							</p>
-						))}
-				</div>
-			</div>
+			<InputField
+				label="Name"
+				id="name"
+				name="name"
+				errorArray={state.errors?.name}
+				onChange={updateSlug}
+			/>
 			<div className="flex flex-col">
 				<label htmlFor="slug">
 					<div
-						className="tooltip tooltip-right"
+						className="tooltip tooltip-right lg:inline-block hidden"
 						data-tip='Please ensure all characters are latin lowercase and spaces are written with "-"'
+					>
+						<div className="flex gap-4">
+							<label htmlFor="slug-toggle">Custom Slug</label>
+							<input
+								id="slug-toggle"
+								type="checkbox"
+								checked={customSlug}
+								onChange={({ target: { checked } }) => {
+									setCustomSlug(checked)
+								}}
+							></input>
+						</div>
+					</div>
+					<div
+						className="tooltip tooltip-right lg:hidden inline-block"
+						data-tip=""
 					>
 						<div className="flex gap-4">
 							<label htmlFor="slug-toggle">Custom Slug</label>
@@ -129,9 +133,11 @@ export function Form() {
 					placeholder="Role"
 					className="select select-bordered w-full"
 					defaultValue=""
-					aria-describedby='role-error'
+					aria-describedby="role-error"
 				>
-					<option value="" disabled>Role</option>
+					<option value="" disabled>
+						Role
+					</option>
 					{Object.values(Role).map((role, index) => (
 						<option key={index} value={role}>
 							{role}

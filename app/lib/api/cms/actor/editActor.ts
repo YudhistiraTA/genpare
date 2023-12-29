@@ -27,7 +27,7 @@ const FormSchema = z
 			const { id, slug } = data
 			return prisma.actor
 				.findUnique({ where: { slug }, select: { id: true } })
-				.then((actor) => actor?.id === id)
+				.then((actor) => actor?.id === id || !actor)
 		},
 		{ message: 'Slug is already in use.', path: ['slug'] },
 	)

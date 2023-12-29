@@ -20,8 +20,8 @@ export async function ActorTable({
 			<thead>
 				<tr>
 					<td>Name</td>
-					<td>Slug</td>
 					<td>Role</td>
+					<td>Slug</td>
 					<td>Last Changed</td>
 					<th></th>
 				</tr>
@@ -30,10 +30,10 @@ export async function ActorTable({
 				{data.map((actor) => (
 					<tr key={actor.id}>
 						<td>{actor.name}</td>
-						<td>{actor.slug}</td>
 						<td>{actor.role}</td>
+						<td>{actor.slug}</td>
 						<td>{extendedDayjs(actor.updatedAt).format('YYYY/MM/DD, hh:mm:ss z')}</td>
-						<th className="dropdown dropdown-left py-9 lg:py-5">
+						<th className="dropdown table-cell dropdown-left py-9 lg:py-5">
 							<svg
 								fill="currentColor"
 								version="1.1"

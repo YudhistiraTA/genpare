@@ -36,7 +36,7 @@ export async function SongTable({
 							)}
 						</td>
 						<td>{song.slug}</td>
-						<td>{song.youtubeId}</td>
+						<td><Link href={`https://youtu.be/${song.youtubeId}`} className='underline text-blue-400' target='_blank'>{song.youtubeId}</Link></td>
 
 						<td>
 							{song.Album.name} ({song.Album.releaseYear})
@@ -45,7 +45,7 @@ export async function SongTable({
 							{song.trackNo}/{song.Album.totalTrack}
 						</td>
 
-						<th className="dropdown dropdown-left py-9 lg:py-5">
+						<th className="dropdown table-cell dropdown-left py-9 lg:py-5">
 							<svg
 								fill="currentColor"
 								version="1.1"

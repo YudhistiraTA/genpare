@@ -65,7 +65,7 @@ export function Form({
 					<div className="flex flex-col">
 						<label htmlFor="slug">
 							<div
-								className="tooltip tooltip-right wrap lg:inline-block hidden"
+								className="tooltip tooltip-right lg:inline-block hidden"
 								data-tip='Please ensure all characters are latin lowercase and spaces are written with "-"'
 							>
 								<div className="flex gap-4">

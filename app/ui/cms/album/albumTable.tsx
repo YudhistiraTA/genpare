@@ -22,10 +22,10 @@ export async function AlbumTable({
 				<tr>
 					<td></td>
 					<td>Name</td>
+					<td>Translated Songs</td>
 					<td>Slug</td>
 					<td>Release Year</td>
 					<td>Circle</td>
-					<td>Translated Songs</td>
 					<td>Last Changed</td>
 					<th></th>
 				</tr>
@@ -42,12 +42,12 @@ export async function AlbumTable({
 							/>
 						</td>
 						<td>{album.name}</td>
-						<td>{album.slug}</td>
-						<td>{album.releaseYear}</td>
-						<td>{album.Circle?.name}</td>
 						<td>
 							{album._count.Song} out of {album.totalTrack}
 						</td>
+						<td>{album.slug}</td>
+						<td>{album.releaseYear}</td>
+						<td>{album.Circle?.name}</td>
 						<td>
 							{extendedDayjs(album.updatedAt).format('YYYY/MM/DD, hh:mm:ss z')}
 						</td>

@@ -13,12 +13,22 @@ type InputFieldProps = {
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 	type?: HTMLInputTypeAttribute | 'year'
 	maxLength?: number
+	defaultValue?: string
 }
 const InputFieldPrototype: ForwardRefRenderFunction<
 	HTMLInputElement,
 	InputFieldProps
 > = (
-	{ label, id, name, errorArray, onChange, type = 'text', maxLength },
+	{
+		label,
+		id,
+		name,
+		errorArray,
+		onChange,
+		type = 'text',
+		maxLength,
+		defaultValue,
+	},
 	ref,
 ) => {
 	const numberTypes = ['number', 'tel', 'year']
@@ -26,7 +36,9 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 		<div className="flex flex-col">
 			<label htmlFor={id}>{label}</label>
 			<div
-				className={clsx('text-left w-full',{ tooltip: type === 'year' || maxLength })}
+				className={clsx('text-left w-full', {
+					tooltip: type === 'year' || maxLength,
+				})}
 				data-tip={
 					type === 'year'
 						? `Max. ${new Date().getFullYear()}`
@@ -67,6 +79,7 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 					onChange={(e) => {
 						if (onChange) onChange(e)
 					}}
+					defaultValue={defaultValue}
 				/>
 			</div>
 			<div id={`${id}-error`} aria-live="polite" aria-atomic="true">

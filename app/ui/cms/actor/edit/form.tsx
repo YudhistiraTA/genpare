@@ -2,6 +2,7 @@
 import { editActor } from '@/app/lib/api/cms/actor/editActor'
 import { fetchActor } from '@/app/lib/api/cms/actor/fetchActor'
 import { DeleteButton } from '@/app/ui/cms/actor/edit/deleteButton'
+import { InputField } from '@/app/ui/cms/inputField'
 import { Role } from '@prisma/client'
 import clsx from 'clsx'
 import { useEffect } from 'react'
@@ -28,25 +29,13 @@ export function Form({
 		<form action={dispatch} className="grid grid-cols-1 gap-4">
 			<Toaster />
 			<input type="hidden" name="id" id="id" defaultValue={data.id} />
-			<div className="flex flex-col">
-				<label htmlFor="name">Name</label>
-				<input
-					className="input input-bordered"
-					id="name"
-					name="name"
-					type="text"
-					aria-describedby="name-error"
-					defaultValue={data.name}
-				/>
-				<div id="name-error" aria-live="polite" aria-atomic="true">
-					{state.errors?.name &&
-						state.errors.name.map((error: string) => (
-							<p className="mt-2 text-sm text-red-500" key={error}>
-								{error}
-							</p>
-						))}
-				</div>
-			</div>
+			<InputField
+				label="Name"
+				id="name"
+				name="name"
+				errorArray={state.errors?.name}
+				defaultValue={data.name}
+			/>
 			<div className="flex flex-col">
 				<label htmlFor="slug">
 					<p>Slug</p>

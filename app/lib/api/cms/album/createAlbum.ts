@@ -20,13 +20,7 @@ const FormSchema = z.object({
 			required_error: 'Circle is required.',
 		})
 		.min(1, 'Circle is required.')
-		.refine(
-			async (circleId) =>
-				prisma.actor
-					.findUnique({ where: { id: circleId }, select: { role: true } })
-					.then((circle) => !!circle && circle.role === 'circle'),
-			'Circle does not exist.',
-		),
+		.uuid(),
 	slug: z
 		.string()
 		.min(1, 'Slug is required.')

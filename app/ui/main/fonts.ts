@@ -11,4 +11,6 @@ export const comfortaa = Comfortaa({
 export const cherryBomb = Cherry_Bomb_One({
 	weight: ['400'],
 	subsets: ['latin'],
+	display: 'swap',
+	adjustFontFallback: false
 })

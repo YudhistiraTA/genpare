@@ -15,7 +15,6 @@ export async function deleteAlbum({
 			})
 		})
 	} catch (error) {
-		console.log(error)
 		return { errors: {}, message: 'Internal Server Error' }
 	}
 	revalidateTag('album')

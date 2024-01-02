@@ -21,7 +21,6 @@ export async function authenticate(
 	try {
 		await signIn('credentials', formData)
 	} catch (error) {
-		console.log(error)
 		if (isAuthError(error) && error.stack.includes('CredentialsSignin'))
 			return 'Invalid key'
 		return 'Unknown error'

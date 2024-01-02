@@ -12,7 +12,6 @@ export async function deleteActor({id, name}: Awaited<ReturnType<typeof fetchAct
       })
     })
   } catch (error) {
-    console.log(error)
     return { errors: {}, message: 'Internal Server Error' }
   }
   revalidateTag('actor')

@@ -1,8 +1,5 @@
 import clsx from 'clsx'
-import React, {
-	ForwardRefRenderFunction,
-	HTMLInputTypeAttribute,
-} from 'react'
+import React, { ForwardRefRenderFunction, HTMLInputTypeAttribute } from 'react'
 
 type InputFieldProps = {
 	label: string
@@ -53,13 +50,12 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 					aria-describedby={`${id}-error`}
 					onBeforeInput={(e) => {
 						const inputEvent = e.nativeEvent as InputEvent & {
-							key: string
 							target: { value: string }
 						}
 						if (
-							inputEvent.key &&
+							inputEvent.data &&
 							numberTypes.includes(type) &&
-							!/[0-9]/.test(inputEvent.key)
+							!/[0-9]/.test(inputEvent.data)
 						)
 							return e.preventDefault()
 						const inputValue = inputEvent.target.value
@@ -70,7 +66,7 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 							if (inputValue.length >= String(new Date().getFullYear()).length)
 								return e.preventDefault()
 							if (
-								Number(inputValue + inputEvent.key) > new Date().getFullYear()
+								Number(inputValue + inputEvent.data) > new Date().getFullYear()
 							)
 								return e.preventDefault()
 						}

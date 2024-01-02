@@ -1,3 +1,5 @@
+'use server'
+import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import prisma from '@/prisma/config'
 import { Language } from '@prisma/client'
 import { z } from 'zod'
@@ -17,7 +19,20 @@ const FormSchema = z.object({
 				prisma.song.findUnique({ where: { slug } }).then((song) => !song),
 			'Slug is already in use. If this was auto-generated, please use custom slug input.',
 		),
-	youtubeId: z.string().min(1, 'Youtube link is required.'),
+	youtubeId: z
+		.string()
+		.min(1, 'Youtube link is required.')
+		.transform(youtubeIdExtract)
+		.refine(
+			async (id) => {
+				const res = await fetch(
+					`https://i.ytimg.com/vi_webp/${id}/hqdefault.webp`,
+					{ cache: 'no-cache' },
+				)
+				return res.ok
+			},
+			{ message: 'Youtube video is not available.', path: ['youtubeId'] },
+		),
 	trackNo: z.string().min(1, 'Track number is required.').transform(Number),
 	Vocals: z.array(z.string().uuid()),
 	Composer: z.array(z.string().uuid()),
@@ -55,9 +70,9 @@ export type State = {
 }
 
 export async function createSong(prevState: State, formData: FormData) {
-	const parsed = await FormSchema.safeParseAsync(
-		Object.fromEntries(formData.entries()),
-	)
+	const object = Object.fromEntries(formData.entries())
+	console.log(object)
+	const parsed = await FormSchema.safeParseAsync(object)
 	if (!parsed.success) {
 		return {
 			errors: parsed.error.flatten().fieldErrors,

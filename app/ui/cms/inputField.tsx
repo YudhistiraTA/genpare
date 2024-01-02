@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import React, {
 	ForwardRefRenderFunction,
 	HTMLInputTypeAttribute,
-	useState,
 } from 'react'
 
 type InputFieldProps = {

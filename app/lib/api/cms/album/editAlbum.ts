@@ -2,7 +2,6 @@
 import prisma from '@/prisma/config'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
-import path from 'path'
 import slug from 'slug'
 import { z } from 'zod'
 

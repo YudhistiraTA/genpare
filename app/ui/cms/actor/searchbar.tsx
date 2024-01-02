@@ -2,10 +2,10 @@
 
 import { filterOptions, roleOptions } from '@/app/lib/api/cms/actor/tableData'
 import { capitalize } from '@/app/lib/capitalize'
-import {debounce} from '@/app/lib/debounce'
+import { debounce } from '@/app/lib/debounce'
 import clsx from 'clsx'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export function Searchbar() {
 	const searchParams = useSearchParams()
@@ -16,16 +16,20 @@ export function Searchbar() {
 	useEffect(() => {
 		setInputValue(query?.toString() || '')
 	}, [query])
-	const search = debounce((input: string) => {
-		const params = new URLSearchParams(searchParams)
-		params.delete('page')
-		if (input) {
-			params.set('query', input)
-		} else {
-			params.delete('query')
-		}
-		replace(`/cms/actor/?${params.toString()}`)
-	}, 500)
+	const search = useMemo(
+		() =>
+			debounce((input: string) => {
+				const params = new URLSearchParams(searchParams)
+				params.delete('page')
+				if (input) {
+					params.set('query', input)
+				} else {
+					params.delete('query')
+				}
+				replace(`/cms/actor/?${params.toString()}`)
+			}, 500),
+		[replace, searchParams],
+	)
 
 	const role = searchParams.get('role')
 	const changeRole = (target: string) => {

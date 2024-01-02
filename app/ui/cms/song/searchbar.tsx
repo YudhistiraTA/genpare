@@ -2,11 +2,11 @@
 
 import { filterOptions } from '@/app/lib/api/cms/song/tableData'
 import { capitalize } from '@/app/lib/capitalize'
-import {debounce} from '@/app/lib/debounce'
+import { debounce } from '@/app/lib/debounce'
 import { Language } from '@prisma/client'
 import clsx from 'clsx'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 export function Searchbar() {
 	const searchParams = useSearchParams()
@@ -14,16 +14,20 @@ export function Searchbar() {
 
 	const query = searchParams.get('query')
 	const [inputValue, setInputValue] = useState(query?.toString() || '')
-	const search = debounce((input: string) => {
-		const params = new URLSearchParams(searchParams)
-		params.delete('page')
-		if (input) {
-			params.set('query', input)
-		} else {
-			params.delete('query')
-		}
-		replace(`/cms/song/?${params.toString()}`)
-	}, 500)
+	const search = useMemo(
+		() =>
+			debounce((input: string) => {
+				const params = new URLSearchParams(searchParams)
+				params.delete('page')
+				if (input) {
+					params.set('query', input)
+				} else {
+					params.delete('query')
+				}
+				replace(`/cms/song/?${params.toString()}`)
+			}, 500),
+		[replace, searchParams],
+	)
 
 	const untranslated = searchParams.get('untranslated')
 	const changeUntranslated = (target: string) => {
@@ -95,7 +99,11 @@ export function Searchbar() {
 					</ul>
 				</div>
 				<div className="dropdown lg:dropdown-end">
-					<div tabIndex={0} role="button" className="btn btn-neutral lg:w-32 w-30">
+					<div
+						tabIndex={0}
+						role="button"
+						className="btn btn-neutral lg:w-32 w-30"
+					>
 						{filterOptions.find(
 							({ value }) => value === searchParams.get('order'),
 						)?.label || filterOptions[0].label}

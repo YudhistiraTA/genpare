@@ -1,7 +1,7 @@
 'use client'
-import {debounce} from '@/app/lib/debounce'
+import { debounce } from '@/app/lib/debounce'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 export function InputField() {
 	const searchParams = useSearchParams()
@@ -12,16 +12,20 @@ export function InputField() {
 	useEffect(() => {
 		setInputValue(query?.toString() || '')
 	}, [query])
-	const search = debounce((input: string) => {
-		const params = new URLSearchParams(searchParams)
-		params.delete('page')
-		if (input) {
-			params.set('query', input)
-		} else {
-			params.delete('query')
-		}
-		replace(`/cms/album/?${params.toString()}`)
-	}, 500)
+	const search = useMemo(
+		() =>
+			debounce((input: string) => {
+				const params = new URLSearchParams(searchParams)
+				params.delete('page')
+				if (input) {
+					params.set('query', input)
+				} else {
+					params.delete('query')
+				}
+				replace(`/cms/album/?${params.toString()}`)
+			}, 500),
+		[replace, searchParams],
+	)
 	return (
 		<input
 			name="search"

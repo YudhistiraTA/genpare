@@ -2,6 +2,7 @@
 import { editAlbum } from '@/app/lib/api/cms/album/editAlbum'
 import { fetchAlbum } from '@/app/lib/api/cms/album/fetchAlbum'
 import { fetchCircles } from '@/app/lib/api/cms/album/fetchCircles'
+import { DeleteButton } from '@/app/ui/cms/album/edit/deleteButton'
 import { ImageUpload } from '@/app/ui/cms/album/new/imageUpload'
 import { InputField } from '@/app/ui/cms/inputField'
 import clsx from 'clsx'
@@ -102,6 +103,7 @@ export function Form({
 					</div>
 					<div className="lg:block hidden">
 						<SubmitButton />
+						<DeleteButton data={data} />
 					</div>
 				</div>
 				<div className="flex flex-col items-center w-full">
@@ -109,6 +111,7 @@ export function Form({
 				</div>
 				<div className="lg:hidden block mb-4">
 					<SubmitButton />
+					<DeleteButton data={data} />
 				</div>
 			</form>
 		</>

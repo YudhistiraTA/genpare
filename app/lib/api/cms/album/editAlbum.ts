@@ -119,7 +119,7 @@ export async function editAlbum(prevState: State, formData: FormData) {
 				},
 			})
 			await tx.history.create({
-				data: { message: `Created album ${parsed.data.name}.` },
+				data: { message: `Edited album ${parsed.data.name}.` },
 			})
 		})
 	} catch (error) {

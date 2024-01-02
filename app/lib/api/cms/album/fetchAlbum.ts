@@ -6,7 +6,19 @@ import { redirect } from 'next/navigation'
 export async function fetchAlbum(slug: string) {
 	unstable_noStore()
 	try {
-		const result = await prisma.album.findUniqueOrThrow({ where: { slug } })
+		const result = await prisma.album.findUniqueOrThrow({
+			where: { slug },
+			include: {
+				Song: {
+					select: {
+						id: true,
+						name: true,
+						Lyrics: { select: { language: true } },
+					},
+					orderBy: { trackNo: 'asc' },
+				},
+			},
+		})
 		return result
 	} catch (error) {
 		if (

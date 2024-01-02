@@ -57,6 +57,7 @@ export const fetchTableData = unstable_cache(
 					OR: [
 						{ name: { contains: query, mode: 'insensitive' } },
 						{ slug: { contains: query, mode: 'insensitive' } },
+						{ Circle: { name: { contains: query, mode: 'insensitive' } } },
 					],
 				}),
 				...(year && { releaseYear: parseInt(year) }),

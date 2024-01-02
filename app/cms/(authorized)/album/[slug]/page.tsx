@@ -12,7 +12,7 @@ export default async function Page({
 	const data = await fetchAlbum(slug)
 	const circles = await fetchCircles()
 	return (
-		<div className='lg:pt-4 px-6'>
+		<div className="lg:pt-4 px-6">
 			<Breadcrumb />
 			<Suspense fallback={<div>Loading form...</div>}>
 				<Form data={data} circles={circles} />

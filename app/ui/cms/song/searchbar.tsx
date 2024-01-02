@@ -14,9 +14,6 @@ export function Searchbar() {
 
 	const query = searchParams.get('query')
 	const [inputValue, setInputValue] = useState(query?.toString() || '')
-	useEffect(() => {
-		setInputValue(query?.toString() || '')
-	}, [query])
 	const search = debounce((input: string) => {
 		const params = new URLSearchParams(searchParams)
 		params.delete('page')

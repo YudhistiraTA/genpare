@@ -5,10 +5,11 @@ import { fetchCircles } from '@/app/lib/api/cms/album/fetchCircles'
 import { DeleteButton } from '@/app/ui/cms/album/edit/deleteButton'
 import { ImageUpload } from '@/app/ui/cms/album/new/imageUpload'
 import { InputField } from '@/app/ui/cms/inputField'
-import clsx from 'clsx'
+import { SelectField } from '@/app/ui/cms/selectField'
+import { SubmitButton } from '@/app/ui/submitButton'
 import Link from 'next/link'
 import { useEffect } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormState } from 'react-dom'
 import toast, { Toaster } from 'react-hot-toast'
 
 export function Form({
@@ -67,40 +68,16 @@ export function Form({
 						errorArray={state.errors?.totalTrack}
 						defaultValue={data.totalTrack.toString()}
 					/>
-					<div className="flex flex-col">
-						<label htmlFor="circle">Circle</label>
-						<select
-							id="circleId"
-							name="circleId"
-							placeholder="circle"
-							className="select select-bordered w-full"
-							defaultValue={data.circleId || ''}
-							aria-describedby="circle-error"
-						>
-							<option value="" disabled>
-								Circle
-							</option>
-							{circles.map(({ id, name }) => (
-								<option key={id} value={id}>
-									{name}
-								</option>
-							))}
-						</select>
-						<Link
-							href="/cms/actor/new"
-							className="text-xs underline text-blue-400"
-						>
-							Need to add a new circle?
-						</Link>
-						<div id="circle-error" aria-live="polite" aria-atomic="true">
-							{state.errors?.circleId &&
-								state.errors?.circleId.map((error: string) => (
-									<p className="mt-2 text-sm text-red-500" key={error}>
-										{error}
-									</p>
-								))}
-						</div>
-					</div>
+					<SelectField
+						id="circleId"
+						name="circleId"
+						placeholder="Circle"
+						label="Circle"
+						errorArray={state.errors?.circleId}
+						options={circles}
+						href="actor"
+						defaultValue={data.circleId}
+					/>
 					<div className="lg:block hidden">
 						<SubmitButton />
 						<DeleteButton data={data} />
@@ -115,24 +92,5 @@ export function Form({
 				</div>
 			</form>
 		</>
-	)
-}
-
-function SubmitButton() {
-	const { pending } = useFormStatus()
-	return (
-		<button
-			className={clsx('btn btn-primary w-fit', pending && 'btn-disabled')}
-			aria-disabled={pending}
-		>
-			{pending ? (
-				<>
-					<span className="loading loading-ring loading-lg"></span>
-					<p>Loading...</p>
-				</>
-			) : (
-				<p>Submit</p>
-			)}
-		</button>
 	)
 }

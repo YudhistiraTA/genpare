@@ -21,7 +21,7 @@ export function SelectField({
 	label: string
 	placeholder?: string
 	errorArray?: string[]
-	defaultValue?: string | null
+	defaultValue?: string | { id: string; name: string; slug?: string }[] | null
 	href?: string
 	isMulti?: boolean
 }) {
@@ -36,6 +36,7 @@ export function SelectField({
 		label: name,
 		slug: slug,
 	}))
+	console.log(defaultValue)
 	return (
 		<div className="flex flex-col">
 			<label htmlFor={id}>{label}</label>
@@ -47,7 +48,13 @@ export function SelectField({
 				placeholder={placeholder}
 				defaultValue={
 					defaultValue
-						? convertedOptions.find((option) => option.value === defaultValue)
+						? isMulti
+							? convertedOptions.filter((option) =>
+									(defaultValue as { id: string }[]).find(
+										({ id }) => id === option.value,
+									),
+							  )
+							: convertedOptions.find((option) => option.value === defaultValue)
 						: undefined
 				}
 				styles={{
@@ -105,6 +112,7 @@ export function SelectField({
 					const input = rawInput.toLowerCase()
 					const {
 						label,
+						//@ts-ignore
 						data: { slug },
 					} = option
 					return (

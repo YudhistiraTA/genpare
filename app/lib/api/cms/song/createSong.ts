@@ -1,15 +1,10 @@
 'use server'
 import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import prisma from '@/prisma/config'
-import { Language } from '@prisma/client'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-function lineNumCheck(arr: { content: string }[]) {
-	const linesCount = arr[0].content.split('\n').length
-	return arr.every((item) => item.content.split('\n').length === linesCount)
-}
 
 const FormSchema = z.object({
 	name: z.string().min(1, 'Name is required.'),
@@ -39,29 +34,6 @@ const FormSchema = z.object({
 	Vocals: z.array(z.string().uuid()),
 	Composer: z.array(z.string().uuid()),
 	albumId: z.string().uuid().min(1, 'Album is required.'),
-	// lyrics: z
-	// 	.array(
-	// 		z.object({
-	// 			language: z.nativeEnum(Language, {
-	// 				errorMap: (issue) => {
-	// 					switch (issue.code) {
-	// 						case 'invalid_type':
-	// 						case 'invalid_enum_value':
-	// 							return { message: 'Please select a language.' }
-	// 						default:
-	// 							return { message: 'Unknown error.' }
-	// 					}
-	// 				},
-	// 			}),
-	// 			content: z.string(),
-	// 			creatorId: z.string().uuid(),
-	// 		}),
-	// 	)
-	// 	.min(1, 'Lyrics is required.')
-	// 	.refine(lineNumCheck, {
-	// 		message: 'All lyrics must have the same number of lines.',
-	// 		path: ['lyrics'],
-	// 	}),
 })
 
 export type State = {

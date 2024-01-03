@@ -81,14 +81,14 @@ export function Searchbar() {
 					</div>
 					<ul
 						tabIndex={0}
-						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-[#343B45] mt-1"
+						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-default mt-1"
 					>
 						{roleOptions.map((roleOption) => (
 							<li
 								key={`filter-${roleOption}`}
 								onClick={() => changeRole(roleOption)}
 								className={clsx({
-									'bg-[#343B45] rounded-lg': role === roleOption,
+									'bg-default rounded-lg': role === roleOption,
 								})}
 							>
 								<p>{capitalize(roleOption)}</p>
@@ -108,14 +108,14 @@ export function Searchbar() {
 					</div>
 					<ul
 						tabIndex={0}
-						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 border-2 border-[#343B45] mt-1"
+						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 border-2 border-default mt-1"
 					>
 						{filterOptions.map(({ value, label }) => (
 							<li
 								key={`filter-${value}`}
 								onClick={() => filterChange(value)}
 								className={clsx({
-									'bg-[#343B45] rounded-lg':
+									'bg-default rounded-lg':
 										value === searchParams.get('order'),
 								})}
 							>

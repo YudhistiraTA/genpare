@@ -36,9 +36,9 @@ export function Sidebar() {
 					<Link
 						href="/cms"
 						className={clsx(
-							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
+							'hover:pl-6 hover:outline-0 hover:bg-default transition-all',
 							{
-								'pl-6 bg-[#343B45]': path === '/cms',
+								'pl-6 bg-default': path === '/cms',
 							},
 						)}
 					>
@@ -69,9 +69,9 @@ export function Sidebar() {
 					<Link
 						href="/cms/actor"
 						className={clsx(
-							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
+							'hover:pl-6 hover:outline-0 hover:bg-default transition-all',
 							{
-								'pl-6 bg-[#343B45]': path.startsWith('/cms/actor'),
+								'pl-6 bg-default': path.startsWith('/cms/actor'),
 							},
 						)}
 					>
@@ -101,9 +101,9 @@ export function Sidebar() {
 					<Link
 						href="/cms/album"
 						className={clsx(
-							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
+							'hover:pl-6 hover:outline-0 hover:bg-default transition-all',
 							{
-								'pl-6 bg-[#343B45]': path.startsWith('/cms/album'),
+								'pl-6 bg-default': path.startsWith('/cms/album'),
 							},
 						)}
 					>
@@ -153,9 +153,9 @@ export function Sidebar() {
 					<Link
 						href="/cms/song"
 						className={clsx(
-							'hover:pl-6 hover:outline-0 hover:bg-[#343B45] transition-all',
+							'hover:pl-6 hover:outline-0 hover:bg-default transition-all',
 							{
-								'pl-6 bg-[#343B45]': path.startsWith('/cms/song'),
+								'pl-6 bg-default': path.startsWith('/cms/song'),
 							},
 						)}
 					>

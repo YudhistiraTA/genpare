@@ -21,13 +21,13 @@ export function YearOptions({ years }: { years: number[] }) {
 			</div>
 			<ul
 				tabIndex={0}
-				className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-[#343B45] mt-1"
+				className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-default mt-1"
 			>
 				{years.map((yearOption) => (
 					<li
 						key={`filter-${yearOption}`}
 						className={clsx({
-							'bg-[#343B45] rounded-lg': yearOption.toString() === year,
+							'bg-default rounded-lg': yearOption.toString() === year,
 						})}
 						onClick={() => changeYear(yearOption.toString())}
 					>

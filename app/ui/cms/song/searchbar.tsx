@@ -81,7 +81,7 @@ export function Searchbar() {
 					</div>
 					<ul
 						tabIndex={0}
-						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-[#343B45] mt-1"
+						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-40 border-2 border-default mt-1"
 					>
 						{Object.keys(Language)
 							.filter((language) => language !== 'japanese')
@@ -90,7 +90,7 @@ export function Searchbar() {
 									key={`filter-${language}`}
 									onClick={() => changeUntranslated(language)}
 									className={clsx({
-										'bg-[#343B45] rounded-lg': language === untranslated,
+										'bg-default rounded-lg': language === untranslated,
 									})}
 								>
 									<p>No {capitalize(language)} Available</p>
@@ -110,14 +110,14 @@ export function Searchbar() {
 					</div>
 					<ul
 						tabIndex={0}
-						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 border-2 border-[#343B45] mt-1"
+						className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 border-2 border-default mt-1"
 					>
 						{filterOptions.map(({ value, label }) => (
 							<li
 								key={`filter-${value}`}
 								onClick={() => filterChange(value)}
 								className={clsx({
-									'bg-[#343B45] rounded-lg':
+									'bg-default rounded-lg':
 										value === searchParams.get('order'),
 								})}
 							>

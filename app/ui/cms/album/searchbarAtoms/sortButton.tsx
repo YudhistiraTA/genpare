@@ -20,14 +20,14 @@ export function SortButton() {
 			</div>
 			<ul
 				tabIndex={0}
-				className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 border-2 border-[#343B45] mt-1"
+				className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-60 border-2 border-default mt-1"
 			>
 				{filterOptions.map(({ value, label }) => (
 					<li
 						key={`filter-${value}`}
 						onClick={() => filterChange(value)}
 						className={clsx({
-							'bg-[#343B45] rounded-lg': searchParams.get('order')
+							'bg-default rounded-lg': searchParams.get('order')
 								? value === searchParams.get('order')
 								: value === 'last-updated',
 						})}

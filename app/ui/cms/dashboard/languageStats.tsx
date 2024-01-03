@@ -11,7 +11,7 @@ export async function LanguageStats() {
 				.map(({ language, count }) => (
 					<Link
 						href={`/cms/song?untranslated=${language}`}
-						className="stat hover:bg-[#343B45]"
+						className="stat hover:bg-default"
 						key={language}
 					>
 						<div className="stat-title">

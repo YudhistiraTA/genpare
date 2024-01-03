@@ -13,7 +13,7 @@ export async function CountStats() {
 							? `/cms/${type}`
 							: `/cms/actor?role=${type}`
 					}
-					className="stat hover:bg-[#343B45]"
+					className="stat hover:bg-default"
 					key={`count-${index}`}
 				>
 					<div className="stat-title">Total {capitalize(type)}s</div>

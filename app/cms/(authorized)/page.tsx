@@ -30,13 +30,13 @@ export default function Page({
 			<p className="text-2xl my-2">Quick Create</p>
 			<div className="lg:border-2 border rounded-2xl border-neutral lg:w-fit">
 				<div className="stats stats-vertical lg:stats-horizontal shadow w-full">
-					<Link href={`/cms/actor/new`} className="stat hover:bg-[#343B45]">
+					<Link href={`/cms/actor/new`} className="stat hover:bg-default">
 						<div className="stat-value">Actor</div>
 					</Link>
-					<Link href={`/cms/album/new`} className="stat hover:bg-[#343B45]">
+					<Link href={`/cms/album/new`} className="stat hover:bg-default">
 						<div className="stat-value">Album</div>
 					</Link>
-					<Link href={`/cms/song/new`} className="stat hover:bg-[#343B45]">
+					<Link href={`/cms/song/new`} className="stat hover:bg-default">
 						<div className="stat-value">Song</div>
 					</Link>
 				</div>

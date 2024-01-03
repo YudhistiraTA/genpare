@@ -1,8 +1,10 @@
 'use client'
 import { createSong } from '@/app/lib/api/cms/song/createSong'
+import { fetchAlbumList } from '@/app/lib/api/cms/song/fetchAlbumList'
 import { debounceHTML } from '@/app/lib/debounce'
 import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import { InputField } from '@/app/ui/cms/inputField'
+import { SelectField } from '@/app/ui/cms/selectField'
 import { SlugField } from '@/app/ui/cms/slugField'
 import YouTubePlayer from '@/app/ui/main/youtube'
 import { SubmitButton } from '@/app/ui/submitButton'
@@ -11,7 +13,11 @@ import { useFormState } from 'react-dom'
 import toast, { Toaster } from 'react-hot-toast'
 import slug from 'slug'
 
-export function Form() {
+export function Form({
+	albums,
+}: {
+	albums: Awaited<ReturnType<typeof fetchAlbumList>>
+}) {
 	const [slugValue, setSlug] = useState('')
 	const [customSlug, setCustomSlug] = useState(false)
 	const [youtubeId, setYoutubeId] = useState('')
@@ -67,6 +73,15 @@ export function Form() {
 						setSlug={setSlug}
 						errorArray={state.errors?.slug}
 					/>
+					<SelectField
+						label="Album"
+						id="albumId"
+						name="albumId"
+						placeholder="Album"
+						errorArray={state.errors?.albumId}
+						options={albums}
+						href="album"
+					/>
 					<InputField
 						id="trackNo"
 						name="trackNo"
@@ -74,14 +89,6 @@ export function Form() {
 						type="tel"
 						errorArray={state.errors?.trackNo}
 						maxLength={2}
-					/>
-					<SubmitButton />
-				</div>
-				<div className="hidden lg:flex flex-col justify-center place-items-center">
-					<YouTubePlayer
-						title="yt-preview"
-						videoId={youtubeId}
-						className="w-96"
 					/>
 					<InputField
 						label="Youtube Link"
@@ -92,7 +99,18 @@ export function Form() {
 						}
 						errorArray={state.errors?.youtubeId}
 					/>
+					<SubmitButton />
 				</div>
+				{youtubeId ? (
+					<div className="hidden lg:flex flex-col justify-center place-items-center">
+						<label htmlFor="youtubeId">Youtube Link Preview</label>
+						<YouTubePlayer
+							title="yt-preview"
+							videoId={youtubeId}
+							className="w-96"
+						/>
+					</div>
+				) : null}
 			</form>
 		</>
 	)

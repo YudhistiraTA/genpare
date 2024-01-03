@@ -11,7 +11,7 @@ export function SelectField({
 	id,
 	label,
 	name,
-	placeholder,
+	placeholder = '',
 	defaultValue,
 	href,
 	isMulti = false,
@@ -20,7 +20,7 @@ export function SelectField({
 	id: string
 	name: string
 	label: string
-	placeholder: string
+	placeholder?: string
 	errorArray?: string[]
 	defaultValue?: string | null
 	href?: string

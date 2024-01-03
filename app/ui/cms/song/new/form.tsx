@@ -77,11 +77,9 @@ export function Form({
 						label="Album"
 						id="albumId"
 						name="albumId"
-						placeholder="Album"
 						errorArray={state.errors?.albumId}
 						options={albums}
 						href="album"
-						isMulti
 					/>
 					<InputField
 						id="trackNo"
@@ -102,16 +100,16 @@ export function Form({
 					/>
 					<SubmitButton />
 				</div>
-				{youtubeId ? (
-					<div className="hidden lg:flex flex-col justify-center place-items-center">
-						<label htmlFor="youtubeId">Youtube Link Preview</label>
+				<div className="hidden lg:flex flex-col justify-center place-items-center">
+					<label htmlFor="youtubeId">Youtube Link Preview</label>
+					{youtubeId ? (
 						<YouTubePlayer
 							title="yt-preview"
 							videoId={youtubeId}
 							className="w-96"
 						/>
-					</div>
-				) : null}
+					) : <div className='w-96 rounded-xl h-52 border border-default mt-2'>hi</div>}
+				</div>
 			</form>
 		</>
 	)

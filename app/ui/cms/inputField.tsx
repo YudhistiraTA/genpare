@@ -10,6 +10,7 @@ type InputFieldProps = {
 	type?: HTMLInputTypeAttribute | 'year'
 	maxLength?: number
 	defaultValue?: string
+	placeholder?: string
 }
 const InputFieldPrototype: ForwardRefRenderFunction<
 	HTMLInputElement,
@@ -24,6 +25,7 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 		type = 'text',
 		maxLength,
 		defaultValue,
+		placeholder = ''
 	},
 	ref,
 ) => {
@@ -43,11 +45,12 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 			>
 				<input
 					ref={ref || undefined}
-					className="input input-bordered w-full"
+					className="input input-bordered w-full placeholder-default"
 					id={id}
 					name={name}
 					type={type === 'year' ? 'tel' : type}
 					aria-describedby={`${id}-error`}
+					placeholder={placeholder}
 					onBeforeInput={(e) => {
 						const inputEvent = e.nativeEvent as InputEvent & {
 							target: { value: string }

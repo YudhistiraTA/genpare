@@ -70,7 +70,6 @@ export function Form({
 					<SelectField
 						id="circleId"
 						name="circleId"
-						placeholder="Circle"
 						label="Circle"
 						errorArray={state.errors?.circleId}
 						options={circles}

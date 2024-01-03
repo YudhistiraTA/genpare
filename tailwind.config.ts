@@ -15,6 +15,10 @@ const config: Config = {
 					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 			},
 		},
+		placeholderColor: {
+			default: '#808080',
+		},
+		colors: (utils) => ({ ...utils.colors, default: '#343B45' }),
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
@@ -25,7 +29,7 @@ const config: Config = {
 					'base-100': '#f0f7ff',
 				},
 			},
-			'dark'
+			'dark',
 		],
 	},
 }

@@ -68,7 +68,6 @@ export function Form() {
 				id="role"
 				name="role"
 				label="Role"
-				placeholder="Role"
 				errorArray={state.errors?.role}
 				options={Object.values(Role).map((role) => ({ id: role, name: role }))}
 			/>

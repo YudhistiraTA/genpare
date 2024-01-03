@@ -81,6 +81,7 @@ export function Form({
 						errorArray={state.errors?.albumId}
 						options={albums}
 						href="album"
+						isMulti
 					/>
 					<InputField
 						id="trackNo"

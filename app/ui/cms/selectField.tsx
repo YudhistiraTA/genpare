@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { useId } from 'react'
 import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
+import makeAnimated from 'react-select/animated'
 
-const animatedComponents = makeAnimated();
+const animatedComponents = makeAnimated()
 
 export function SelectField({
 	options,
@@ -62,6 +62,15 @@ export function SelectField({
 							borderColor: 'var(--fallback-bc,oklch(var(--bc)/0.2))',
 						},
 						boxShadow: 'none',
+					}),
+					multiValue: (base) => ({
+						...base,
+						backgroundColor: 'rgb(39, 47, 56)',
+					}),
+					multiValueLabel: (base) => ({ ...base, color: 'inherit' }),
+					multiValueRemove: (base) => ({
+						...base,
+						'&:hover': { backgroundColor: 'rgb(52, 59, 69)', color: 'inherit' },
 					}),
 					singleValue: (base) => ({ ...base, color: 'inherit' }),
 					dropdownIndicator: (base, state) => ({

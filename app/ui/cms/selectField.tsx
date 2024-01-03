@@ -1,5 +1,6 @@
+'use client'
 import Link from 'next/link'
-import { useId } from 'react'
+import { useEffect, useId, useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
@@ -26,6 +27,12 @@ export function SelectField({
 	href?: string
 	isMulti?: boolean
 }) {
+	const [mounted, setMounted] = useState(false)
+	useEffect(() => {
+		setMounted(true)
+	}, [])
+	const instanceId = useId()
+	if (!mounted) return null
 	const convertedOptions = options.map(({ id, name, slug }) => ({
 		value: id,
 		label: name,
@@ -37,7 +44,7 @@ export function SelectField({
 			<Select
 				components={animatedComponents}
 				id={id}
-				instanceId={useId()}
+				instanceId={instanceId}
 				name={name}
 				placeholder={placeholder}
 				defaultValue={

@@ -1,6 +1,6 @@
 'use client'
 import { createSong } from '@/app/lib/api/cms/song/createSong'
-import { fetchAlbumList } from '@/app/lib/api/cms/song/fetchAlbumList'
+import { fetchFormOptions } from '@/app/lib/api/cms/song/formOptions'
 import { debounceHTML } from '@/app/lib/debounce'
 import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import { InputField } from '@/app/ui/cms/inputField'
@@ -14,9 +14,9 @@ import toast, { Toaster } from 'react-hot-toast'
 import slug from 'slug'
 
 export function Form({
-	albums,
+	options,
 }: {
-	albums: Awaited<ReturnType<typeof fetchAlbumList>>
+	options: Awaited<ReturnType<typeof fetchFormOptions>>
 }) {
 	const [slugValue, setSlug] = useState('')
 	const [customSlug, setCustomSlug] = useState(false)
@@ -78,7 +78,7 @@ export function Form({
 						id="albumId"
 						name="albumId"
 						errorArray={state.errors?.albumId}
-						options={albums}
+						options={options.albums}
 						href="album"
 					/>
 					<InputField
@@ -108,7 +108,13 @@ export function Form({
 							videoId={youtubeId}
 							className="w-96"
 						/>
-					) : <div className='w-96 rounded-xl h-52 border border-default mt-2'>hi</div>}
+					) : (
+						<label htmlFor="youtubeId" className='hover:cursor-pointer'>
+							<div className="w-96 rounded-xl h-52 border border-default mt-2 flex justify-center items-center">
+								Please fill the Youtube Link field
+							</div>
+						</label>
+					)}
 				</div>
 			</form>
 		</>

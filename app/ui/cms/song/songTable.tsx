@@ -6,7 +6,7 @@ import Link from 'next/link'
 export async function SongTable({
 	query,
 	untranslated,
-	order = 'album-name-asc',
+	order,
 }: {
 	query: string
 	untranslated: Language

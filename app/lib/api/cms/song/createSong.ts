@@ -2,6 +2,8 @@
 import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import prisma from '@/prisma/config'
 import { Language } from '@prisma/client'
+import { revalidateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 function lineNumCheck(arr: { content: string }[]) {
@@ -83,5 +85,17 @@ export async function createSong(prevState: State, formData: FormData) {
 		}
 	}
 	console.log(parsed.data)
-	return { errors: {}, message: 'test' }
+	try {
+		await prisma.song.create({
+			data: {
+				...parsed.data,
+				Vocals: { connect: parsed.data.Vocals.map((id) => ({ id })) },
+				Composer: { connect: parsed.data.Composer.map((id) => ({ id })) },
+			},
+		})
+	} catch (error) {
+		return { errors: {}, message: 'Internal Server Error' }
+	}
+	revalidateTag('song')
+	redirect('/cms/song')
 }

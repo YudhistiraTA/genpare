@@ -3,6 +3,7 @@ import { Language, Prisma } from '@prisma/client'
 import { unstable_cache } from 'next/cache'
 
 export const filterOptions = [
+	{ value: 'last-updated', label: 'Last Updated' },
 	{ value: 'album-name-asc', label: 'Album Name (A-Z)' },
 	{ value: 'album-name-desc', label: 'Album Name (Z-A)' },
 	{ value: 'release-year-desc', label: 'Release Year (Newest)' },
@@ -21,6 +22,8 @@ const getOrderBy = (
 			return [{ Album: { releaseYear: 'asc' } }, { trackNo: 'asc' }]
 		case 'release-year-desc':
 			return [{ Album: { releaseYear: 'desc' } }, { trackNo: 'asc' }]
+		case 'last-updated':
+			return [{ updatedAt: { sort: 'desc', nulls: 'last' } }]
 		default:
 			return []
 	}
@@ -30,7 +33,7 @@ export const fetchTableData = unstable_cache(
 	async ({
 		query,
 		untranslated,
-		order = 'album-name-asc',
+		order = 'last-updated',
 	}: {
 		query?: string
 		untranslated?: Language

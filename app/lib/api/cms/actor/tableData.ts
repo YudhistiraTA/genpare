@@ -3,9 +3,9 @@ import { Prisma } from '@prisma/client'
 import { unstable_cache } from 'next/cache'
 
 export const filterOptions = [
-	{ value: 'last-updated', label: 'Last updated' },
-	{ value: 'actor-name-asc', label: 'Actor name (A-Z)' },
-	{ value: 'actor-name-desc', label: 'Actor name (Z-A)' },
+	{ value: 'last-updated', label: 'Last Updated' },
+	{ value: 'actor-name-asc', label: 'Actor Name (A-Z)' },
+	{ value: 'actor-name-desc', label: 'Actor Name (Z-A)' },
 ] as const
 
 export const roleOptions = ['circle', 'artist', 'translator'] as const

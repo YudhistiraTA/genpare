@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default function Page({
-	searchParams: { query, untranslated, order = 'album-name-asc' },
+	searchParams: { query, untranslated, order },
 }: {
 	searchParams: {
 		query: string

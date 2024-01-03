@@ -4,8 +4,6 @@ import { useEffect, useId, useState } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
-const animatedComponents = makeAnimated()
-
 export function SelectField({
 	options,
 	errorArray,
@@ -42,7 +40,7 @@ export function SelectField({
 		<div className="flex flex-col">
 			<label htmlFor={id}>{label}</label>
 			<Select
-				components={animatedComponents}
+				components={makeAnimated()}
 				id={id}
 				instanceId={instanceId}
 				name={name}
@@ -59,7 +57,7 @@ export function SelectField({
 						padding: '0 0.4rem 0 0.4rem',
 						lineHeight: '1.5rem',
 						fontSize: '1rem',
-						height: '3rem',
+						minHeight: '3rem',
 						background:
 							'var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)))',
 						borderColor: 'var(--fallback-bc,oklch(var(--bc)/0.2))',

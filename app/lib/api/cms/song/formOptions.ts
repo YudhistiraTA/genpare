@@ -12,7 +12,7 @@ export async function fetchFormOptions() {
 	const vocals = actors.filter((actor) => actor.role === 'vocalist')
 	const composers = actors.filter((actor) => actor.role === 'composer')
 	const translators = actors.filter((actor) => actor.role === 'translator')
-	const lyricists = actors.filter((actor) => actor.role === 'lyricist')
+	const lyricists = actors.filter((actor) => actor.role === 'lyricist' || actor.role === 'composer')
 
 	return { albums, vocals, composers, translators, lyricists }
 }

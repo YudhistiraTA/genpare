@@ -7,8 +7,8 @@ export function SongTableSkeleton() {
 					<td>Translations</td>
 					<td>Slug</td>
 					<td>Youtube ID</td>
-					<td>Track No.</td>
 					<td>Album</td>
+					<td>Track No.</td>
 				</tr>
 			</thead>
 			<tbody>

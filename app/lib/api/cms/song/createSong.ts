@@ -37,29 +37,29 @@ const FormSchema = z.object({
 	Vocals: z.array(z.string().uuid()),
 	Composer: z.array(z.string().uuid()),
 	albumId: z.string().uuid().min(1, 'Album is required.'),
-	lyrics: z
-		.array(
-			z.object({
-				language: z.nativeEnum(Language, {
-					errorMap: (issue) => {
-						switch (issue.code) {
-							case 'invalid_type':
-							case 'invalid_enum_value':
-								return { message: 'Please select a language.' }
-							default:
-								return { message: 'Unknown error.' }
-						}
-					},
-				}),
-				content: z.string(),
-				creatorId: z.string().uuid(),
-			}),
-		)
-		.min(1, 'Lyrics is required.')
-		.refine(lineNumCheck, {
-			message: 'All lyrics must have the same number of lines.',
-			path: ['lyrics'],
-		}),
+	// lyrics: z
+	// 	.array(
+	// 		z.object({
+	// 			language: z.nativeEnum(Language, {
+	// 				errorMap: (issue) => {
+	// 					switch (issue.code) {
+	// 						case 'invalid_type':
+	// 						case 'invalid_enum_value':
+	// 							return { message: 'Please select a language.' }
+	// 						default:
+	// 							return { message: 'Unknown error.' }
+	// 					}
+	// 				},
+	// 			}),
+	// 			content: z.string(),
+	// 			creatorId: z.string().uuid(),
+	// 		}),
+	// 	)
+	// 	.min(1, 'Lyrics is required.')
+	// 	.refine(lineNumCheck, {
+	// 		message: 'All lyrics must have the same number of lines.',
+	// 		path: ['lyrics'],
+	// 	}),
 })
 
 export type State = {
@@ -71,13 +71,17 @@ export type State = {
 
 export async function createSong(prevState: State, formData: FormData) {
 	const object = Object.fromEntries(formData.entries())
-	console.log(object)
-	const parsed = await FormSchema.safeParseAsync(object)
+	const parsed = await FormSchema.safeParseAsync({
+		...object,
+		Vocals: formData.getAll('vocalists'),
+		Composer: formData.getAll('composers'),
+	})
 	if (!parsed.success) {
 		return {
 			errors: parsed.error.flatten().fieldErrors,
 			message: 'Failed to create song.',
 		}
 	}
+	console.log(parsed.data)
 	return { errors: {}, message: 'test' }
 }

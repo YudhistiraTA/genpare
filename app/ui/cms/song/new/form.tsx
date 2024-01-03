@@ -98,6 +98,24 @@ export function Form({
 						}
 						errorArray={state.errors?.youtubeId}
 					/>
+					<SelectField
+						label="Vocalists"
+						id="vocalists"
+						name="vocalists"
+						errorArray={state.errors?.Vocals}
+						options={options.vocals}
+						href="actor"
+						isMulti
+					/>
+					<SelectField
+						label="Composers"
+						id="composers"
+						name="composers"
+						errorArray={state.errors?.Composer}
+						options={options.composers}
+						href="actor"
+						isMulti
+					/>
 					<SubmitButton />
 				</div>
 				<div className="hidden lg:flex flex-col justify-center place-items-center">
@@ -109,7 +127,7 @@ export function Form({
 							className="w-96"
 						/>
 					) : (
-						<label htmlFor="youtubeId" className='hover:cursor-pointer'>
+						<label htmlFor="youtubeId" className="hover:cursor-pointer">
 							<div className="w-96 rounded-xl h-52 border border-default mt-2 flex justify-center items-center">
 								Please fill the Youtube Link field
 							</div>

@@ -6,9 +6,11 @@ import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import { InputField } from '@/app/ui/cms/inputField'
 import { SelectField } from '@/app/ui/cms/selectField'
 import { DeleteButton } from '@/app/ui/cms/song/edit/deleteButton'
+import { LyricsButton } from '@/app/ui/cms/song/edit/lyricsButton'
 import YouTubePlayer from '@/app/ui/main/youtube'
 import { SubmitButton } from '@/app/ui/submitButton'
-import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import { useFormState } from 'react-dom'
 import toast, { Toaster } from 'react-hot-toast'
 
@@ -19,12 +21,23 @@ export function Form({
 	options: Awaited<ReturnType<typeof fetchFormOptions>>
 	data: Awaited<ReturnType<typeof fetchSong>>
 }) {
+	const searchParams = useSearchParams()
+	const newData = searchParams.get('new')
 	const [youtubeId, setYoutubeId] = useState(data.youtubeId)
 	const [state, dispatch] = useFormState(editSong, {
 		errors: {},
 		message: '',
 	})
+	const toastShownRef = useRef(false);
 
+	useEffect(() => {
+		if (newData && !toastShownRef.current) {
+			toast.success('Song added successfully', {
+				style: { backgroundColor: '#272F38', color: 'white' },
+			});
+			toastShownRef.current = true;
+		}
+	}, [newData]);
 	useEffect(() => {
 		if (state.message) {
 			toast.error(state.message, {
@@ -100,9 +113,12 @@ export function Form({
 						isMulti
 						defaultValue={data.Composer}
 					/>
-					<div className="flex gap-4">
-						<SubmitButton />
-						<DeleteButton data={data} />
+					<div className="flex justify-between">
+						<div className="flex gap-4">
+							<SubmitButton />
+							<DeleteButton data={data} />
+						</div>
+						<LyricsButton slug={data.slug} />
 					</div>
 				</div>
 				<div className="hidden lg:flex flex-col justify-center place-items-center">

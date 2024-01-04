@@ -108,5 +108,5 @@ export async function createSong(prevState: State, formData: FormData) {
 	}
 	revalidateTag('song')
 	revalidateTag('album')
-	redirect('/cms/song')
+	redirect(`/cms/song/${parsed.data.slug}?new=1`)
 }

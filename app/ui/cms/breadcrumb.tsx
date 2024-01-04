@@ -15,7 +15,7 @@ export function Breadcrumb() {
 						{index === array.length - 1 ? (
 							<p className='text-gray-500'>{crumb === 'cms' ? 'Dashboard' : capitalize(crumb)}</p>
 						) : (
-							<Link href={'/cms' + (crumb === 'cms' ? '' : '/' + crumb)}>
+							<Link href={'/cms/' + crumbs.slice(1, index + 1).join('/')}>
 								{crumb === 'cms' ? 'Dashboard' : capitalize(crumb)}
 							</Link>
 						)}

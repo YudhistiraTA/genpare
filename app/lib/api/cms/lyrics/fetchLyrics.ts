@@ -14,6 +14,7 @@ export async function fetchLyrics(slug: string) {
 				},
 				id: true,
 				name: true,
+        slug: true,
 			},
 		})
 	} catch (error) {

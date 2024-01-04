@@ -1,8 +1,19 @@
 'use client'
 import Link from 'next/link'
 import { useEffect, useId, useState } from 'react'
-import Select from 'react-select'
+import Select, { MultiValue, SingleValue } from 'react-select'
 import makeAnimated from 'react-select/animated'
+
+export type Option = {
+	id: string
+	name: string
+	slug?: string
+	disabled?: boolean
+}[]
+
+export type SelectedOption =
+	| MultiValue<Omit<Option[number], 'id' | 'name'>>
+	| SingleValue<Omit<Option[number], 'id' | 'name'>>
 
 export function SelectField({
 	options,
@@ -14,19 +25,18 @@ export function SelectField({
 	defaultValue,
 	href,
 	isMulti = false,
+	onChange,
 }: {
-	options: { id: string; name: string; slug?: string; disabled?: boolean }[]
+	options: Option
 	id: string
 	name: string
 	label: string
 	placeholder?: string
 	errorArray?: string[]
-	defaultValue?:
-		| string
-		| { id: string; name: string; slug?: string; disabled?: boolean }[]
-		| null
+	defaultValue?: string | Option | null
 	href?: string
 	isMulti?: boolean
+	onChange?: (selected: SelectedOption) => void
 }) {
 	const [mounted, setMounted] = useState(false)
 	useEffect(() => {
@@ -38,7 +48,7 @@ export function SelectField({
 		value: id,
 		label: name,
 		slug: slug,
-		disabled: disabled,
+		isDisabled: disabled,
 	}))
 	return (
 		<div className="flex flex-col">
@@ -102,7 +112,7 @@ export function SelectField({
 					option: (base, state) => ({
 						...base,
 						backgroundColor: state.isFocused ? 'rgb(52, 59, 69)' : 'inherit',
-						color: 'inherit',
+						color: state.isDisabled ? 'rgb(128 128 128)' : 'inherit',
 						'&:active': {
 							backgroundColor: 'inherit',
 						},
@@ -115,7 +125,6 @@ export function SelectField({
 					const input = rawInput.toLowerCase()
 					const {
 						label,
-						//@ts-ignore
 						data: { slug },
 					} = option
 					return (
@@ -125,6 +134,9 @@ export function SelectField({
 				}}
 				isMulti={isMulti}
 				closeMenuOnSelect={!isMulti}
+				onChange={(e) => {
+					if (e && onChange) onChange(e)
+				}}
 			/>
 			{href ? (
 				<Link

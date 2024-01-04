@@ -72,7 +72,7 @@ export async function AlbumTable({
 							</svg>
 							<ul
 								tabIndex={0}
-								className="dropdown-content lg:mt-0 mt-5 z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border-2 border-default"
+								className="dropdown-content mt-5 z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border-2 border-default"
 							>
 								<li>
 									<Link href={`album/${album.slug}`}>

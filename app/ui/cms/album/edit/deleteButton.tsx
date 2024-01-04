@@ -30,22 +30,30 @@ export async function DeleteButton({
 						<div>
 							<p>This album contains the following songs</p>
 							<ul>
-								{data.Song.map((song) => (
-									<li
-										key={song.id}
-										className="border-l-2 border-l-red-300 ml-2 pl-2 mt-1"
-									>
-										{song.name} (
-										{song.Lyrics.filter(
-											(item) =>
-												item.language !== 'japanese' &&
-												item.language !== 'romaji',
-										)
-											.map((item) => languageCode.get(item.language))
-											.join(', ')}
-										)
-									</li>
-								))}
+								{data.Song.map((song) => {
+									const filteredLyrics = song.Lyrics.filter(
+										(item) =>
+											item.language !== 'japanese' &&
+											item.language !== 'romaji',
+									)
+									return (
+										<li
+											key={song.id}
+											className="border-l-2 border-l-red-300 ml-2 pl-2 mt-1"
+										>
+											{song.name}{' '}
+											{filteredLyrics.length > 0 ? (
+												<span>
+													(
+													{filteredLyrics
+														.map((item) => languageCode.get(item.language))
+														.join(', ')}
+													)
+												</span>
+											) : null}
+										</li>
+									)
+								})}
 							</ul>
 							<p>These songs and their translations will also be deleted!</p>
 						</div>

@@ -2,7 +2,6 @@
 import prisma from '@/prisma/config'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
-import slug from 'slug'
 import { z } from 'zod'
 
 const FormSchema = z.object({
@@ -70,14 +69,13 @@ export async function createAlbum(prevState: State, formData: FormData) {
 		}
 	}
 	try {
-		const fileName =
-			slug(parsed.data.image.name.split('.')[0]) +
-			'.' +
-			parsed.data.image.name.split('.')[1]
+		const fileExt = '.' + parsed.data.image.name.split('.')[1]
 		const presignedUrlResponse = await fetch(
 			process.env.API_ENDPOINT +
 				'/getPresignedUrl' +
-				`?fileName=${fileName}&fileType=${parsed.data.image.type}`,
+				`?fileName=${parsed.data.slug + fileExt}&fileType=${
+					parsed.data.image.type
+				}`,
 			{ cache: 'no-store' },
 		)
 		const jsonResponse = await presignedUrlResponse.json()

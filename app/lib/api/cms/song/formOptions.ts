@@ -28,6 +28,6 @@ export const fetchFormOptions = unstable_cache(
 		})
 		return { albums:cleanedAlbums, vocals, composers, translators, lyricists }
 	},
-	['actor'],
-	{ tags: ['actor'], revalidate: 300 },
+	['actor', 'album'],
+	{ tags: ['actor', 'album'], revalidate: 300 },
 )

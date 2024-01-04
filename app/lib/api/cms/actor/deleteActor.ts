@@ -2,6 +2,7 @@
 import { fetchActor } from "@/app/lib/api/cms/actor/fetchActor"
 import prisma from "@/prisma/config"
 import { revalidateTag } from "next/cache"
+import { redirect } from "next/navigation"
 
 export async function deleteActor({id, name}: Awaited<ReturnType<typeof fetchActor>>){
   try {
@@ -16,5 +17,5 @@ export async function deleteActor({id, name}: Awaited<ReturnType<typeof fetchAct
   }
   revalidateTag('actor')
   revalidateTag('history')
-  return { message: 'Deleted actor.' }
+  redirect('/cms/actor')
 }

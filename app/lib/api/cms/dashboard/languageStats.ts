@@ -4,7 +4,6 @@ import { unstable_cache } from 'next/cache'
 
 export const fetchLanguageStats = unstable_cache(
 	async () => {
-    // Add a 5 seconds delay
 		const result: { language: Language; count: bigint }[] =
 			await prisma.$queryRaw`
       SELECT 

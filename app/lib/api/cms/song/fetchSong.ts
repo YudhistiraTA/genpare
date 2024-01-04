@@ -30,6 +30,12 @@ export async function fetchSong(slug: string) {
 						slug: true,
 					},
 				},
+				Lyrics: {
+					select: {
+						id: true,
+						language: true,
+					},
+				},
 			},
 		})
 		return result

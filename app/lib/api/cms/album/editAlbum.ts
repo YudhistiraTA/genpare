@@ -2,7 +2,6 @@
 import prisma from '@/prisma/config'
 import { revalidateTag, unstable_cache } from 'next/cache'
 import { redirect } from 'next/navigation'
-import slug from 'slug'
 import { z } from 'zod'
 
 const cachedAlbum = unstable_cache(
@@ -104,14 +103,13 @@ export async function editAlbum(prevState: State, formData: FormData) {
 	try {
 		let key: string | null = null
 		if (parsed.data.image && parsed.data.image.size > 0) {
-			const fileName =
-				slug(parsed.data.image.name.split('.')[0]) +
-				'.' +
-				parsed.data.image.name.split('.')[1]
+			const fileExt = '.' + parsed.data.image.name.split('.')[1]
 			const presignedUrlResponse = await fetch(
 				process.env.API_ENDPOINT +
 					'/getPresignedUrl' +
-					`?fileName=${fileName}&fileType=${parsed.data.image.type}`,
+					`?fileName=${parsed.data.slug + fileExt}&fileType=${
+						parsed.data.image.type
+					}`,
 				{ cache: 'no-store' },
 			)
 			const jsonResponse = await presignedUrlResponse.json()

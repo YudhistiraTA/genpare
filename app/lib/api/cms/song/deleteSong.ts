@@ -1,18 +1,18 @@
 'use server'
-import { fetchAlbum } from '@/app/lib/api/cms/album/fetchAlbum'
+import { fetchSong } from '@/app/lib/api/cms/song/fetchSong'
 import prisma from '@/prisma/config'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-export async function deleteAlbum({
+export async function deleteSong({
 	id,
 	name,
-}: Awaited<ReturnType<typeof fetchAlbum>>) {
+}: Awaited<ReturnType<typeof fetchSong>>) {
 	try {
 		await prisma.$transaction(async (tx) => {
-			await tx.album.delete({ where: { id } })
+			await tx.song.delete({ where: { id } })
 			await tx.history.create({
-				data: { message: `Deleted album ${name}.` },
+				data: { message: `Deleted song ${name}.` },
 			})
 		})
 	} catch (error) {
@@ -21,5 +21,5 @@ export async function deleteAlbum({
 	revalidateTag('album')
 	revalidateTag('song')
 	revalidateTag('history')
-	redirect('/cms/album')
+  redirect('/cms/song')
 }

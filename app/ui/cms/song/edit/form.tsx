@@ -5,6 +5,7 @@ import { fetchFormOptions } from '@/app/lib/api/cms/song/formOptions'
 import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
 import { InputField } from '@/app/ui/cms/inputField'
 import { SelectField } from '@/app/ui/cms/selectField'
+import { DeleteButton } from '@/app/ui/cms/song/edit/deleteButton'
 import YouTubePlayer from '@/app/ui/main/youtube'
 import { SubmitButton } from '@/app/ui/submitButton'
 import { useEffect, useState } from 'react'
@@ -99,7 +100,10 @@ export function Form({
 						isMulti
 						defaultValue={data.Composer}
 					/>
-					<SubmitButton />
+					<div className="flex gap-4">
+						<SubmitButton />
+						<DeleteButton data={data} />
+					</div>
 				</div>
 				<div className="hidden lg:flex flex-col justify-center place-items-center">
 					<label htmlFor="youtubeId">Youtube Link Preview</label>

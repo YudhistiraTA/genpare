@@ -11,7 +11,7 @@ export type Option = {
 	disabled?: boolean
 }[]
 
-export type SelectedOption ={
+export type SelectedOption = {
 	value: string
 	label: string
 	slug?: string
@@ -29,6 +29,7 @@ export function SelectField({
 	href,
 	isMulti = false,
 	onChange,
+	disabled,
 }: {
 	options: Option
 	id: string
@@ -40,6 +41,7 @@ export function SelectField({
 	href?: string
 	isMulti?: boolean
 	onChange?: (selected: SelectedOption) => void
+	disabled?: boolean
 }) {
 	const [mounted, setMounted] = useState(false)
 	useEffect(() => {
@@ -62,6 +64,7 @@ export function SelectField({
 				instanceId={instanceId}
 				name={name}
 				placeholder={placeholder}
+				isDisabled={disabled}
 				defaultValue={
 					defaultValue
 						? isMulti
@@ -74,15 +77,18 @@ export function SelectField({
 						: undefined
 				}
 				styles={{
-					control: (base) => ({
+					control: (base, state) => ({
 						...base,
 						borderRadius: 'var(--rounded-btn, 0.5rem)',
 						padding: '0 0.4rem 0 0.4rem',
 						lineHeight: '1.5rem',
 						fontSize: '1rem',
 						minHeight: '3rem',
-						background:
-							'var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)))',
+						cursor: state.isDisabled ? 'not-allowed' : 'pointer',
+						pointerEvents: 'auto',
+						background: state.isDisabled
+							? '#191E24'
+							: 'var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)))',
 						borderColor: 'var(--fallback-bc,oklch(var(--bc)/0.2))',
 						backgroundImage:
 							'var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)))',
@@ -116,6 +122,7 @@ export function SelectField({
 						...base,
 						backgroundColor: state.isFocused ? 'rgb(52, 59, 69)' : 'inherit',
 						color: state.isDisabled ? 'rgb(128 128 128)' : 'inherit',
+						cursor: state.isDisabled ? 'not-allowed' : 'pointer',
 						'&:active': {
 							backgroundColor: 'inherit',
 						},

@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 const FormSchema = z.object({
-	id: z.string().uuid().nullish(),
 	slug: z.string(),
 	songId: z.string().uuid(),
 	content: z.string().min(1, 'Lyrics is required.'),

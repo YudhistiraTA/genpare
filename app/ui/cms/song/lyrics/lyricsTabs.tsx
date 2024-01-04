@@ -1,4 +1,5 @@
 'use client'
+import { fetchActors } from '@/app/lib/api/cms/lyrics/fetchActors'
 import { fetchLyrics } from '@/app/lib/api/cms/lyrics/fetchLyrics'
 import { capitalize } from '@/app/lib/capitalize'
 import { Form } from '@/app/ui/cms/song/lyrics/form'
@@ -12,23 +13,31 @@ export type Tab = Partial<LyricsType>
 
 export function LyricsTabs({
 	data,
+	actors,
 }: {
 	data: Awaited<ReturnType<typeof fetchLyrics>>
+	actors: Awaited<ReturnType<typeof fetchActors>>
 }) {
 	const [tabs, setTabs] = useState<Tab[]>(data.Lyrics)
 	const [selectedTab, setSelectedTab] = useState<number>(0)
 	return (
 		<div className="flex flex-col gap-4 mt-4">
 			<strong>{data.name} Lyrics and Translations</strong>
+			<p
+				className="p-4 rounded-xl w-fit"
+				style={{ boxShadow: '0 0 10px salmon' }}
+			>
+				Submit one language at a time!
+			</p>
 			<div role="tablist" className="tabs tabs-lifted tabs-lg">
-				{tabs.map((data, i) => (
-					<Fragment key={`${data?.id}`}>
+				{tabs.map((lyrics, i) => (
+					<Fragment key={lyrics?.id ?? i}>
 						<input
 							type="radio"
 							name="my_tabs_2"
 							role="tab"
 							className="tab [--tab-border-color:#343B45]"
-							aria-label={capitalize(data?.language || 'New Language')}
+							aria-label={capitalize(lyrics?.language || 'New Language')}
 							defaultChecked={i === selectedTab}
 						/>
 						<div
@@ -36,12 +45,15 @@ export function LyricsTabs({
 							className="tab-content rounded-box p-6 border-neutral"
 						>
 							<Form
-								lyrics={data}
+								lyrics={lyrics}
 								unavailableLanguages={
-									tabs.map((tab) => tab?.language).filter(Boolean) as Language[]
+									tabs.map((tab) => tab.language).filter(Boolean) as Language[]
 								}
 								index={i}
+								tabs={tabs}
 								setTabs={setTabs}
+								actors={actors}
+								songId={data.id}
 							/>
 						</div>
 					</Fragment>

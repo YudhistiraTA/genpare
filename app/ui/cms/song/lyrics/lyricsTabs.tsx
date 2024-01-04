@@ -5,54 +5,67 @@ import { Form } from '@/app/ui/cms/song/lyrics/form'
 import { Language } from '@prisma/client'
 import { Fragment, useState } from 'react'
 
+type LyricsType = NonNullable<
+	Awaited<ReturnType<typeof fetchLyrics>>
+>['Lyrics'][number]
+export type Tab = Partial<LyricsType>
+
 export function LyricsTabs({
 	data,
 }: {
 	data: Awaited<ReturnType<typeof fetchLyrics>>
 }) {
-	const [tabs, setTabs] = useState<Partial<typeof data.Lyrics>>(data.Lyrics)
+	const [tabs, setTabs] = useState<Tab[]>(data.Lyrics)
 	const [selectedTab, setSelectedTab] = useState<number>(0)
 	return (
 		<div className="flex flex-col gap-4 mt-4">
 			<strong>{data.name} Lyrics and Translations</strong>
-			<div role="tablist" className="tabs tabs-lifted">
+			<div role="tablist" className="tabs tabs-lifted tabs-lg">
 				{tabs.map((data, i) => (
 					<Fragment key={`${data?.id}`}>
 						<input
 							type="radio"
 							name="my_tabs_2"
 							role="tab"
-							className="tab"
+							className="tab [--tab-border-color:#343B45]"
 							aria-label={capitalize(data?.language || 'New Language')}
 							defaultChecked={i === selectedTab}
 						/>
 						<div
 							role="tabpanel"
-							className="tab-content bg-base-100 border-base-300 rounded-box p-6"
+							className="tab-content rounded-box p-6 border-neutral"
 						>
 							<Form
 								lyrics={data}
-								unavailableLanguages={tabs
-									.map((tab) => tab?.language)
-									.filter(Boolean) as Language[]}
+								unavailableLanguages={
+									tabs.map((tab) => tab?.language).filter(Boolean) as Language[]
+								}
+								index={i}
+								setTabs={setTabs}
 							/>
 						</div>
 					</Fragment>
 				))}
-				<div
-					role="tab"
-					className="tab"
-					onClick={() => {
-						setTabs((p) => {
-							const newArr = [...p]
-							newArr.push(undefined)
-							setSelectedTab(newArr.length - 1)
-							return newArr
-						})
-					}}
-				>
-					Add new language
-				</div>
+				{tabs.length < Object.values(Language).length ? (
+					<div
+						role="tab"
+						className="tab [--tab-border-color:#343B45]"
+						onClick={() => {
+							setTabs((p) => {
+								const newArr = [...p]
+								newArr.push({
+									content: undefined,
+									id: undefined,
+									language: undefined,
+								})
+								setSelectedTab(newArr.length - 1)
+								return newArr
+							})
+						}}
+					>
+						Add new language
+					</div>
+				) : null}
 			</div>
 		</div>
 	)

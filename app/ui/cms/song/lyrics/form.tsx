@@ -1,17 +1,22 @@
 'use client'
-import { fetchLyrics } from '@/app/lib/api/cms/lyrics/fetchLyrics'
 import { submitLyrics } from '@/app/lib/api/cms/lyrics/submitLyrics'
 import { capitalize } from '@/app/lib/capitalize'
 import { SelectField } from '@/app/ui/cms/selectField'
+import { Tab } from '@/app/ui/cms/song/lyrics/lyricsTabs'
 import { Language } from '@prisma/client'
+import { Dispatch, SetStateAction } from 'react'
 import { useFormState } from 'react-dom'
 
 export function Form({
 	lyrics,
 	unavailableLanguages,
+	index,
+	setTabs,
 }: {
-	lyrics?: Awaited<ReturnType<typeof fetchLyrics>>['Lyrics'][number]
+	lyrics?: Tab
 	unavailableLanguages?: Language[]
+	index: number
+	setTabs: Dispatch<SetStateAction<Tab[]>>
 }) {
 	const [state, dispatch] = useFormState(submitLyrics, {
 		errors: {},
@@ -30,6 +35,13 @@ export function Form({
 					name: capitalize(language),
 					disabled: unavailableLanguages?.includes(language),
 				}))}
+				onChange={(e) => {
+					setTabs((p) => {
+						const newArr = [...p]
+						newArr[index].language = e.value as Language
+						return newArr
+					})
+				}}
 			/>
 		</form>
 	)

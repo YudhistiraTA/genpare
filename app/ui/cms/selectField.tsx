@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useEffect, useId, useState } from 'react'
-import Select, { MultiValue, SingleValue } from 'react-select'
+import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 
 export type Option = {
@@ -11,9 +11,12 @@ export type Option = {
 	disabled?: boolean
 }[]
 
-export type SelectedOption =
-	| MultiValue<Omit<Option[number], 'id' | 'name'>>
-	| SingleValue<Omit<Option[number], 'id' | 'name'>>
+export type SelectedOption ={
+	value: string
+	label: string
+	slug?: string
+	disabled?: boolean
+}
 
 export function SelectField({
 	options,
@@ -135,7 +138,10 @@ export function SelectField({
 				isMulti={isMulti}
 				closeMenuOnSelect={!isMulti}
 				onChange={(e) => {
-					if (e && onChange) onChange(e)
+					if (onChange && e && !Array.isArray(e)) {
+						const val = e as SelectedOption
+						onChange(val)
+					}
 				}}
 			/>
 			{href ? (

@@ -15,13 +15,16 @@ export function SelectField({
 	href,
 	isMulti = false,
 }: {
-	options: { id: string; name: string; slug?: string }[]
+	options: { id: string; name: string; slug?: string; disabled?: boolean }[]
 	id: string
 	name: string
 	label: string
 	placeholder?: string
 	errorArray?: string[]
-	defaultValue?: string | { id: string; name: string; slug?: string }[] | null
+	defaultValue?:
+		| string
+		| { id: string; name: string; slug?: string; disabled?: boolean }[]
+		| null
 	href?: string
 	isMulti?: boolean
 }) {
@@ -31,12 +34,12 @@ export function SelectField({
 	}, [])
 	const instanceId = useId()
 	if (!mounted) return null
-	const convertedOptions = options.map(({ id, name, slug }) => ({
+	const convertedOptions = options.map(({ id, name, slug, disabled }) => ({
 		value: id,
 		label: name,
 		slug: slug,
+		disabled: disabled,
 	}))
-	console.log(defaultValue)
 	return (
 		<div className="flex flex-col">
 			<label htmlFor={id}>{label}</label>

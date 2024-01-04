@@ -20,15 +20,9 @@ const albumCache = unstable_cache(
 
 const FormSchema = z
 	.object({
+		id: z.string().uuid(),
 		name: z.string().min(1, 'Name is required.'),
-		slug: z
-			.string()
-			.min(1, 'Slug is required.')
-			.refine(
-				async (slug) =>
-					prisma.song.findUnique({ where: { slug } }).then((song) => !song),
-				'Slug is already in use. If this was auto-generated, please use custom slug input.',
-			),
+		slug: z.string().min(1, 'Slug is required.'),
 		youtubeId: z
 			.string()
 			.min(1, 'Youtube link is required.')
@@ -53,6 +47,13 @@ const FormSchema = z
 		albumId: z.string().uuid().min(1, 'Album is required.'),
 	})
 	.refine(
+		async ({ id, slug }) =>
+			prisma.song
+				.findUnique({ where: { slug }, select: { id: true } })
+				.then((song) => !song || song?.id === id),
+		{ message: 'Slug is already in use.', path: ['slug'] },
+	)
+	.refine(
 		async (data) => {
 			const album = await albumCache(data.albumId)
 			return data.trackNo <= album.totalTrack
@@ -65,11 +66,12 @@ const FormSchema = z
 	.refine(
 		async (data) => {
 			const album = await albumCache(data.albumId)
-			return !album.Song.some((song) => song.trackNo === data.trackNo)
+			return !album.Song.some(
+				(song) => song.trackNo === data.trackNo && song.id !== data.id,
+			)
 		},
 		{ message: 'Track number is already in use.', path: ['trackNo'] },
 	)
-
 export type State = {
 	errors?: {
 		name?: string[]
@@ -77,7 +79,7 @@ export type State = {
 	message?: string | null
 }
 
-export async function createSong(prevState: State, formData: FormData) {
+export async function editSong(prevState: State, formData: FormData) {
 	const object = Object.fromEntries(formData.entries())
 	const parsed = await FormSchema.safeParseAsync({
 		...object,
@@ -92,21 +94,27 @@ export async function createSong(prevState: State, formData: FormData) {
 	}
 	try {
 		await prisma.$transaction(async (tx) => {
-			await tx.song.create({
+			await tx.song.update({
+				where: { id: parsed.data.id },
 				data: {
 					...parsed.data,
-					Vocals: { connect: parsed.data.Vocals.map((id) => ({ id })) },
-					Composer: { connect: parsed.data.Composer.map((id) => ({ id })) },
+					Vocals: {
+						set: [],
+						connect: parsed.data.Vocals.map((id) => ({ id })),
+					},
+					Composer: {
+						set: [],
+						connect: parsed.data.Composer.map((id) => ({ id })),
+					},
 				},
 			})
 			await tx.history.create({
-				data: { message: `Created song ${parsed.data.name}` },
+				data: { message: `Edited song ${parsed.data.name}` },
 			})
 		})
 	} catch (error) {
 		return { errors: {}, message: 'Internal Server Error' }
 	}
 	revalidateTag('song')
-	revalidateTag('album')
 	redirect('/cms/song')
 }

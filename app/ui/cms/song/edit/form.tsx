@@ -1,5 +1,5 @@
 'use client'
-import { createSong } from '@/app/lib/api/cms/song/createSong'
+import { editSong } from '@/app/lib/api/cms/song/editSong'
 import { fetchSong } from '@/app/lib/api/cms/song/fetchSong'
 import { fetchFormOptions } from '@/app/lib/api/cms/song/formOptions'
 import { youtubeIdExtract } from '@/app/lib/youtubeIdExtract'
@@ -19,7 +19,7 @@ export function Form({
 	data: Awaited<ReturnType<typeof fetchSong>>
 }) {
 	const [youtubeId, setYoutubeId] = useState(data.youtubeId)
-	const [state, dispatch] = useFormState(createSong, {
+	const [state, dispatch] = useFormState(editSong, {
 		errors: {},
 		message: '',
 	})
@@ -35,20 +35,21 @@ export function Form({
 		<>
 			<Toaster />
 			<form action={dispatch} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+				<input type="hidden" name="id" id="id" defaultValue={data.id} />
 				<div className="flex flex-col gap-4">
 					<InputField
 						label="Name"
 						id="name"
 						name="name"
 						errorArray={state.errors?.name}
-            defaultValue={data.name}
+						defaultValue={data.name}
 					/>
 					<InputField
 						label="Slug"
 						id="slug"
 						name="slug"
 						errorArray={state.errors?.slug}
-            defaultValue={data.slug}
+						defaultValue={data.slug}
 					/>
 					<SelectField
 						label="Album"
@@ -57,7 +58,7 @@ export function Form({
 						errorArray={state.errors?.albumId}
 						options={options.albums}
 						href="album"
-            defaultValue={data.albumId}
+						defaultValue={data.albumId}
 					/>
 					<InputField
 						id="trackNo"
@@ -66,7 +67,7 @@ export function Form({
 						type="tel"
 						errorArray={state.errors?.trackNo}
 						maxLength={2}
-            defaultValue={data.trackNo.toString()}
+						defaultValue={data.trackNo.toString()}
 					/>
 					<InputField
 						label="Youtube Link"
@@ -76,7 +77,7 @@ export function Form({
 							setYoutubeId(youtubeIdExtract(value))
 						}
 						errorArray={state.errors?.youtubeId}
-            defaultValue={data.youtubeId}
+						defaultValue={data.youtubeId}
 					/>
 					<SelectField
 						label="Vocalists"
@@ -86,7 +87,7 @@ export function Form({
 						options={options.vocals}
 						href="actor"
 						isMulti
-            defaultValue={data.Vocals}
+						defaultValue={data.Vocals}
 					/>
 					<SelectField
 						label="Composers"
@@ -96,7 +97,7 @@ export function Form({
 						options={options.composers}
 						href="actor"
 						isMulti
-            defaultValue={data.Composer}
+						defaultValue={data.Composer}
 					/>
 					<SubmitButton />
 				</div>

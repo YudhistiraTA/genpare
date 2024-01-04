@@ -1,9 +1,20 @@
 'use server'
 import prisma from '@/prisma/config'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag, unstable_cache } from 'next/cache'
 import { redirect } from 'next/navigation'
 import slug from 'slug'
 import { z } from 'zod'
+
+const cachedAlbum = unstable_cache(
+	async (id: string) =>
+		await prisma.album.findUniqueOrThrow({
+			where: { id },
+			select: {
+				_count: { select: { Song: true } },
+				Song: { select: { trackNo: true } },
+			},
+		}),
+)
 
 const FormSchema = z
 	.object({
@@ -19,39 +30,55 @@ const FormSchema = z
 		releaseYear: z
 			.string()
 			.min(1, 'Release year is required.')
-			.transform(Number),
-		totalTrack: z.string().min(1, 'Total track is required.').transform(Number),
+			.transform(Number)
+			.refine((year) => year > 0, 'Release year must be larger than 0.')
+			.refine(
+				(year) => year <= new Date().getFullYear(),
+				'Maximum release year is current year.',
+			),
+		totalTrack: z
+			.string()
+			.min(1, 'Total track is required.')
+			.transform(Number)
+			.refine((track) => track > 0, 'Total track must be larger than 0.'),
 		image: z.instanceof(File).nullish(),
 	})
 	.refine(
 		async ({ id, name }) =>
 			prisma.album
 				.findUnique({ where: { name }, select: { id: true } })
-				.then((actor) => !actor || actor?.id === id),
+				.then((album) => !album || album?.id === id),
 		{ message: 'Name is already in use.', path: ['name'] },
 	)
 	.refine(
 		async ({ id, slug }) =>
 			prisma.album
 				.findUnique({ where: { slug }, select: { id: true } })
-				.then((actor) => !actor || actor?.id === id),
+				.then((album) => !album || album?.id === id),
 		{ message: 'Slug is already in use.', path: ['slug'] },
 	)
 	.refine(
 		async ({ id, totalTrack }) =>
-			prisma.album
-				.findUnique({
-					where: { id },
-					select: { _count: { select: { Song: true } } },
-				})
-				.then(
-					(album) => !album?._count.Song || album?._count.Song <= totalTrack,
-				),
+			cachedAlbum(id).then(
+				(album) => !album?._count.Song || album?._count.Song <= totalTrack,
+			),
 		{
 			message: 'This album has more translated songs than the new total track.',
 			path: ['totalTrack'],
 		},
 	)
+	.refine(
+		async ({ id, totalTrack }) =>
+			cachedAlbum(id).then(
+				(album) => !album?.Song.some((song) => song.trackNo > totalTrack),
+			),
+		{
+			message:
+				'This album has songs with track number larger than the new total track.',
+			path: ['totalTrack'],
+		},
+	)
+
 export type State = {
 	errors?: {
 		name?: string[]

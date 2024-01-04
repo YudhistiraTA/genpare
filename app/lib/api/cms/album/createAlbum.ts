@@ -29,8 +29,20 @@ const FormSchema = z.object({
 				prisma.album.findUnique({ where: { slug } }).then((album) => !album),
 			'Slug is already in use. If this was auto-generated, please use custom slug input.',
 		),
-	releaseYear: z.string().min(1, 'Release year is required.').transform(Number),
-	totalTrack: z.string().min(1, 'Total track is required.').transform(Number),
+	releaseYear: z
+		.string()
+		.min(1, 'Release year is required.')
+		.transform(Number)
+		.refine((year) => year > 0, 'Release year must be larger than 0.')
+		.refine(
+			(year) => year <= new Date().getFullYear(),
+			'Maximum release year is current year.',
+		),
+	totalTrack: z
+		.string()
+		.min(1, 'Total track is required.')
+		.transform(Number)
+		.refine((track) => track > 0, 'Total track must be larger than 0.'),
 	image: z
 		.instanceof(File)
 		.refine((file) => file.size > 0, 'Image is required.'),

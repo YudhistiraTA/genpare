@@ -14,11 +14,13 @@ const config: Config = {
 				'gradient-conic':
 					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 			},
+			colors: {
+				default: '#343B45',
+			},
+			placeholderColor: {
+				default: '#808080',
+			},
 		},
-		placeholderColor: {
-			default: '#808080',
-		},
-		colors: (utils) => ({ ...utils.colors, default: '#343B45' }),
 	},
 	plugins: [require('daisyui')],
 	daisyui: {

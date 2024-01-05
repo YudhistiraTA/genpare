@@ -9,7 +9,7 @@ export const toRomaji = async (str: string): Promise<string> => {
 	if (!isInitialized) {
 		await kuroshiro.init(
 			new KuromojiAnalyzer({
-				dictPath: 'https://cdn.gengo-parade.com/dict',
+				dictPath: '/dict',
 			}),
 		) // <-- Initialize only once
 		isInitialized = true

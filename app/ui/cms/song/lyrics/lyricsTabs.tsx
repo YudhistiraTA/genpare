@@ -4,7 +4,7 @@ import { fetchLyrics } from '@/app/lib/api/cms/lyrics/fetchLyrics'
 import { capitalize } from '@/app/lib/capitalize'
 import { Form } from '@/app/ui/cms/song/lyrics/form'
 import { Language } from '@prisma/client'
-import { Fragment, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 
 type LyricsType = NonNullable<
 	Awaited<ReturnType<typeof fetchLyrics>>
@@ -18,22 +18,21 @@ export function LyricsTabs({
 	data: Awaited<ReturnType<typeof fetchLyrics>>
 	actors: Awaited<ReturnType<typeof fetchActors>>
 }) {
-	const [tabs, setTabs] = useState<Tab[]>(data.Lyrics)
+	const [tabs, setTabs] = useState<Tab[]>(
+		data.Lyrics.length ? data.Lyrics : [{ language: 'japanese' }],
+	)
 	const [selectedTab, setSelectedTab] = useState<number>(0)
+	const originRef = useRef<HTMLInputElement | null>(null)
 	return (
 		<div className="flex flex-col gap-4 mt-4">
-			<strong>{data.name} Lyrics and Translations</strong>
-			<p
-				className="p-4 rounded-xl w-fit"
-				style={{ boxShadow: '0 0 10px salmon' }}
-			>
-				Submit one language at a time!
-			</p>
+			<p className='text-2xl'>{data.name} Lyrics and Translations</p>
+			<strong className='border-l-2 border-error pl-2'>Submit one language at a time!</strong>
 			<div role="tablist" className="tabs tabs-lifted tabs-lg">
 				{tabs.map((lyrics, i) => (
 					<Fragment key={lyrics?.id ?? i}>
 						<input
 							type="radio"
+							ref={i === 0 ? originRef : undefined}
 							name="my_tabs_2"
 							role="tab"
 							className="tab [--tab-border-color:#343B45]"
@@ -54,11 +53,14 @@ export function LyricsTabs({
 								setTabs={setTabs}
 								actors={actors}
 								songId={data.id}
+								songSlug={data.slug}
+								songName={data.name}
+								originRef={originRef}
 							/>
 						</div>
 					</Fragment>
 				))}
-				{tabs.length < Object.values(Language).length ? (
+				{tabs.length < Object.values(Language).length && data.Lyrics.length ? (
 					<div
 						role="tab"
 						className="tab [--tab-border-color:#343B45]"

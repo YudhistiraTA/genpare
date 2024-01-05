@@ -1,4 +1,4 @@
-import { LoginForm } from '@/app/ui/cms/loginForm'
+import { LoginForm } from '@/app/ui/cms/LoginForm'
 import { Metadata } from 'next'
 export const metadata: Metadata = {
 	title: 'Login',

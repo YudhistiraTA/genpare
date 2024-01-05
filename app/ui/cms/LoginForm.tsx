@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { useFormState, useFormStatus } from 'react-dom'
 import styles from '@/app/ui/cms/glow.module.css'
 
+// renamed
 export function LoginForm() {
 	const [errorMessage, dispatch] = useFormState(authenticate, undefined)
 	return (

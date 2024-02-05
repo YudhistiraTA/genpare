@@ -4,8 +4,9 @@ import { LanguageSelect } from '@/app/ui/main/song/languageSelect'
 import YouTubePlayer from '@/app/ui/main/youtube'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { memo } from 'react'
 
-export function SongDetail({
+const SongComponent = memo(({
 	song,
 	className,
 	main,
@@ -17,9 +18,9 @@ export function SongDetail({
 	main: string
 	sub: string
 	options: string[]
-}) {
+}) => {
 	return (
-		<div className={clsx('card glass lg:shadow-xl max-w-[375px]', className)}>
+		<div className={clsx('card glass lg:shadow-xl shadow-none max-w-[375px]', className)}>
 			<YouTubePlayer videoId={song.youtubeId} title={song.name} />
 			<div className="card-body -mt-4">
 				<h2 className="card-title">{song.name}</h2>
@@ -101,4 +102,7 @@ export function SongDetail({
 			</div>
 		</div>
 	)
-}
+})
+
+SongComponent.displayName = 'SongDetail'
+export const SongDetail = memo(SongComponent)

@@ -1,6 +1,5 @@
 import { getSongBySlug } from '@/app/lib/api/song'
 import { capitalize } from '@/app/lib/capitalize'
-import ScrollToTop from '@/app/ui/main/scrollToTop'
 import { AlbumDetail } from '@/app/ui/main/song/albumDetail'
 import { LanguageSelect } from '@/app/ui/main/song/languageSelect'
 import { Lyrics } from '@/app/ui/main/song/lyrics'
@@ -20,13 +19,13 @@ export async function generateMetadata(
 	const vocalists = song.Vocals.map((vocal) => vocal.name)
 	const lyricists = song.Lyrics.filter(
 		(lyric) => lyric.language === 'japanese',
-	).map((lyric) => lyric.createdBy ? lyric.createdBy.name : '')
+	).map((lyric) => (lyric.createdBy ? lyric.createdBy.name : ''))
 	const translations = song.Lyrics.filter(
 		(lyric) => lyric.language !== 'romaji' && lyric.language !== 'japanese',
 	).map((lyric) => capitalize(lyric.language))
 	const translators = song.Lyrics.filter(
 		(lyric) => lyric.language !== 'japanese' && lyric.language !== 'romaji',
-	).map((lyric) => lyric.createdBy ? lyric.createdBy.name:'')
+	).map((lyric) => (lyric.createdBy ? lyric.createdBy.name : ''))
 	const prevMeta = await parent
 	return {
 		title: song.name,
@@ -38,7 +37,7 @@ export async function generateMetadata(
 			'Doujin',
 			'Song',
 			song.name,
-			song.Album.Circle?.name ??'',
+			song.Album.Circle?.name ?? '',
 			song.Album.releaseYear.toString(),
 			...composer,
 			...vocalists,
@@ -75,68 +74,38 @@ export default async function Page({
 }) {
 	const song = await getSongBySlug(slug)
 	const languages = song.Lyrics.map((lyric) => capitalize(lyric.language))
+	const mainLyrics = song.Lyrics.find(
+		(lyric) => lyric.language === (main?.toLowerCase() ?? 'japanese'),
+	)?.content
+	const subLyrics = song.Lyrics.find(
+		(lyric) =>
+			lyric.language ===
+			(sub?.toLowerCase() ??
+				(languages.includes('English') ? 'english' : 'romaji')),
+	)?.content
 	return (
-		<div className="grid" style={{ gridTemplateColumns: 'auto 0px' }}>
-			<section className="grid lg:flex lg:justify-center gap-6 grid-cols-1">
-				<section id="mobile-detail" className="lg:hidden">
-					<div className="glass collapse shadow collapse-arrow mb-4">
-						<input type="checkbox" />
-						<div className="collapse-title text-xl font-medium">
-							Song Detail
-						</div>
-						<div className="collapse-content">
-							<SongDetail
-								song={song}
-								main={main}
-								sub={sub}
-								options={languages}
-							/>
-						</div>
-					</div>
-					<div className="glass collapse shadow collapse-arrow">
-						<input type="checkbox" />
-						<div className="collapse-title text-xl font-medium">
-							Album Detail
-						</div>
-						<div className="collapse-content">
-							<AlbumDetail slug={slug} song={song} />
-						</div>
-					</div>
-				</section>
-				<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4">
-					<div className="card-body whitespace-pre-wrap">
-						<LanguageSelect
-							className="mb-6"
-							options={languages}
-							main={main}
-							sub={sub}
-						/>
-						<Lyrics
-							main={
-								song.Lyrics.find(
-									(lyric) =>
-										lyric.language === (main?.toLowerCase() ?? 'japanese'),
-								)?.content
-							}
-							sub={
-								song.Lyrics.find(
-									(lyric) =>
-										lyric.language ===
-										(sub?.toLowerCase() ??
-											(languages.includes('English') ? 'english' : 'romaji')),
-								)?.content
-							}
-						/>
-					</div>
-				</article>
-				<div id="desktop-detail" className="lg:flex lg:flex-col hidden gap-4">
-					<AlbumDetail slug={slug} song={song} />
-					<div className="sticky top-6">
-						<SongDetail song={song} main={main} sub={sub} options={languages} />
-					</div>
-				</div>
+		<section className="flex lg:flex-row flex-col justify-center m-auto gap-6">
+			<section id="mobile-detail" className="lg:hidden">
+				<SongDetail song={song} main={main} sub={sub} options={languages} />
+				<AlbumDetail slug={slug} song={song} />
 			</section>
-			<ScrollToTop className="w-16 h-16 mb-4 lg-mb-0 text-gray-400 sticky bottom-24 lg:bottom-5 right-4 place-self-end" />
-		</div>
+			<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4">
+				<div className="card-body whitespace-pre-wrap">
+					<LanguageSelect
+						className="mb-6"
+						options={languages}
+						main={main}
+						sub={sub}
+					/>
+					<Lyrics main={mainLyrics} sub={subLyrics} />
+				</div>
+			</article>
+			<div id="desktop-detail" className="lg:flex lg:flex-col hidden gap-4">
+				<AlbumDetail slug={slug} song={song} />
+				<div className="sticky top-6">
+					<SongDetail song={song} main={main} sub={sub} options={languages} />
+				</div>
+			</div>
+		</section>
 	)
 }

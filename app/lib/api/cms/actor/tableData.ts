@@ -1,6 +1,6 @@
 import prisma from '@/prisma/config'
 import { Prisma } from '@prisma/client'
-import { unstable_cache } from 'next/cache'
+import { unstable_noStore } from 'next/cache'
 
 export const filterOptions = [
 	{ value: 'last-updated', label: 'Last Updated' },
@@ -20,7 +20,7 @@ const getOrderBy = (
 		case 'actor-name-desc':
 			return [{ name: 'desc' }]
 		case 'last-updated':
-			return [{ updatedAt: {sort:'desc', nulls:'last'} }]
+			return [{ updatedAt: { sort: 'desc', nulls: 'last' } }]
 		default:
 			return []
 	}
@@ -39,40 +39,34 @@ const getRoleFilter = (role: RoleOptions): Prisma.ActorWhereInput => {
 	}
 }
 
-export const fetchTableData = unstable_cache(
-	async ({
-		query,
-		order = 'last-updated',
-		role,
-	}: {
-		query: string
-		order: (typeof filterOptions)[number]['value']
-		role: RoleOptions
-	}) => {
-		const result = await prisma.actor.findMany({
-			orderBy: getOrderBy(order),
-			select: {
-				id: true,
-				name: true,
-				slug: true,
-				role: true,
-				updatedAt: true,
-			},
-			where: {
-				...(role && getRoleFilter(role)),
-				...(query && {
-					OR: [
-						{ name: { contains: query, mode: 'insensitive' } },
-						{ slug: { contains: query, mode: 'insensitive' } },
-					],
-				}),
-			},
-		})
-		return result
-	},
-	['actor'],
-	{
-		tags: ['actor'],
-		revalidate: 300,
-	},
-)
+export const fetchTableData = async ({
+	query,
+	order = 'last-updated',
+	role,
+}: {
+	query: string
+	order: (typeof filterOptions)[number]['value']
+	role: RoleOptions
+}) => {
+	unstable_noStore()
+	const result = await prisma.actor.findMany({
+		orderBy: getOrderBy(order),
+		select: {
+			id: true,
+			name: true,
+			slug: true,
+			role: true,
+			updatedAt: true,
+		},
+		where: {
+			...(role && getRoleFilter(role)),
+			...(query && {
+				OR: [
+					{ name: { contains: query, mode: 'insensitive' } },
+					{ slug: { contains: query, mode: 'insensitive' } },
+				],
+			}),
+		},
+	})
+	return result
+}

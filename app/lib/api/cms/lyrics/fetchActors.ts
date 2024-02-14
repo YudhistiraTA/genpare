@@ -1,7 +1,8 @@
 import prisma from '@/prisma/config'
-import { unstable_cache } from 'next/cache'
+import { unstable_noStore } from 'next/cache'
 
-export const fetchActors = unstable_cache(async () => {
+export const fetchActors = async () => {
+	unstable_noStore()
 	const actors = await prisma.actor.findMany({
 		where: {
 			OR: [{ role: 'translator' }, { role: 'lyricist' }, { role: 'composer' }],
@@ -13,4 +14,4 @@ export const fetchActors = unstable_cache(async () => {
 		(actor) => actor.role === 'lyricist' || actor.role === 'composer',
 	)
 	return { translators, lyricists }
-})
+}

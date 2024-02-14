@@ -1,13 +1,10 @@
 import prisma from '@/prisma/config'
-import { unstable_cache } from 'next/cache'
+import { unstable_noStore } from 'next/cache'
 
-export const fetchCircles = unstable_cache(
-	async () => {
-		return await prisma.actor.findMany({
-			where: { role: 'circle' },
-			select: { id: true, name: true, slug: true },
-		})
-	},
-	['circle'],
-	{ tags: ['circle'], revalidate: 300 },
-)
+export const fetchCircles = async () => {
+	unstable_noStore()
+	return await prisma.actor.findMany({
+		where: { role: 'circle' },
+		select: { id: true, name: true, slug: true },
+	})
+}

@@ -29,6 +29,7 @@
 		"react-hot-toast": "^2.4.1",
 		"react-lite-youtube-embed": "^2.4.0",
 		"react-select": "^5.8.0",
+		"sharp": "^0.33.2",
 		"slug": "^8.2.3",
 		"zod": "^3.22.4"
 	},

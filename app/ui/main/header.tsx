@@ -2,7 +2,7 @@ import { cherryBomb } from '@/app/ui/main/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export function Header() {
+function Header() {
 	return (
 		<div className="navbar mt-4 lg:px-6 min-h-max">
 			<div className="navbar-start">
@@ -31,3 +31,4 @@ export function Header() {
 		</div>
 	)
 }
+export default Header

@@ -1,6 +1,6 @@
 import { KofiEmbed } from '@/app/ui/main/kofiEmbed'
 import Link from 'next/link'
-export function Footer() {
+function Footer() {
 	return (
 		<footer className="items-end pb-10 footer p-2 px-6">
 			<nav>
@@ -28,3 +28,4 @@ export function Footer() {
 		</footer>
 	)
 }
+export default Footer

@@ -10,6 +10,10 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'cdn.gengo-parade.com',
 			},
+			{
+				protocol: 'https',
+				hostname: 'daisyui.com',
+			},
 		],
 	},
 	webpack: (config) => {

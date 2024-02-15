@@ -1,6 +1,6 @@
 import { openSans } from '@/app/ui/main/fonts'
-import { Footer } from '@/app/ui/main/footer'
-import { Header } from '@/app/ui/main/header'
+import Footer from '@/app/ui/main/footer'
+import Header from '@/app/ui/main/header'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {

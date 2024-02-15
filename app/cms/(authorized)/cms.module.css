@@ -1,0 +1,5 @@
+.cmsWrapper a[target='_blank']::after {
+	content: '';
+	background: no-repeat var(--icon-external-link);
+	padding-right: 1em;
+}

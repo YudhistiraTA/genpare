@@ -16,3 +16,24 @@
 		</g> \
 	</svg>');
 }
+
+.menu-horizontal > li {
+	position: relative;
+	display: inline-block;
+}
+
+.menu-horizontal > li::after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 2px;
+	bottom: 0;
+	left: 50%;
+	background: #000;
+	transition: all 0.5s;
+}
+
+.menu-horizontal > li:hover::after {
+	width: 100%;
+	left: 0;
+}

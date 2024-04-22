@@ -38,10 +38,10 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div
-			className={`${openSans.className} antialiased flex flex-col min-h-screen`}
+			className={`${openSans.className} antialiased flex flex-col min-h-screen text-secondary`}
 		>
 			<Header />
-			<main className="flex flex-col grow py-4">{children}</main>
+			<main className="flex flex-col grow">{children}</main>
 			<Footer />
 		</div>
 	)

@@ -6,6 +6,7 @@ import 'swiper/css/navigation'
 import './carousel.css'
 import { Autoplay, Navigation } from 'swiper/modules'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Carousel() {
 	return (
@@ -25,23 +26,45 @@ export default function Carousel() {
 			className="mySwiper"
 		>
 			<SwiperSlide>
-				<Image
-					src="https://cdn.gengo-parade.com/images/its-a-message-for-you.webp"
-					alt="test image"
-					width={480}
-					height={480}
-					objectFit="contain"
-				/>
-				Album title and details here
+				<Link href="/album/its-a-message-for-you">
+					<Image
+						src="https://cdn.gengo-parade.com/images/cfcd026.png"
+						alt="Slider It's A Message For You Album Cover"
+						width={1920}
+						height={500}
+					/>
+				</Link>
 			</SwiperSlide>
-			<SwiperSlide>Slide 2</SwiperSlide>
-			<SwiperSlide>Slide 3</SwiperSlide>
-			<SwiperSlide>Slide 4</SwiperSlide>
-			<SwiperSlide>Slide 5</SwiperSlide>
-			<SwiperSlide>Slide 6</SwiperSlide>
-			<SwiperSlide>Slide 7</SwiperSlide>
-			<SwiperSlide>Slide 8</SwiperSlide>
-			<SwiperSlide>Slide 9</SwiperSlide>
+			<SwiperSlide>
+				<Link href="/album/votre-chateau">
+					<Image
+						src="https://cdn.gengo-parade.com/images/cfcd025.png"
+						alt="Slider Votre Chateau Album Cover"
+						width={1920}
+						height={500}
+					/>
+				</Link>
+			</SwiperSlide>
+			<SwiperSlide>
+				<Link href="/album/dear-my-days">
+					<Image
+						src="https://cdn.gengo-parade.com/images/cfcd027.png"
+						alt="Slider Dear My Days Album Cover"
+						width={1920}
+						height={500}
+					/>
+				</Link>
+			</SwiperSlide>
+			<SwiperSlide>
+				<Link href="/album/make-a-toast">
+					<Image
+						src="https://cdn.gengo-parade.com/images/nnpc002.png"
+						alt="Slider Make A Toast! Album Cover"
+						width={1920}
+						height={500}
+					/>
+				</Link>
+			</SwiperSlide>
 		</Swiper>
 	)
 }

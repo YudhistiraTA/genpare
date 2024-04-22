@@ -2,9 +2,9 @@ import { KofiEmbed } from '@/app/ui/main/kofiEmbed'
 import Link from 'next/link'
 function Footer() {
 	return (
-		<footer className="items-end pb-10 footer p-2 px-6">
+		<footer className="items-end footer p-2 px-6">
 			<nav>
-				<header className="footer-title">Social</header>
+				<header className="footer-title mb-0">Social</header>
 				<div className="grid grid-flow-col gap-4">
 					<Link
 						href="https://x.com/genpare_"

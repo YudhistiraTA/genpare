@@ -1,4 +1,4 @@
-import { openSans } from '@/app/ui/main/fonts'
+import { roboto } from '@/app/ui/main/fonts'
 import Footer from '@/app/ui/main/footer'
 import Header from '@/app/ui/main/header'
 import { Metadata } from 'next'
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<div
-			className={`${openSans.className} antialiased flex flex-col min-h-screen text-secondary`}
+			className={`${roboto.className} antialiased flex flex-col min-h-screen text-secondary`}
 		>
 			<Header />
 			<main className="flex flex-col grow">{children}</main>

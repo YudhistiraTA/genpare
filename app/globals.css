@@ -29,11 +29,27 @@
 	height: 2px;
 	bottom: 0;
 	left: 50%;
-	background: #000;
+	background: #FFF8EA;
 	transition: all 0.5s;
 }
 
 .menu-horizontal > li:hover::after {
 	width: 100%;
 	left: 0;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  z-index: 1;
+  width: 100px;
+  color: #FFF8EA;
+  font-size: 12px;
+  background-color: #9E7676;
+  border-radius: 10px;
+  padding: 10px 15px 10px 15px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
 }

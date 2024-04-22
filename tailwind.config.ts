@@ -26,10 +26,10 @@ const config: Config = {
 		themes: [
 			{
 				genpare: {
-					'base-100': 'FCF5ED',
-					neutral: 'F4BF96',
-					primary: 'CE5A67',
-					secondary: '1F1717',
+					'base-100': 'FFF8EA',
+					neutral: '9E7676',
+					primary: '815B5B',
+					secondary: '594545',
 				},
 			},
 			'dark',

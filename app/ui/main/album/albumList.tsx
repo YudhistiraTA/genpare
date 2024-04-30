@@ -21,7 +21,7 @@ export function AlbumItem({
 						height={340}
 					/>
 				</figure>
-				<div className="card-body py-3 bg-neutral text-base-100 h-28">
+				<div className="card-body py-3 bg-primary text-base-100 h-28">
 					<h2 className="card-title">{album.name}</h2>
 					<p>{album.releaseYear}</p>
 				</div>

@@ -3,13 +3,11 @@ import { languageCode } from '@/app/lib/languageCode'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from '@/app/ui/main/glass.module.css'
 import { memo } from 'react'
 
 const AlbumComponent = memo(
 	({
 		song,
-		slug,
 		className,
 	}: {
 		song: Awaited<ReturnType<typeof getSongBySlug>>
@@ -19,8 +17,7 @@ const AlbumComponent = memo(
 		return (
 			<div
 				className={clsx(
-					styles.customGlass,
-					'card lg:shadow-xl max-w-[375px]',
+					'card lg:shadow-xl max-w-[375px] bg-primary text-base-100',
 					className,
 				)}
 			>
@@ -49,7 +46,7 @@ const AlbumComponent = memo(
 								<div className="flex">
 									<Link
 										href={`/circle/${song.Album.Circle.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+										className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{song.Album.Circle.name}
 									</Link>
@@ -62,7 +59,7 @@ const AlbumComponent = memo(
 						<p className="whitespace-pre">: </p>
 						<div className="flex flex-wrap">
 							<div className="flex">
-								<p className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2">
+								<p className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2">
 									{song.Album.totalTrack}
 								</p>
 							</div>
@@ -71,20 +68,20 @@ const AlbumComponent = memo(
 				</div>
 				<ul className="menu -mt-10">
 					<li>
-						<h2 className="menu-title">Songs</h2>
+						<h2 className="menu-title text-base-100">Songs</h2>
 						<ul>
 							{song.Album.Song.map((item) => (
 								<li key={`list_${item.id}`}>
 									<Link
 										href={`/song/${item.slug}`}
-										className="flex flex-col self-start w-full hover:bg-accent hover:bg-opacity-60"
+										className="flex flex-col self-start w-full hover:bg-secondary hover:bg-opacity-60"
 									>
 										<p className="self-start">
 											{item.trackNo}
 											{'. '}
 											{item.name}
 										</p>
-										<p className="pl-6 -mt-1 text-slate-400 self-start">
+										<p className="pl-6 -mt-1 text-base-100 opacity-70 self-start">
 											{item.Lyrics.filter(
 												(lyric) => lyric.language !== 'romaji',
 											)

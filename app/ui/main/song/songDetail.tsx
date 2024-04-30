@@ -20,7 +20,7 @@ const SongComponent = memo(({
 	options: string[]
 }) => {
 	return (
-		<div className={clsx('card glass lg:shadow-xl shadow-none max-w-[375px]', className)}>
+		<div className={clsx('card lg:shadow-xl shadow-none max-w-[375px] bg-primary text-base-100', className)}>
 			<YouTubePlayer videoId={song.youtubeId} title={song.name} />
 			<div className="card-body -mt-4">
 				<h2 className="card-title">{song.name}</h2>
@@ -33,7 +33,7 @@ const SongComponent = memo(({
 								<div key={vocal.id} className="flex">
 									<Link
 										href={`/artist/${vocal.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+										className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{vocal.name}
 									</Link>
@@ -54,7 +54,7 @@ const SongComponent = memo(({
 								<div key={composer.id} className="flex">
 									<Link
 										href={`/artist/${composer.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+										className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 									>
 										{composer.name}
 									</Link>
@@ -84,7 +84,7 @@ const SongComponent = memo(({
 													? 'artist'
 													: lyric.createdBy.role
 											}/${lyric.createdBy.slug}`}
-											className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+											className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2"
 										>
 											{lyric.createdBy.name}
 										</Link>

@@ -43,13 +43,13 @@ export function LanguageSelect({
 		>
 			<div className="flex flex-col grow">
 				<div className="label">
-					<label htmlFor="main-language" className="label-text">
+					<label htmlFor="main-language" className="label-text text-base-100">
 						Pick main language
 					</label>
 				</div>
 				<select
 					id="main-language"
-					className="select select-sm select-secondary w-full max-w-xs"
+					className="select select-sm select-secondary w-full max-w-xs text-black"
 					onChange={(e) => handleChange(e, 'main')}
 					value={selectedMain}
 				>
@@ -73,6 +73,7 @@ export function LanguageSelect({
 				viewBox="0 0 128 128"
 				xmlSpace="preserve"
 				width={20}
+				fill='currentColor'
 				className="lg:self-end self-center mt-4 lg:mt-0 lg:pb-1 hover:cursor-pointer hover:scale-125 transition-transform rotate-90 lg:rotate-0"
 				onClick={handleSwap}
 			>
@@ -86,14 +87,14 @@ export function LanguageSelect({
 			</svg>
 			<div className="flex flex-col grow">
 				<div className="label">
-					<label htmlFor="sub-language" className="label-text">
+					<label htmlFor="sub-language" className="label-text text-base-100">
 						Pick sub language
 					</label>
 				</div>
 				<select
 					id="sub-language"
 					onChange={(e) => handleChange(e, 'sub')}
-					className="select select-sm select-secondary w-full max-w-xs"
+					className="select select-sm select-secondary w-full max-w-xs text-black"
 					value={selectedSub}
 				>
 					{options.map((option) => (

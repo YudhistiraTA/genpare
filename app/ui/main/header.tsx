@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 function Header() {
 	return (
-		<div className="navbar min-h-max shadow-2xl z-10 justify-between lg:px-96 bg-primary text-base-100">
+		<div className="navbar min-h-max shadow-2xl z-10 justify-between lg:px-96 bg-neutral text-base-100">
 			<div className="">
 				<Link href="/" className="rounded-xl">
 					<Image
@@ -33,7 +33,7 @@ function Header() {
 					>
 						<path
 							fill="currentColor"
-							fill-rule="evenodd"
+							fillRule="evenodd"
 							d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"
 						/>
 					</svg>

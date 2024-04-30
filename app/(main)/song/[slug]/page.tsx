@@ -84,7 +84,7 @@ export default async function Page({
 				(languages.includes('English') ? 'english' : 'romaji')),
 	)?.content
 	return (
-		<section className="flex lg:flex-row flex-col justify-center m-auto gap-6">
+		<section className="flex lg:flex-row flex-col justify-center m-auto gap-6 pt-4">
 			<section id="mobile-detail" className="lg:hidden">
 				<SongDetail song={song} main={main} sub={sub} options={languages} />
 				<AlbumDetail slug={slug} song={song} />

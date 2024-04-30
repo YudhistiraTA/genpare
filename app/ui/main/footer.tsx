@@ -2,7 +2,7 @@ import { KofiEmbed } from '@/app/ui/main/kofiEmbed'
 import Link from 'next/link'
 function Footer() {
 	return (
-		<footer className="items-end footer pt-2 px-6 bg-neutral text-base-100">
+		<footer className="items-end footer pt-2 px-6 bg-primary text-base-100">
 			<nav>
 				<div className="flex gap-2">
 					<Link

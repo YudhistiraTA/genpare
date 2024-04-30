@@ -10,7 +10,7 @@ export default function Page({
 	return (
 		<div>
 			<Subheader title="Albums" />
-			<div className="px-60 py-8">
+			<div className="lg:px-60 py-8">
 				<Suspense fallback={<AlbumListSkeleton />}>
 					<AlbumList searchParams={searchParams} />
 				</Suspense>

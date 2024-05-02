@@ -140,6 +140,7 @@ export const getTranslator = unstable_cache(
 		try {
 			const translator = prisma.actor.findUniqueOrThrow({
 				where: { slug: slug },
+				select: { name: true, slug: true },
 			})
 
 			const albums = prisma.album.findMany({
@@ -154,7 +155,12 @@ export const getTranslator = unstable_cache(
 						},
 					},
 				},
-				include: {
+				select: {
+					id: true,
+					name: true,
+					releaseYear: true,
+					slug: true,
+					Circle: { select: { name: true } },
 					Song: {
 						where: {
 							Lyrics: {
@@ -163,14 +169,19 @@ export const getTranslator = unstable_cache(
 								},
 							},
 						},
-						include: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
 							Lyrics: {
-								where: {
-									createdBy: { slug },
+								select: {
+									language: true,
+									createdBy: { select: { name: true } },
 								},
-								select: { id: true, language: true },
 							},
+							Composer: { select: { name: true } },
 						},
+						orderBy: { trackNo: 'asc' },
 					},
 				},
 			})

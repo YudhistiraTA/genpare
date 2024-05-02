@@ -1,5 +1,4 @@
 import type { Config } from 'tailwindcss'
-import themes from 'daisyui/src/theming/themes'
 
 const config: Config = {
 	content: [
@@ -26,9 +25,11 @@ const config: Config = {
 	daisyui: {
 		themes: [
 			{
-				pastel: {
-					...themes.pastel,
-					'base-100': '#f0f7ff',
+				genpare: {
+					'base-100': 'FFF8EA',
+					neutral: '9E7676',
+					primary: '815B5B',
+					secondary: '594545',
 				},
 			},
 			'dark',

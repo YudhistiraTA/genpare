@@ -114,180 +114,175 @@ export default async function Page({
 	const uniqueLyricistsArray = Array.from(uniqueLyricistsMap.values())
 
 	return (
-		<div className="hero">
-			<div className="hero-content flex-col lg:flex-row gap-10">
-				<Image
-					src={album.imageUrl}
-					alt={album.name}
-					width={320}
-					height={320}
-					className="rounded-2xl shadow-2xl w-80 h-80"
-				/>
-				<div className="flex flex-col glass bg-white bg-opacity-60 gap-2 border shadow-lg px-6 pt-4 rounded-2xl">
-					<h1 className="text-3xl font-bold tracking-tight">{album.name}</h1>
-					<div className="flex w-fit mt-4">
-						<p>Release Year</p>
-						<p className="whitespace-pre">: </p>
-						<div className="flex flex-wrap">
-							<div className="flex">
-								<p className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2">
-									{album.releaseYear}
-								</p>
-							</div>
-						</div>
-					</div>
-					{album.Circle ? (
-						<div className="flex w-fit">
-							<p>Circle</p>
+		<div className="flex flex-col">
+			<div className="hero">
+				<div className="hero-content flex-col lg:flex-row gap-10">
+					<Image
+						src={album.imageUrl}
+						alt={album.name}
+						width={320}
+						height={320}
+						className="rounded-2xl shadow-lg w-80 h-80"
+					/>
+					<div className="flex flex-col bg-white text-secondary gap-2 border-t-8 border-primary shadow-lg w-full px-6 py-4 rounded lg:min-h-80 justify-evenly text-lg">
+						<h1 className="text-3xl font-bold tracking-tight">{album.name}</h1>
+						<div className="flex w-fit mt-4">
+							<p>Release Year</p>
 							<p className="whitespace-pre">: </p>
 							<div className="flex flex-wrap">
 								<div className="flex">
-									<Link
-										href={`/circle/${album.Circle.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
-									>
-										{album.Circle.name}
-									</Link>
+									<p className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2">
+										{album.releaseYear}
+									</p>
 								</div>
 							</div>
 						</div>
-					) : null}
-					<div className="flex w-fit">
-						<p>Composer{uniqueComposersArray.length > 1 && 's'}</p>
-						<p className="whitespace-pre">: </p>
-						<div className="flex flex-wrap">
-							{uniqueComposersArray.map((composer, index) => (
-								<div key={composer.id} className="flex">
-									<Link
-										href={`/artist/${composer.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
-									>
-										{composer.name}
-									</Link>
-									{index < uniqueComposersArray.length - 1 && (
-										<p className="whitespace-pre">,</p>
-									)}
-								</div>
-							))}
-						</div>
-					</div>
-					<div className="flex w-fit">
-						<p>Lyricist{uniqueLyricistsArray.length > 1 && 's'}</p>
-						<p className="whitespace-pre">: </p>
-						<div className="flex flex-wrap">
-							{uniqueLyricistsArray.map((lyricist, index) => (
-								<div key={lyricist.id} className="flex">
-									<Link
-										href={`/artist/${lyricist.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
-									>
-										{lyricist.name}
-									</Link>
-									{index < uniqueLyricistsArray.length - 1 && (
-										<p className="whitespace-pre">,</p>
-									)}
-								</div>
-							))}
-						</div>
-					</div>
-					<div className="flex w-fit">
-						<p>Vocalist{uniqueVocalistsArray.length > 1 && 's'}</p>
-						<p className="whitespace-pre">: </p>
-						<div className="flex flex-wrap">
-							{uniqueVocalistsArray.map((vocal, index) => (
-								<div key={vocal.id} className="flex">
-									<Link
-										href={`/artist/${vocal.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2"
-									>
-										{vocal.name}
-									</Link>
-									{index < uniqueVocalistsArray.length - 1 && (
-										<p className="whitespace-pre">,</p>
-									)}
-								</div>
-							))}
-						</div>
-					</div>
-					<div className="flex w-fit">
-						<p>Total Tracks</p>
-						<p className="whitespace-pre">: </p>
-						<div className="flex flex-wrap">
-							<div className="flex">
-								<p className="bg-slate-200 bg-opacity-30 hover:bg-accent transition-colors hover:bg-opacity-60 rounded-2xl px-2">
-									{album.totalTrack}
-								</p>
-							</div>
-						</div>
-					</div>
-					<ul className="menu -ml-6 -mt-2">
-						<li>
-							<h2 className="menu-title">Songs</h2>
-							<ul>
-								{album.Song.map((item) => (
-									<li key={`list_${item.id}`}>
+						{album.Circle ? (
+							<div className="flex w-fit">
+								<p>Circle</p>
+								<p className="whitespace-pre">: </p>
+								<div className="flex flex-wrap">
+									<div className="flex">
 										<Link
-											href={`/song/${item.slug}`}
-											className="flex flex-col self-start w-full hover:bg-primary hover:bg-opacity-20"
+											href={`/circle/${album.Circle.slug}`}
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
 										>
-											<p className="self-start">
-												{item.trackNo}
-												{'. '}
-												{item.name}
-											</p>
-											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
+											{album.Circle.name}
+										</Link>
+									</div>
+								</div>
+							</div>
+						) : null}
+						<div className="flex w-fit">
+							<p>Composer{uniqueComposersArray.length > 1 && 's'}</p>
+							<p className="whitespace-pre">: </p>
+							<div className="flex flex-wrap">
+								{uniqueComposersArray.map((composer, index) => (
+									<div key={composer.id} className="flex">
+										<Link
+											href={`/artist/${composer.slug}`}
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
+										>
+											{composer.name}
+										</Link>
+										{index < uniqueComposersArray.length - 1 && (
+											<p className="whitespace-pre">,</p>
+										)}
+									</div>
+								))}
+							</div>
+						</div>
+						<div className="flex w-fit">
+							<p>Lyricist{uniqueLyricistsArray.length > 1 && 's'}</p>
+							<p className="whitespace-pre">: </p>
+							<div className="flex flex-wrap">
+								{uniqueLyricistsArray.map((lyricist, index) => (
+									<div key={lyricist.id} className="flex">
+										<Link
+											href={`/artist/${lyricist.slug}`}
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
+										>
+											{lyricist.name}
+										</Link>
+										{index < uniqueLyricistsArray.length - 1 && (
+											<p className="whitespace-pre">,</p>
+										)}
+									</div>
+								))}
+							</div>
+						</div>
+						<div className="flex w-fit">
+							<p>Vocalist{uniqueVocalistsArray.length > 1 && 's'}</p>
+							<p className="whitespace-pre">: </p>
+							<div className="flex flex-wrap">
+								{uniqueVocalistsArray.map((vocal, index) => (
+									<div key={vocal.id} className="flex">
+										<Link
+											href={`/artist/${vocal.slug}`}
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
+										>
+											{vocal.name}
+										</Link>
+										{index < uniqueVocalistsArray.length - 1 && (
+											<p className="whitespace-pre">,</p>
+										)}
+									</div>
+								))}
+							</div>
+						</div>
+						<div className="flex w-fit">
+							<p>Total Tracks</p>
+							<p className="whitespace-pre">: </p>
+							<div className="flex flex-wrap">
+								<div className="flex">
+									<p className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2">
+										{album.totalTrack}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className="mb-4 flex flex-col self-center rounded shadow-xl bg-white text-secondary border-t-8 max-w-7xl border-primary mx-4">
+				<h2 className="p-4 text-3xl">Tracks</h2>
+				<ul className="menu text-base">
+					<li>
+						<ul>
+							{album.Song.map((item) => (
+								<li key={`list_${item.id}`}>
+									<Link
+										href={`/song/${item.slug}`}
+										className="flex flex-wrap self-start w-full hover:bg-primary hover:text-base-100"
+									>
+										<p className="font-bold w-full">
+											{item.trackNo}
+											{'. '}
+											{item.name}
+											{' -'}
+										</p>
+										<div className="flex flex-col sm:flex-row flex-wrap lg:gap-2 ml-2 lg:ml-0">
+											<p className=" flex">
 												Vocalist{item.Vocals.length > 1 && 's'}:{' '}
 												<span className="flex flex-wrap">
-													{item.Vocals.map((vocal, index, arr) => (
-														<span key={`${vocal.id}-${index}`}>
-															{vocal.name}
-															{index !== arr.length - 1 && ', '}
-														</span>
-													))}
+													{item.Vocals.map((vocal) => vocal.name).join(', ')}
 												</span>
 											</p>
 											{item.Composer.length ? (
-												<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
+												<p className=" flex">
 													Composer{item.Composer.length > 1 && 's'}:{' '}
 													<span className="flex flex-wrap">
-														{item.Composer.map((composer, index, arr) => (
-															<span key={`${composer.id}-${index}`}>
-																{composer.name}
-																{index !== arr.length - 1 && ', '}
-															</span>
-														))}
+														{item.Composer.map(
+															(composer) => composer.name,
+														).join(', ')}
 													</span>
 												</p>
 											) : null}
-											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start whitespace-pre flex">
+											<p className=" flex">
 												Lyricist:{' '}
 												<span className="flex flex-wrap">
 													{item.Lyrics.filter(
 														(lyric) => lyric.language === 'japanese',
-													).map((lyric, index, arr) =>
-														lyric.createdBy ? (
-															<span key={`${lyric.id}-${index}`}>
-																{lyric.createdBy.name}
-																{index !== arr.length - 1 && ', '}
-															</span>
-														) : null,
-													)}
+													)
+														.filter((lyric) => lyric.createdBy)
+														.map((lyric, index, arr) => lyric.createdBy?.name)
+														.join(', ')}
 												</span>
 											</p>
-											<p className="pl-6 text-sm -mt-2 text-slate-400 self-start">
+											<p>
 												{item.Lyrics.filter(
 													(lyric) => lyric.language !== 'romaji',
 												)
 													.map((lyric) => languageCode.get(lyric.language))
 													.join(', ')}
 											</p>
-										</Link>
-									</li>
-								))}
-							</ul>
-						</li>
-					</ul>
-				</div>
+										</div>
+									</Link>
+								</li>
+							))}
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 	)

@@ -1,129 +1,72 @@
-'use client'
-
 import { cherryBomb } from '@/app/ui/main/fonts'
-import Searchbar from '@/app/ui/main/searchbar'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
 
-export function Header() {
-	const path = usePathname()
-	const isRoot = path === '/'
-	const [displaySearch, setDisplaySearch] = useState(false)
-	const searchRef = useRef<HTMLFormElement>(null)
-	const mobileSearchRef = useRef<HTMLFormElement>(null)
-	useEffect(() => {
-		if (isRoot) setDisplaySearch(false)
-	}, [isRoot])
-	const clickEvent = (ref: typeof searchRef, mobile: boolean = false) => {
-		if (isRoot && ref.current) {
-			ref.current.dispatchEvent(
-				new Event('submit', { cancelable: true, bubbles: true }),
-			)
-		} else if (displaySearch && ref.current) {
-			if ((ref.current.elements[0] as HTMLInputElement).value) {
-				ref.current.dispatchEvent(
-					new Event('submit', { cancelable: true, bubbles: true }),
-				)
-			} else setDisplaySearch(false)
-		} else {
-			setDisplaySearch(true)
-			document
-				.getElementById(mobile ? 'searchbar-mobile' : 'searchbar')
-				?.focus()
-		}
-	}
-	const handleClick = () => clickEvent(searchRef)
-	const handleMobileClick = () => clickEvent(mobileSearchRef, true)
+function Header() {
 	return (
-		<>
-			<div className="navbar mt-4 lg:px-6 min-h-max">
-				<div className="navbar-start">
-					<Link
-						href="/"
-						className="hover:bg-slate-300 transition-colors rounded-xl"
-					>
-						<Image
-							src="/logo.webp"
-							alt="genpare logo"
-							width={60}
-							height={60}
-							className="rounded-full border-2 border-secondary"
-						/>
-					</Link>
-				</div>
-				<div className="navbar-center">
-					<Link
-						href="/"
-						className={`${cherryBomb.className} btn btn-ghost text-xl text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] lg:text-3xl tracking-tight`}
-					>
-						Gengo Parade
-					</Link>
-				</div>
-				<div className="navbar-end">
-					{(isRoot || displaySearch) && (
-						<Searchbar
-							onSubmit={() => setDisplaySearch(false)}
-							ref={searchRef}
-							placeholder="Search..."
-							className="lg:mr-4 lg:block hidden"
-							id='searchbar'
-						/>
-					)}
-					<button
-						id="search-button"
-						title="Search"
-						className="btn btn-ghost btn-circle lg:flex hidden"
-						onClick={handleClick}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-					</button>
-					<button
-						id="search-button-mobile"
-						title="Search"
-						className="btn btn-ghost btn-circle lg:hidden flex"
-						onClick={handleMobileClick}
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-5 w-5"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-					</button>
-				</div>
+		<div className="navbar min-h-max shadow-2xl z-10 justify-between lg:px-96 bg-primary text-base-100">
+			<div className="">
+				<Link href="/" className="rounded-xl">
+					<Image
+						src="/logo.webp"
+						alt="genpare logo"
+						width={60}
+						height={60}
+						className="rounded-full border-2 border-base-100"
+					/>
+				</Link>
+				<Link
+					href="/"
+					className={`${cherryBomb.className} text-xl text-base-100 drop-shadow-[0_1.2px_1.2px_rgba(91,50,43,1)] lg:text-3xl tracking-tight ml-2`}
+				>
+					Gengo Parade
+				</Link>
 			</div>
-			{(isRoot || displaySearch) && (
-				<Searchbar
-					onSubmit={() => setDisplaySearch(false)}
-					ref={mobileSearchRef}
-					placeholder="Search..."
-					className="lg:mr-4 lg:hidden block self-center"
-					id='searchbar-mobile'
-				/>
-			)}
-		</>
+			<div className="dropdown dropdown-end lg:hidden">
+				<div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">
+					<svg
+						width="32px"
+						height="32px"
+						viewBox="0 0 20 20"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+					>
+						<path
+							fill="currentColor"
+							fillRule="evenodd"
+							d="M19 4a1 1 0 01-1 1H2a1 1 0 010-2h16a1 1 0 011 1zm0 6a1 1 0 01-1 1H2a1 1 0 110-2h16a1 1 0 011 1zm-1 7a1 1 0 100-2H2a1 1 0 100 2h16z"
+						/>
+					</svg>
+				</div>
+				<ul
+					tabIndex={0}
+					className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4 gap-4 text-primary"
+				>
+					<li>
+						<Link href="/album">ALBUMS</Link>
+					</li>
+					<li>
+						<Link href="/song">TRANSLATIONS</Link>
+					</li>
+					{/* <li>
+						<Link href="/about">ABOUT</Link>
+					</li> */}
+				</ul>
+			</div>
+			<div className="hidden lg:block">
+				<ul className="menu-horizontal gap-16">
+					<li>
+						<Link href="/album">ALBUMS</Link>
+					</li>
+					<li>
+						<Link href="/song">TRANSLATIONS</Link>
+					</li>
+					{/* <li>
+						<Link href="/about">ABOUT</Link>
+					</li> */}
+				</ul>
+			</div>
+		</div>
 	)
 }
+export default Header

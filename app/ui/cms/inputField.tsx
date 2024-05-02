@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, { ForwardRefRenderFunction, HTMLInputTypeAttribute } from 'react'
 
 type InputFieldProps = {
-	label: string
+	label?: string
 	id: string
 	name: string
 	errorArray?: string[]
@@ -32,7 +32,7 @@ const InputFieldPrototype: ForwardRefRenderFunction<
 	const numberTypes = ['number', 'tel', 'year']
 	return (
 		<div className="flex flex-col">
-			<label htmlFor={id}>{label}</label>
+			{label && <label htmlFor={id}>{label}</label>}
 			<div
 				className={clsx('text-left w-full', {
 					tooltip: type === 'year' || maxLength,

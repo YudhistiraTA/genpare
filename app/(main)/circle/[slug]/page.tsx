@@ -1,9 +1,7 @@
 import { getCircle } from '@/app/lib/api/actors'
-import { capitalizeAll } from '@/app/lib/capitalizeAll'
-import { Card } from '@/app/ui/main/card'
-import { CardSkeleton } from '@/app/ui/main/cardSkeleton'
+import { SongListProvided, SongListSkeleton } from '@/app/ui/main/song/songList'
+import Subheader from '@/app/ui/main/subheader'
 import { Metadata, ResolvingMetadata } from 'next'
-import Link from 'next/link'
 import { Suspense } from 'react'
 
 export async function generateMetadata(
@@ -37,37 +35,13 @@ export default async function Page({
 }) {
 	const [circle, albums] = await getCircle(slug)
 	return (
-		<main className="flex flex-col items-center">
-			<h1 className="font-medium text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] tracking-tight text-3xl px-6 py-2 rounded-xl">
-				{capitalizeAll(circle.name)}
-			</h1>
-			<section className="flex flex-col items-center justify-between">
-				<div className="lg:grid-cols-2 grid lg:gap-8 gap-4 my-4">
-					<Suspense
-						fallback={
-							<>
-								{[...Array(4)].map((_, i) => (
-									<CardSkeleton key={`card skeleton ${i}`} />
-								))}
-							</>
-						}
-					>
-						{albums.map((album) => (
-							<Link
-								key={album.id}
-								href={`/album/${album.slug}`}
-								className="hover:scale-105 transition-transform"
-							>
-								<Card
-									imageUrl={album.imageUrl}
-									title={album.name}
-									body={album.releaseYear.toString()}
-								/>
-							</Link>
-						))}
-					</Suspense>
-				</div>
-			</section>
-		</main>
+		<div>
+			<Subheader title="Circle" subtitle={circle.name} disableSearchbar />
+			<div className="lg:px-60 py-8 flex justify-center">
+				<Suspense fallback={<SongListSkeleton />}>
+					<SongListProvided albums={albums} />
+				</Suspense>
+			</div>
+		</div>
 	)
 }

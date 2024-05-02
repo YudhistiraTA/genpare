@@ -28,7 +28,13 @@ export const getArtist = unstable_cache(
 						},
 					},
 				},
-				include: {
+				orderBy: { releaseYear: 'desc' },
+				select: {
+					id: true,
+					name: true,
+					releaseYear: true,
+					slug: true,
+					Circle: { select: { name: true } },
 					Song: {
 						where: {
 							OR: [
@@ -43,16 +49,19 @@ export const getArtist = unstable_cache(
 								{ Vocals: { some: { slug } } },
 							],
 						},
-						include: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
 							Lyrics: {
-								where: {
-									AND: [{ createdBy: { slug } }, { language: 'japanese' }],
+								select: {
+									language: true,
+									createdBy: { select: { name: true } },
 								},
-								select: { id: true },
 							},
-							Composer: { where: { slug: slug }, select: { id: true } },
-							Vocals: { where: { slug: slug }, select: { id: true } },
+							Composer: { select: { name: true } },
 						},
+						orderBy: { trackNo: 'asc' },
 					},
 				},
 			})
@@ -79,10 +88,34 @@ export const getCircle = unstable_cache(
 		try {
 			const circle = prisma.actor.findUniqueOrThrow({
 				where: { slug: slug },
+				select: { name: true, slug: true },
 			})
 
 			const albums = prisma.album.findMany({
 				where: { Circle: { slug } },
+				orderBy: { releaseYear: 'desc' },
+				select: {
+					id: true,
+					name: true,
+					releaseYear: true,
+					slug: true,
+					Circle: { select: { name: true } },
+					Song: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
+							Lyrics: {
+								select: {
+									language: true,
+									createdBy: { select: { name: true } },
+								},
+							},
+							Composer: { select: { name: true } },
+						},
+						orderBy: { trackNo: 'asc' },
+					},
+				},
 			})
 
 			const result = await prisma.$transaction([circle, albums])
@@ -107,6 +140,7 @@ export const getTranslator = unstable_cache(
 		try {
 			const translator = prisma.actor.findUniqueOrThrow({
 				where: { slug: slug },
+				select: { name: true, slug: true },
 			})
 
 			const albums = prisma.album.findMany({
@@ -121,7 +155,12 @@ export const getTranslator = unstable_cache(
 						},
 					},
 				},
-				include: {
+				select: {
+					id: true,
+					name: true,
+					releaseYear: true,
+					slug: true,
+					Circle: { select: { name: true } },
 					Song: {
 						where: {
 							Lyrics: {
@@ -130,14 +169,19 @@ export const getTranslator = unstable_cache(
 								},
 							},
 						},
-						include: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
 							Lyrics: {
-								where: {
-									createdBy: { slug },
+								select: {
+									language: true,
+									createdBy: { select: { name: true } },
 								},
-								select: { id: true, language: true },
 							},
+							Composer: { select: { name: true } },
 						},
+						orderBy: { trackNo: 'asc' },
 					},
 				},
 			})

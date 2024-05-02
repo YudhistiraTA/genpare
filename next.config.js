@@ -4,10 +4,6 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'medium-media.vgm.io',
-			},
-			{
-				protocol: 'https',
 				hostname: 'cdn.gengo-parade.com',
 			},
 		],

@@ -4,7 +4,7 @@ import { unstable_cache } from 'next/cache'
 import { notFound } from 'next/navigation'
 
 export const getAlbum = unstable_cache(
-	async (query?: string) => {
+	async (query?: string | null) => {
 		const albums = await prisma.album.findMany({
 			select: {
 				id: true,
@@ -20,11 +20,22 @@ export const getAlbum = unstable_cache(
 							Circle: {
 								OR: [
 									{ name: { contains: query, mode: 'insensitive' } },
-									{ slug: { contains: query, mode: 'insensitive' } },
+									{
+										slug: {
+											contains: query,
+											mode: 'insensitive',
+										},
+									},
 								],
 							},
 						},
 						{ name: { contains: query, mode: 'insensitive' } },
+						{
+							slug: {
+								contains: query.replaceAll(' ', '-'),
+								mode: 'insensitive',
+							},
+						},
 						{
 							releaseYear: {
 								equals: !isNaN(Number(query)) ? Number(query) : undefined,
@@ -35,13 +46,23 @@ export const getAlbum = unstable_cache(
 								some: {
 									OR: [
 										{ name: { contains: query, mode: 'insensitive' } },
-										{ slug: { contains: query, mode: 'insensitive' } },
+										{
+											slug: {
+												contains: query.replaceAll(' ', '-'),
+												mode: 'insensitive',
+											},
+										},
 										{
 											Composer: {
 												some: {
 													OR: [
 														{ name: { contains: query, mode: 'insensitive' } },
-														{ slug: { contains: query, mode: 'insensitive' } },
+														{
+															slug: {
+																contains: query.replaceAll(' ', '-'),
+																mode: 'insensitive',
+															},
+														},
 													],
 												},
 											},
@@ -51,7 +72,12 @@ export const getAlbum = unstable_cache(
 												some: {
 													OR: [
 														{ name: { contains: query, mode: 'insensitive' } },
-														{ slug: { contains: query, mode: 'insensitive' } },
+														{
+															slug: {
+																contains: query.replaceAll(' ', '-'),
+																mode: 'insensitive',
+															},
+														},
 													],
 												},
 											},
@@ -63,6 +89,7 @@ export const getAlbum = unstable_cache(
 					],
 				},
 			}),
+			orderBy: { releaseYear: 'desc' },
 		})
 		return albums
 	},

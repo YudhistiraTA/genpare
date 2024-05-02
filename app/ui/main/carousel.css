@@ -1,0 +1,33 @@
+.swiper {
+	width: 100%;
+	height: auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	background-color: rgba(255, 255, 255, 0.8);
+	color: black;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	padding: 28px;
+	border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+	.swiper-button-next,
+	.swiper-button-prev {
+		padding: 0;
+    background-color: transparent;
+		display: none;
+	}
+}
+
+.swiper-button-next {
+	margin-right: 10px;
+}
+
+.swiper-button-prev {
+	margin-left: 10px;
+}

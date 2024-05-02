@@ -1,17 +1,15 @@
-import styles from '@/app/ui/main/bg.module.css'
 import { KofiEmbed } from '@/app/ui/main/kofiEmbed'
 import Link from 'next/link'
-export function Footer() {
+function Footer() {
 	return (
-		<footer className={`${styles.footerBg} items-end pb-10 footer p-2 px-6`}>
+		<footer className="items-end footer pt-2 px-6 bg-primary text-base-100">
 			<nav>
-				<header className="footer-title">Social</header>
-				<div className="grid grid-flow-col gap-4">
+				<div className="flex gap-2">
 					<Link
 						href="https://x.com/genpare_"
 						aria-label="Link to Genpare twitter"
 						target="_blank"
-						className='mt-3'
+						className="mt-3"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -29,3 +27,4 @@ export function Footer() {
 		</footer>
 	)
 }
+export default Footer

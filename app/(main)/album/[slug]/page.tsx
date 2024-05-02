@@ -124,14 +124,14 @@ export default async function Page({
 						height={320}
 						className="rounded-2xl shadow-lg w-80 h-80"
 					/>
-					<div className="flex flex-col bg-primary text-base-100 gap-2 border-2 border-neutral shadow-lg w-full px-6 py-4 rounded-2xl lg:min-h-80 justify-evenly text-lg">
+					<div className="flex flex-col bg-white text-secondary gap-2 border-t-8 border-primary shadow-lg w-full px-6 py-4 rounded lg:min-h-80 justify-evenly text-lg">
 						<h1 className="text-3xl font-bold tracking-tight">{album.name}</h1>
 						<div className="flex w-fit mt-4">
 							<p>Release Year</p>
 							<p className="whitespace-pre">: </p>
 							<div className="flex flex-wrap">
 								<div className="flex">
-									<p className="bg-slate-200 bg-opacity-30 hover:bg-secondary hover:text-base-100 transition-colors hover:bg-opacity-60 rounded-2xl px-2">
+									<p className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2">
 										{album.releaseYear}
 									</p>
 								</div>
@@ -145,7 +145,7 @@ export default async function Page({
 									<div className="flex">
 										<Link
 											href={`/circle/${album.Circle.slug}`}
-											className="bg-slate-200 bg-opacity-30 hover:bg-secondary hover:text-base-100 transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
 										>
 											{album.Circle.name}
 										</Link>
@@ -161,7 +161,7 @@ export default async function Page({
 									<div key={composer.id} className="flex">
 										<Link
 											href={`/artist/${composer.slug}`}
-											className="bg-slate-200 bg-opacity-30 hover:bg-secondary hover:text-base-100 transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
 										>
 											{composer.name}
 										</Link>
@@ -180,7 +180,7 @@ export default async function Page({
 									<div key={lyricist.id} className="flex">
 										<Link
 											href={`/artist/${lyricist.slug}`}
-											className="bg-slate-200 bg-opacity-30 hover:bg-secondary hover:text-base-100 transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
 										>
 											{lyricist.name}
 										</Link>
@@ -199,7 +199,7 @@ export default async function Page({
 									<div key={vocal.id} className="flex">
 										<Link
 											href={`/artist/${vocal.slug}`}
-											className="bg-slate-200 bg-opacity-30 hover:bg-secondary hover:text-base-100 transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+											className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
 										>
 											{vocal.name}
 										</Link>
@@ -215,7 +215,7 @@ export default async function Page({
 							<p className="whitespace-pre">: </p>
 							<div className="flex flex-wrap">
 								<div className="flex">
-									<p className="bg-slate-200 bg-opacity-30 hover:bg-secondary hover:text-base-100 transition-colors hover:bg-opacity-60 rounded-2xl px-2">
+									<p className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2">
 										{album.totalTrack}
 									</p>
 								</div>
@@ -224,7 +224,7 @@ export default async function Page({
 					</div>
 				</div>
 			</div>
-			<div className="mb-4 flex flex-col self-center rounded-lg shadow-xl bg-primary text-base-100 border-2 max-w-7xl border-neutral mx-4">
+			<div className="mb-4 flex flex-col self-center rounded shadow-xl bg-white text-secondary border-t-8 max-w-7xl border-primary mx-4">
 				<h2 className="p-4 text-3xl">Tracks</h2>
 				<ul className="menu text-base">
 					<li>
@@ -233,7 +233,7 @@ export default async function Page({
 								<li key={`list_${item.id}`}>
 									<Link
 										href={`/song/${item.slug}`}
-										className="flex flex-wrap self-start w-full hover:bg-slate-200 hover:bg-opacity-30"
+										className="flex flex-wrap self-start w-full hover:bg-primary hover:text-base-100"
 									>
 										<p className="font-bold w-full">
 											{item.trackNo}

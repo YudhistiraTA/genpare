@@ -43,7 +43,7 @@ export function LanguageSelect({
 		>
 			<div className="flex flex-col grow">
 				<div className="label">
-					<label htmlFor="main-language" className="label-text text-base-100">
+					<label htmlFor="main-language" className="label-text text-primary">
 						Pick main language
 					</label>
 				</div>
@@ -87,7 +87,7 @@ export function LanguageSelect({
 			</svg>
 			<div className="flex flex-col grow">
 				<div className="label">
-					<label htmlFor="sub-language" className="label-text text-base-100">
+					<label htmlFor="sub-language" className="label-text text-primary">
 						Pick sub language
 					</label>
 				</div>

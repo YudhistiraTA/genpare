@@ -17,7 +17,7 @@ const AlbumComponent = memo(
 		return (
 			<div
 				className={clsx(
-					'card lg:shadow-xl lg:max-w-[375px] bg-primary text-base-100',
+					'card rounded lg:shadow-xl lg:max-w-[375px] bg-white text-secondary border-t-8 border-primary',
 					className,
 				)}
 			>
@@ -46,7 +46,7 @@ const AlbumComponent = memo(
 								<div className="flex">
 									<Link
 										href={`/circle/${song.Album.Circle.slug}`}
-										className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2"
+										className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2"
 									>
 										{song.Album.Circle.name}
 									</Link>
@@ -59,7 +59,7 @@ const AlbumComponent = memo(
 						<p className="whitespace-pre">: </p>
 						<div className="flex flex-wrap">
 							<div className="flex">
-								<p className="bg-slate-200 bg-opacity-30 hover:bg-secondary transition-colors hover:bg-opacity-60 rounded-2xl px-2">
+								<p className="bg-slate-200 bg-opacity-30 hover:bg-primary hover:text-base-100 transition-colors rounded-2xl px-2">
 									{song.Album.totalTrack}
 								</p>
 							</div>
@@ -68,20 +68,20 @@ const AlbumComponent = memo(
 				</div>
 				<ul className="menu -mt-10">
 					<li>
-						<h2 className="menu-title text-base-100">Songs</h2>
+						<h2 className="menu-title">Songs</h2>
 						<ul>
 							{song.Album.Song.map((item) => (
 								<li key={`list_${item.id}`}>
 									<Link
 										href={`/song/${item.slug}`}
-										className="flex flex-col self-start w-full hover:bg-secondary hover:bg-opacity-60"
+										className="flex flex-col self-start w-full hover:bg-primary hover:text-base-100"
 									>
 										<p className="self-start">
 											{item.trackNo}
 											{'. '}
 											{item.name}
 										</p>
-										<p className="pl-6 -mt-1 text-base-100 opacity-70 self-start">
+										<p className="pl-6 -mt-1 opacity-70 self-start">
 											{item.Lyrics.filter(
 												(lyric) => lyric.language !== 'romaji',
 											)

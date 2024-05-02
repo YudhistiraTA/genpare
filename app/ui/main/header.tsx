@@ -61,9 +61,9 @@ function Header() {
 					<li>
 						<Link href="/song">TRANSLATIONS</Link>
 					</li>
-					<li>
+					{/* <li>
 						<Link href="/about">ABOUT</Link>
-					</li>
+					</li> */}
 				</ul>
 			</div>
 		</div>

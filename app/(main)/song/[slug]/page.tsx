@@ -89,8 +89,8 @@ export default async function Page({
 				<SongDetail song={song} main={main} sub={sub} options={languages} />
 				<AlbumDetail slug={slug} song={song} />
 			</section>
-			<article className="flex flex-col text-left gap-2 card shadow glass rounded-3xl lg:mt-0 mt-4 mb-4">
-				<div className="card-body whitespace-pre-wrap bg-primary text-base-100 rounded-3xl">
+			<article className="flex flex-col text-left gap-2 shadow rounded border-t-8 border-secondary lg:mt-0 mt-4 mb-4">
+				<div className="card-body whitespace-pre-wrap bg-white text-secondary">
 					<LanguageSelect
 						className="mb-6"
 						options={languages}

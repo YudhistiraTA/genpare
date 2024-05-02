@@ -20,7 +20,7 @@ const SongComponent = memo(({
 	options: string[]
 }) => {
 	return (
-		<div className={clsx('card lg:shadow-xl shadow-none max-w-[375px] bg-primary text-base-100', className)}>
+		<div className={clsx('card lg:shadow-xl shadow-none lg:max-w-[375px] bg-primary text-base-100', className)}>
 			<YouTubePlayer videoId={song.youtubeId} title={song.name} />
 			<div className="card-body -mt-4">
 				<h2 className="card-title">{song.name}</h2>

@@ -17,7 +17,7 @@ const AlbumComponent = memo(
 		return (
 			<div
 				className={clsx(
-					'card lg:shadow-xl max-w-[375px] bg-primary text-base-100',
+					'card lg:shadow-xl lg:max-w-[375px] bg-primary text-base-100',
 					className,
 				)}
 			>

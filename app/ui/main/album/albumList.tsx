@@ -40,6 +40,12 @@ export async function AlbumList({
 	searchParams: { q: string }
 }) {
 	const albums = await getAlbum(searchParams?.q)
+	if (!albums.length)
+		return (
+			<div className="flex flex-col gap-8 bg-white border-t-8 border-primary shadow rounded p-4 text-primary w-fit font-bold text-2xl self-center">
+				No results found!
+			</div>
+		)
 	return (
 		<div className="flex flex-wrap gap-12 justify-center">
 			{albums.map((album) => (

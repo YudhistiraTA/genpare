@@ -88,10 +88,34 @@ export const getCircle = unstable_cache(
 		try {
 			const circle = prisma.actor.findUniqueOrThrow({
 				where: { slug: slug },
+				select: { name: true, slug: true },
 			})
 
 			const albums = prisma.album.findMany({
 				where: { Circle: { slug } },
+				orderBy: { releaseYear: 'desc' },
+				select: {
+					id: true,
+					name: true,
+					releaseYear: true,
+					slug: true,
+					Circle: { select: { name: true } },
+					Song: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
+							Lyrics: {
+								select: {
+									language: true,
+									createdBy: { select: { name: true } },
+								},
+							},
+							Composer: { select: { name: true } },
+						},
+						orderBy: { trackNo: 'asc' },
+					},
+				},
 			})
 
 			const result = await prisma.$transaction([circle, albums])

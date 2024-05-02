@@ -241,28 +241,20 @@ export default async function Page({
 											{item.name}
 											{' -'}
 										</p>
-										<div className='flex flex-col sm:flex-row flex-wrap lg:gap-2 ml-2 lg:ml-0'>
+										<div className="flex flex-col sm:flex-row flex-wrap lg:gap-2 ml-2 lg:ml-0">
 											<p className=" flex">
 												Vocalist{item.Vocals.length > 1 && 's'}:{' '}
 												<span className="flex flex-wrap">
-													{item.Vocals.map((vocal, index, arr) => (
-														<span key={`${vocal.id}-${index}`}>
-															{vocal.name}
-															{index !== arr.length - 1 && ', '}
-														</span>
-													))}
+													{item.Vocals.map((vocal) => vocal.name).join(', ')}
 												</span>
 											</p>
 											{item.Composer.length ? (
 												<p className=" flex">
 													Composer{item.Composer.length > 1 && 's'}:{' '}
 													<span className="flex flex-wrap">
-														{item.Composer.map((composer, index, arr) => (
-															<span key={`${composer.id}-${index}`}>
-																{composer.name}
-																{index !== arr.length - 1 && ', '}
-															</span>
-														))}
+														{item.Composer.map(
+															(composer) => composer.name,
+														).join(', ')}
 													</span>
 												</p>
 											) : null}
@@ -271,14 +263,10 @@ export default async function Page({
 												<span className="flex flex-wrap">
 													{item.Lyrics.filter(
 														(lyric) => lyric.language === 'japanese',
-													).map((lyric, index, arr) =>
-														lyric.createdBy ? (
-															<span key={`${lyric.id}-${index}`}>
-																{lyric.createdBy.name}
-																{index !== arr.length - 1 && ', '}
-															</span>
-														) : null,
-													)}
+													)
+														.filter((lyric) => lyric.createdBy)
+														.map((lyric, index, arr) => lyric.createdBy?.name)
+														.join(', ')}
 												</span>
 											</p>
 											<p>

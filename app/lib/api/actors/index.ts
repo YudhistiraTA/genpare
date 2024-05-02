@@ -28,7 +28,13 @@ export const getArtist = unstable_cache(
 						},
 					},
 				},
-				include: {
+				orderBy: { releaseYear: 'desc' },
+				select: {
+					id: true,
+					name: true,
+					releaseYear: true,
+					slug: true,
+					Circle: { select: { name: true } },
 					Song: {
 						where: {
 							OR: [
@@ -43,16 +49,19 @@ export const getArtist = unstable_cache(
 								{ Vocals: { some: { slug } } },
 							],
 						},
-						include: {
+						select: {
+							id: true,
+							name: true,
+							slug: true,
 							Lyrics: {
-								where: {
-									AND: [{ createdBy: { slug } }, { language: 'japanese' }],
+								select: {
+									language: true,
+									createdBy: { select: { name: true } },
 								},
-								select: { id: true },
 							},
-							Composer: { where: { slug: slug }, select: { id: true } },
-							Vocals: { where: { slug: slug }, select: { id: true } },
+							Composer: { select: { name: true } },
 						},
+						orderBy: { trackNo: 'asc' },
 					},
 				},
 			})
